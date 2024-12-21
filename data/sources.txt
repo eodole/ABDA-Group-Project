@@ -1,0 +1,8 @@
+1. urbanization.csv
+    https://github.com/fivethirtyeight/data/tree/master/district-urbanization-index-2022
+2. us_demographic_data_raw.csv
+    https://data.census.gov/ 
+3. races.csv
+    https://github.com/fivethirtyeight/election-results/blob/main/races.csv
+4. election_results.csv
+    https://github.com/fivethirtyeight/election-results/blob/main/races.csv

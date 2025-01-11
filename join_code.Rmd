@@ -16,13 +16,13 @@ library(stringr)
 
 
 ```{r}
-setwd("C:/Users/HP/Desktop/Msc Econometrics/ABDA/project")
+#setwd("C:/Users/HP/Desktop/Msc Econometrics/ABDA/project")
 
 
 # Read the CSV files
-df_elect_res <- read.csv("election_results_house.csv")
-df_races <- read.csv("races.csv")
-df_urb_index <- read.csv("urbanization-index-2022.csv")
+df_elect_res <- read.csv("./data/election_results_house.csv")
+df_races <- read.csv("./data/races.csv")
+df_urb_index <- read.csv("./data/urbanization-index-2022.csv")
 
 head(df_elect_res)
 head(df_races)
@@ -30,6 +30,23 @@ head(df_urb_index)
 
 ```
 
+```{r}
+#Investigate at largest districts 
+df_urb_index %>% filter(state == "WY")
+  # Wyomings at large district is named 01, so the clean data was renamed to reflect this 
+```
+```{r}
+# Filter then join approach 
+
+df_house_races_2022 = df_races %>% filter(cycle == 2022, type == "HouseRace",stage == "general" | stage == "runoff", special == "false") 
+
+df_house_races_2022$date = as.Date(df_house_races_2022$date,"%m/%d/%y")
+
+head(df_house_races_2022) 
+
+#df_house_races_2022 includes all states with correct number district and puerto rico 
+
+```
 
 
 
@@ -38,7 +55,7 @@ head(df_urb_index)
 
 # adjust column names
 
-df_races2 <- df_races %>% 
+df_races2 <- df_house_races_2022 %>% 
   rename(
     race_id = id 
     )
@@ -46,21 +63,21 @@ df_races2 <- df_races %>%
 
 # inner_join because we only need the house races
 
-joined1 <- df_elect_res %>%
-  inner_join(df_races2, by = "race_id")
+# joined1 <- df_elect_res %>%
+#   inner_join(df_races2, by = "race_id")
 
 # Drop identical columns
-df1 <- joined1 %>%
-  select(-one_of(names(joined1)[sapply(names(joined1), function(col) {
-    if (col %in% c("state", "district")) return(FALSE)
-    if (!grepl("\\.x$", col)) return(FALSE)
-    corresponding_col <- sub("\\.x$", ".y", col)
-    corresponding_col %in% names(joined1) && all(joined1[[col]] == joined1[[corresponding_col]], na.rm = TRUE)
-  })]))
+# df1 <- joined1 %>%
+#   select(-one_of(names(joined1)[sapply(names(joined1), function(col) {
+#     if (col %in% c("state", "district")) return(FALSE)
+#     if (!grepl("\\.x$", col)) return(FALSE)
+#     corresponding_col <- sub("\\.x$", ".y", col)
+#     corresponding_col %in% names(joined1) && all(joined1[[col]] == joined1[[corresponding_col]], na.rm = TRUE)
+#   })]))
 
 
 # View the resulting dataset
-head(df1)
+# head(df1)
 
 ```
 
@@ -72,8 +89,8 @@ head(df1)
 
 # Adjust district code and col names
 
-df2 <- df1 %>%
-  mutate(district = as.double(str_remove(office_seat_name.y, "^District ")), state_code = state_abbrev.y) 
+df2 <- df_house_races_2022 %>%
+  mutate(district = as.double(str_remove(office_seat_name, "^District ")), state_code = state_abbrev) 
 
 df3 <- df_urb_index %>%
   rename(
@@ -87,16 +104,16 @@ df3 <- df_urb_index %>%
 df_all_vars <- df3 %>%
   inner_join(df2, by = c("state_code", "district")) 
 
-# View the resulting dataset
-head(df_all_vars)
-
-
-# Count unique values in each column
-unique_counts <- df_all_vars %>%
-  summarise(across(everything(), ~ n_distinct(.)))
-
-# View the counts as a dataframe
-unique_counts
+# # View the resulting dataset
+# head(df_all_vars)
+# 
+# 
+# # Count unique values in each column
+# unique_counts <- df_all_vars %>%
+#   summarise(across(everything(), ~ n_distinct(.)))
+# 
+# # View the counts as a dataframe
+# unique_counts
 
 
 ```
@@ -105,22 +122,22 @@ unique_counts
 ```{r}
 
 
-
-df_all_vars_2022 <- df_all_vars %>%
-  filter(cycle.y == 2022)
-
-
-
-# View the resulting dataset
-head(df_all_vars_2022)
-
-
-# Count unique values in each column
-unique_counts <- df_all_vars_2022 %>%
-  summarise(across(everything(), ~ n_distinct(.)))
-
-# View the counts as a dataframe
-unique_counts
+# 
+# # df_all_vars_2022 <- df_all_vars %>%
+# #   filter(cycle.y == 2022)
+# 
+# 
+# 
+# # View the resulting dataset
+# head(df_all_vars_2022)
+# 
+# 
+# # Count unique values in each column
+# unique_counts <- df_all_vars_2022 %>%
+#   summarise(across(everything(), ~ n_distinct(.)))
+# 
+# # View the counts as a dataframe
+# unique_counts
 
 
 ```
@@ -129,21 +146,24 @@ unique_counts
 
 ```{r}
 
-df_demographics <- read.csv("us_demographic_data_clean.csv")
+df_demographics <- read.csv("./data/us_demographic_data_clean.csv")
+
 
 
 head(df_demographics)
 
 # Adjust the variables for joining
 
-df_demographics <- df_demographics %>%
-  mutate(district = case_when(
-    str_detect(Name, "at Large") ~ "1",  # For at-large districts, assign "1"
-    TRUE ~ str_extract(Name, "(?<=District )\\d+")  # Extract number after "District"
-  ))
+# df_demographics <- df_demographics %>%
+#   mutate(district = case_when(
+#     str_detect(Name, "at Large") ~ "1",  # For at-large districts, assign "1"
+#     TRUE ~ str_extract(Name, "(?<=District )\\d+")  # Extract number after "District"
+#   ))
 
 df_demographics <- df_demographics %>%
-  mutate(district = as.double(district)) 
+  rename(
+    district = Congressional.District.Number,
+  )
 
 
 head(df_demographics)
@@ -158,7 +178,7 @@ head(df_demographics)
 
 # join everything
 
-joined_all <- df_all_vars_2022 %>%
+joined_all <- df_all_vars %>%
   inner_join(df_demographics, by = c("State", "district")) 
 
 
@@ -170,7 +190,9 @@ head(joined_all)
 ```{r}
 
 # Define the columns to keep
-cols_to_keep <- c("stcd", "state_code","district","urbanindex","grouping","ballot_party","percent","winner","incumbent_party", "Winning.party","Total.Population", "Percentage.Women", "Median.Household.Income", "Mean.Household.Income", "Median.Age", "Percentage.Retirees..65..", "Percentage.Bachelors.Degree.in.Population.over.25", "Unemployment.Rate..16.and.over.")
+cols_to_keep <- c("stcd", "state_code","district","urbanindex","grouping","incumbent_party", "Winning.party","Total.Population", "Percentage.Women", "Median.Household.Income", "Mean.Household.Income", "Median.Age", "Percentage.Retirees..65..", "Percentage.Bachelors.Degree.in.Population.over.25", "Unemployment.Rate..16.and.over.")
+
+# took out "winner", "percent", and "ballot party" because they dont exist wihtout the results 
 
 # Keep only the specified columns
 joined_final <- joined_all %>%
@@ -182,7 +204,7 @@ joined_final <- joined_all %>%
 
 ```{r}
 # Save your dataframe as a CSV file
-write.csv(joined_final, "joined_final_with_winner_party.csv", row.names = FALSE)
+write.csv(joined_final, "joined_final_with_winner_party2.csv", row.names = FALSE)
 
 ```
 

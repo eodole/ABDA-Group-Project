@@ -1,0 +1,154 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{dsfont}
+\usetheme{Darmstadt}
+\usecolortheme{default}
+
+
+%---
+%This block of code defines the information to appear in the Title page
+\title[About Beamer] %optional
+{Does Urbanisation Predict Election Outcomes?}
+
+\subtitle{A Bayesian's Perspective}
+
+\author[Christy, Cunha, Murthy] % (optional)
+{Eldaleona ~Odole \and Leonor ~Cunha \and Anarghya ~Murthy }
+
+\institute[Technische Universität Dortmund] % (optional)
+{
+  
+  Faculty of Statistics\\
+}
+
+\date{\today} % (optional)
+{Mid-Term Presentation}
+
+\logo{\includegraphics[height=0.5cm]{tu.pdf}}
+
+%End of title page configuration block
+%---
+
+%---
+%The next block of commands puts the table of contents at the beginning of each section and highlights the current section:
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+%---
+
+\begin{document}
+
+%The next statement creates the title page.
+\frame{\titlepage}
+
+%---
+%This block of code is for the table of contents after
+%the title page
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+%---
+
+%---SECTION 1: INTRO
+\section{Introduction}
+
+%slide
+\begin{frame}
+\frametitle{Introduction}
+
+\end{frame}
+
+
+\section{Dataset Description}
+
+
+%slide
+\begin{frame}
+\frametitle{Frame name}
+
+\begin{footnotesize}
+\begin{verbatim}
+# Set the maximum number of samples
+N <- 10000        
+# Pmf of x
+x <- 1        
+# Initialize a vector to store the final estimates
+estimates <- numeric(N)   
+# Write function to get estimate of the mean
+# for a given sample size 'n'
+
+get_est_mean <- function(lambda, n){
+  shelf <- numeric(n)    
+  for(i in 1:n){
+    x <- rpois(m, lambda[i])   #simulate i.i.d.
+                                #Poisson for given lambda
+    shelf[i] <- mean(x)
+  }
+  return(mean(shelf))
+}
+
+\end{verbatim}
+\end{footnotesize}
+
+\end{frame}
+
+\section{Model Setup}
+
+%slide
+\begin{frame}
+\frametitle{----}
+
+\end{frame}
+
+
+\section{Results - Pooled Model}
+
+%slide
+\begin{frame}
+\frametitle{=----}
+
+\end{frame}
+
+
+\section{Results - Unpooled Model}
+
+%slide
+\begin{frame}
+\frametitle{=----}
+
+\end{frame}
+
+\section{Results - Hierarchical Model}
+
+%slide
+\begin{frame}
+\frametitle{=----}
+
+\end{frame}
+
+
+\section{Results - Varying Intercept Model}
+
+%slide
+\begin{frame}
+\frametitle{=----}
+
+\end{frame}
+
+\section{Centred vs Non-centred Parameterisation}
+
+%slide
+\begin{frame}
+\frametitle{STAN Code}
+
+\end{frame}
+
+
+
+
+\end{document}

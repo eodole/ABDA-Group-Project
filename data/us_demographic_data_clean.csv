@@ -6,7 +6,7 @@
 " -> Congressional District 5 (118th Congress), Alabama",5,Alabama,743238,0.506,73698,101427,40.2,0.172317616,0.221,0.021
 " -> Congressional District 6 (118th Congress), Alabama",6,Alabama,710137,0.516,78796,112952,39.8,0.170772682,0.248,0.017
 " -> Congressional District 7 (118th Congress), Alabama",7,Alabama,716121,0.527,45784,70138,36.5,0.17216085,0.162,0.034
-" -> Congressional District (at Large) (118th Congress), Alaska",AL,Alaska,733583,0.474,88121,106785,35.9,0.138326542,0.192,0.029
+" -> Congressional District (at Large) (118th Congress), Alaska",1,Alaska,733583,0.474,88121,106785,35.9,0.138326542,0.192,0.029
 " -> Congressional District 1 (118th Congress), Arizona",1,Arizona,799436,0.507,91562,142247,43.9,0.210979991,0.323,0.021
 " -> Congressional District 2 (118th Congress), Arizona",2,Arizona,820500,0.494,62015,81524,41.9,0.230145034,0.156,0.027
 " -> Congressional District 3 (118th Congress), Arizona",3,Arizona,835089,0.495,63913,84482,31,0.0872889,0.121,0.032
@@ -29,49 +29,49 @@
 " -> Congressional District 7 (118th Congress), California",7,California,763060,0.504,85158,111062,37.3,0.157310041,0.22,0.034
 " -> Congressional District 8 (118th Congress), California",8,California,748189,0.511,91501,120329,38.7,0.166381756,0.2,0.039
 " -> Congressional District 9 (118th Congress), California",9,California,769426,0.498,86062,112256,35.4,0.137290656,0.156,0.041
-" -> Congressional District 10 (118th Congress), California",1,California,754064,0.504,143122,197073,41.4,0.171409854,0.319,0.026
-" -> Congressional District 11 (118th Congress), California",1,California,705678,0.484,139300,219266,39.7,0.179640006,0.369,0.024
-" -> Congressional District 12 (118th Congress), California",1,California,736597,0.503,100136,158118,38.3,0.161431556,0.29,0.026
-" -> Congressional District 13 (118th Congress), California",1,California,782352,0.491,67465,90186,32.2,0.114407581,0.107,0.057
-" -> Congressional District 14 (118th Congress), California",1,California,733220,0.507,135760,176217,40.6,0.160562996,0.29,0.029
-" -> Congressional District 15 (118th Congress), California",1,California,719254,0.5,135162,194363,41.3,0.182016367,0.277,0.024
-" -> Congressional District 16 (118th Congress), California",1,California,735381,0.504,160623,252250,40.6,0.179766679,0.292,0.023
-" -> Congressional District 17 (118th Congress), California",1,California,740766,0.474,166489,225445,37.4,0.134193524,0.299,0.027
-" -> Congressional District 18 (118th Congress), California",1,California,734686,0.482,96509,125896,34.5,0.122027642,0.169,0.029
-" -> Congressional District 19 (118th Congress), California",1,California,745616,0.502,118453,175344,41.4,0.202086597,0.279,0.024
-" -> Congressional District 20 (118th Congress), California",2,California,793325,0.499,82983,109435,35.3,0.14616204,0.183,0.028
-" -> Congressional District 21 (118th Congress), California",2,California,748904,0.494,61213,82126,32,0.112003675,0.121,0.051
-" -> Congressional District 22 (118th Congress), California",2,California,775019,0.483,54697,73829,30.3,0.09561572,0.073,0.048
-" -> Congressional District 23 (118th Congress), California",2,California,756057,0.485,68322,92714,34,0.134761003,0.118,0.043
-" -> Congressional District 24 (118th Congress), California",2,California,750711,0.497,91784,122616,37.7,0.187602153,0.246,0.026
-" -> Congressional District 25 (118th Congress), California",2,California,773601,0.496,65453,86556,37.3,0.171044246,0.112,0.038
-" -> Congressional District 26 (118th Congress), California",2,California,758064,0.506,107265,147543,39.4,0.170844414,0.238,0.028
-" -> Congressional District 27 (118th Congress), California",2,California,737592,0.504,98123,126171,37.9,0.139512088,0.195,0.038
-" -> Congressional District 28 (118th Congress), California",2,California,719742,0.513,98310,147928,43,0.194655863,0.279,0.027
-" -> Congressional District 29 (118th Congress), California",2,California,728732,0.495,67175,93964,36.6,0.130563774,0.179,0.049
-" -> Congressional District 30 (118th Congress), California",3,California,732048,0.502,85046,127287,40,0.167505409,0.33,0.044
-" -> Congressional District 31 (118th Congress), California",3,California,730452,0.5,82631,104798,39.1,0.160287055,0.164,0.03
-" -> Congressional District 32 (118th Congress), California",3,California,783556,0.504,103213,164440,40.6,0.179102706,0.311,0.039
-" -> Congressional District 33 (118th Congress), California",3,California,774631,0.505,81830,102043,33.7,0.109676736,0.14,0.036
-" -> Congressional District 34 (118th Congress), California",3,California,745561,0.488,58845,90698,36.6,0.141218492,0.198,0.043
-" -> Congressional District 35 (118th Congress), California",3,California,769910,0.497,84692,102832,34.2,0.107626865,0.154,0.036
-" -> Congressional District 36 (118th Congress), California",3,California,727412,0.514,121164,178732,40.7,0.18294859,0.376,0.036
-" -> Congressional District 37 (118th Congress), California",3,California,740416,0.498,64565,105185,34.5,0.121773435,0.18,0.046
-" -> Congressional District 38 (118th Congress), California",3,California,720021,0.504,90687,116060,40.2,0.174783791,0.204,0.027
-" -> Congressional District 39 (118th Congress), California",3,California,770106,0.501,84017,101185,32.9,0.109708274,0.119,0.037
-" -> Congressional District 40 (118th Congress), California",4,California,742204,0.503,124144,159845,43.1,0.192022678,0.316,0.025
-" -> Congressional District 41 (118th Congress), California",4,California,797316,0.49,95306,123567,40.1,0.186320104,0.203,0.031
-" -> Congressional District 42 (118th Congress), California",4,California,723841,0.507,73006,96607,36,0.124614384,0.173,0.033
-" -> Congressional District 43 (118th Congress), California",4,California,723043,0.513,66509,90543,35.5,0.126258051,0.154,0.044
-" -> Congressional District 44 (118th Congress), California",4,California,735344,0.505,78725,104095,36.8,0.14033024,0.17,0.039
-" -> Congressional District 45 (118th Congress), California",4,California,752508,0.503,100891,131008,40.8,0.172068603,0.252,0.027
-" -> Congressional District 46 (118th Congress), California",4,California,749454,0.504,80779,102727,34.8,0.120453023,0.157,0.028
-" -> Congressional District 47 (118th Congress), California",4,California,752940,0.503,117944,167329,38.5,0.161201424,0.358,0.026
-" -> Congressional District 48 (118th Congress), California",4,California,766556,0.5,105095,123665,38.7,0.173545051,0.22,0.025
-" -> Congressional District 49 (118th Congress), California",4,California,752364,0.488,109380,150874,40,0.179736138,0.306,0.026
-" -> Congressional District 50 (118th Congress), California",5,California,748969,0.486,108881,147311,37,0.152242616,0.326,0.028
-" -> Congressional District 51 (118th Congress), California",5,California,757528,0.5,100357,126874,37.3,0.147778036,0.273,0.031
-" -> Congressional District 52 (118th Congress), California",5,California,749240,0.503,79870,97953,35.3,0.13451364,0.181,0.04
+" -> Congressional District 10 (118th Congress), California",10,California,754064,0.504,143122,197073,41.4,0.171409854,0.319,0.026
+" -> Congressional District 11 (118th Congress), California",11,California,705678,0.484,139300,219266,39.7,0.179640006,0.369,0.024
+" -> Congressional District 12 (118th Congress), California",12,California,736597,0.503,100136,158118,38.3,0.161431556,0.29,0.026
+" -> Congressional District 13 (118th Congress), California",13,California,782352,0.491,67465,90186,32.2,0.114407581,0.107,0.057
+" -> Congressional District 14 (118th Congress), California",14,California,733220,0.507,135760,176217,40.6,0.160562996,0.29,0.029
+" -> Congressional District 15 (118th Congress), California",15,California,719254,0.5,135162,194363,41.3,0.182016367,0.277,0.024
+" -> Congressional District 16 (118th Congress), California",16,California,735381,0.504,160623,252250,40.6,0.179766679,0.292,0.023
+" -> Congressional District 17 (118th Congress), California",17,California,740766,0.474,166489,225445,37.4,0.134193524,0.299,0.027
+" -> Congressional District 18 (118th Congress), California",18,California,734686,0.482,96509,125896,34.5,0.122027642,0.169,0.029
+" -> Congressional District 19 (118th Congress), California",19,California,745616,0.502,118453,175344,41.4,0.202086597,0.279,0.024
+" -> Congressional District 20 (118th Congress), California",20,California,793325,0.499,82983,109435,35.3,0.14616204,0.183,0.028
+" -> Congressional District 21 (118th Congress), California",21,California,748904,0.494,61213,82126,32,0.112003675,0.121,0.051
+" -> Congressional District 22 (118th Congress), California",22,California,775019,0.483,54697,73829,30.3,0.09561572,0.073,0.048
+" -> Congressional District 23 (118th Congress), California",23,California,756057,0.485,68322,92714,34,0.134761003,0.118,0.043
+" -> Congressional District 24 (118th Congress), California",24,California,750711,0.497,91784,122616,37.7,0.187602153,0.246,0.026
+" -> Congressional District 25 (118th Congress), California",25,California,773601,0.496,65453,86556,37.3,0.171044246,0.112,0.038
+" -> Congressional District 26 (118th Congress), California",26,California,758064,0.506,107265,147543,39.4,0.170844414,0.238,0.028
+" -> Congressional District 27 (118th Congress), California",27,California,737592,0.504,98123,126171,37.9,0.139512088,0.195,0.038
+" -> Congressional District 28 (118th Congress), California",28,California,719742,0.513,98310,147928,43,0.194655863,0.279,0.027
+" -> Congressional District 29 (118th Congress), California",29,California,728732,0.495,67175,93964,36.6,0.130563774,0.179,0.049
+" -> Congressional District 30 (118th Congress), California",30,California,732048,0.502,85046,127287,40,0.167505409,0.33,0.044
+" -> Congressional District 31 (118th Congress), California",31,California,730452,0.5,82631,104798,39.1,0.160287055,0.164,0.03
+" -> Congressional District 32 (118th Congress), California",32,California,783556,0.504,103213,164440,40.6,0.179102706,0.311,0.039
+" -> Congressional District 33 (118th Congress), California",33,California,774631,0.505,81830,102043,33.7,0.109676736,0.14,0.036
+" -> Congressional District 34 (118th Congress), California",34,California,745561,0.488,58845,90698,36.6,0.141218492,0.198,0.043
+" -> Congressional District 35 (118th Congress), California",35,California,769910,0.497,84692,102832,34.2,0.107626865,0.154,0.036
+" -> Congressional District 36 (118th Congress), California",36,California,727412,0.514,121164,178732,40.7,0.18294859,0.376,0.036
+" -> Congressional District 37 (118th Congress), California",37,California,740416,0.498,64565,105185,34.5,0.121773435,0.18,0.046
+" -> Congressional District 38 (118th Congress), California",38,California,720021,0.504,90687,116060,40.2,0.174783791,0.204,0.027
+" -> Congressional District 39 (118th Congress), California",39,California,770106,0.501,84017,101185,32.9,0.109708274,0.119,0.037
+" -> Congressional District 40 (118th Congress), California",40,California,742204,0.503,124144,159845,43.1,0.192022678,0.316,0.025
+" -> Congressional District 41 (118th Congress), California",41,California,797316,0.49,95306,123567,40.1,0.186320104,0.203,0.031
+" -> Congressional District 42 (118th Congress), California",42,California,723841,0.507,73006,96607,36,0.124614384,0.173,0.033
+" -> Congressional District 43 (118th Congress), California",43,California,723043,0.513,66509,90543,35.5,0.126258051,0.154,0.044
+" -> Congressional District 44 (118th Congress), California",44,California,735344,0.505,78725,104095,36.8,0.14033024,0.17,0.039
+" -> Congressional District 45 (118th Congress), California",45,California,752508,0.503,100891,131008,40.8,0.172068603,0.252,0.027
+" -> Congressional District 46 (118th Congress), California",46,California,749454,0.504,80779,102727,34.8,0.120453023,0.157,0.028
+" -> Congressional District 47 (118th Congress), California",47,California,752940,0.503,117944,167329,38.5,0.161201424,0.358,0.026
+" -> Congressional District 48 (118th Congress), California",48,California,766556,0.5,105095,123665,38.7,0.173545051,0.22,0.025
+" -> Congressional District 49 (118th Congress), California",49,California,752364,0.488,109380,150874,40,0.179736138,0.306,0.026
+" -> Congressional District 50 (118th Congress), California",50,California,748969,0.486,108881,147311,37,0.152242616,0.326,0.028
+" -> Congressional District 51 (118th Congress), California",51,California,757528,0.5,100357,126874,37.3,0.147778036,0.273,0.031
+" -> Congressional District 52 (118th Congress), California",52,California,749240,0.503,79870,97953,35.3,0.13451364,0.181,0.04
 " -> Congressional District 1 (118th Congress), Colorado",1,Colorado,720042,0.495,87684,129542,35,0.123283086,0.358,0.027
 " -> Congressional District 2 (118th Congress), Colorado",2,Colorado,726112,0.497,94059,125122,37.7,0.167906604,0.347,0.023
 " -> Congressional District 3 (118th Congress), Colorado",3,Colorado,731516,0.498,67311,89336,41.8,0.209341969,0.224,0.022
@@ -85,8 +85,8 @@
 " -> Congressional District 3 (118th Congress), Connecticut",3,Connecticut,735042,0.511,86205,120600,39.9,0.179546203,0.2,0.028
 " -> Congressional District 4 (118th Congress), Connecticut",4,Connecticut,710465,0.507,106972,190234,41.1,0.170174463,0.281,0.034
 " -> Congressional District 5 (118th Congress), Connecticut",5,Connecticut,734438,0.514,87715,121720,40.8,0.180404609,0.227,0.032
-" -> Congressional District (at Large) (118th Congress), Delaware",AL,Delaware,1018396,0.514,82174,104569,41.5,0.208347244,0.21,0.027
-" -> Delegate District (at Large) (118th Congress), District of Columbia",AL,District of Columbia,671803,0.524,101027,155023,34.9,0.13002919,0.264,0.036
+" -> Congressional District (at Large) (118th Congress), Delaware",1,Delaware,1018396,0.514,82174,104569,41.5,0.208347244,0.21,0.027
+" -> Delegate District (at Large) (118th Congress), District of Columbia",1,District of Columbia,671803,0.524,101027,155023,34.9,0.13002919,0.264,0.036
 " -> Congressional District 1 (118th Congress), Florida",1,Florida,789347,0.495,71302,91357,39,0.174587349,0.2,0.023
 " -> Congressional District 2 (118th Congress), Florida",2,Florida,792422,0.499,57516,83388,38.8,0.176904478,0.172,0.025
 " -> Congressional District 3 (118th Congress), Florida",3,Florida,794723,0.501,56286,80520,40.5,0.217855781,0.162,0.024
@@ -96,25 +96,25 @@
 " -> Congressional District 7 (118th Congress), Florida",7,Florida,788222,0.509,75437,103461,42.3,0.20143183,0.223,0.022
 " -> Congressional District 8 (118th Congress), Florida",8,Florida,801682,0.507,73344,99322,48.9,0.268806085,0.213,0.023
 " -> Congressional District 9 (118th Congress), Florida",9,Florida,821662,0.5,69493,95156,38.5,0.14254158,0.239,0.023
-" -> Congressional District 10 (118th Congress), Florida",1,Florida,766928,0.51,64575,96054,34.9,0.127559562,0.256,0.029
-" -> Congressional District 11 (118th Congress), Florida",1,Florida,822462,0.511,78966,110304,44.9,0.25725687,0.233,0.019
-" -> Congressional District 12 (118th Congress), Florida",1,Florida,806076,0.506,59804,90255,47,0.261756956,0.162,0.024
-" -> Congressional District 13 (118th Congress), Florida",1,Florida,763693,0.517,65785,102181,51.5,0.281768983,0.221,0.022
-" -> Congressional District 14 (118th Congress), Florida",1,Florida,782155,0.505,70955,113446,39,0.165459532,0.26,0.028
-" -> Congressional District 15 (118th Congress), Florida",1,Florida,817831,0.503,67704,96929,38.9,0.166025744,0.213,0.028
-" -> Congressional District 16 (118th Congress), Florida",1,Florida,824961,0.519,79125,103570,43.4,0.229684797,0.225,0.021
-" -> Congressional District 17 (118th Congress), Florida",1,Florida,839779,0.515,70558,94705,55.1,0.345458746,0.199,0.02
-" -> Congressional District 18 (118th Congress), Florida",1,Florida,833693,0.498,57810,78504,40.2,0.211612668,0.128,0.023
-" -> Congressional District 19 (118th Congress), Florida",1,Florida,802244,0.51,76223,109733,54.6,0.348039998,0.23,0.018
-" -> Congressional District 20 (118th Congress), Florida",2,Florida,768934,0.513,57237,78305,39.8,0.179841183,0.167,0.039
-" -> Congressional District 21 (118th Congress), Florida",2,Florida,807943,0.503,76355,112956,48,0.269849482,0.229,0.024
-" -> Congressional District 22 (118th Congress), Florida",2,Florida,783947,0.513,73404,114136,46.7,0.26959348,0.235,0.025
-" -> Congressional District 23 (118th Congress), Florida",2,Florida,768707,0.513,80179,121695,43.1,0.2136874,0.274,0.024
-" -> Congressional District 24 (118th Congress), Florida",2,Florida,791673,0.505,60388,95698,39.7,0.165784358,0.202,0.029
-" -> Congressional District 25 (118th Congress), Florida",2,Florida,767802,0.504,79024,110218,41.9,0.170180593,0.265,0.028
-" -> Congressional District 26 (118th Congress), Florida",2,Florida,796673,0.509,67071,92098,42.6,0.189362511,0.192,0.021
-" -> Congressional District 27 (118th Congress), Florida",2,Florida,754619,0.509,75323,129442,42.2,0.191162693,0.251,0.018
-" -> Congressional District 28 (118th Congress), Florida",2,Florida,740547,0.503,73429,95459,41.4,0.174433223,0.198,0.017
+" -> Congressional District 10 (118th Congress), Florida",10,Florida,766928,0.51,64575,96054,34.9,0.127559562,0.256,0.029
+" -> Congressional District 11 (118th Congress), Florida",11,Florida,822462,0.511,78966,110304,44.9,0.25725687,0.233,0.019
+" -> Congressional District 12 (118th Congress), Florida",12,Florida,806076,0.506,59804,90255,47,0.261756956,0.162,0.024
+" -> Congressional District 13 (118th Congress), Florida",13,Florida,763693,0.517,65785,102181,51.5,0.281768983,0.221,0.022
+" -> Congressional District 14 (118th Congress), Florida",14,Florida,782155,0.505,70955,113446,39,0.165459532,0.26,0.028
+" -> Congressional District 15 (118th Congress), Florida",15,Florida,817831,0.503,67704,96929,38.9,0.166025744,0.213,0.028
+" -> Congressional District 16 (118th Congress), Florida",16,Florida,824961,0.519,79125,103570,43.4,0.229684797,0.225,0.021
+" -> Congressional District 17 (118th Congress), Florida",17,Florida,839779,0.515,70558,94705,55.1,0.345458746,0.199,0.02
+" -> Congressional District 18 (118th Congress), Florida",18,Florida,833693,0.498,57810,78504,40.2,0.211612668,0.128,0.023
+" -> Congressional District 19 (118th Congress), Florida",19,Florida,802244,0.51,76223,109733,54.6,0.348039998,0.23,0.018
+" -> Congressional District 20 (118th Congress), Florida",20,Florida,768934,0.513,57237,78305,39.8,0.179841183,0.167,0.039
+" -> Congressional District 21 (118th Congress), Florida",21,Florida,807943,0.503,76355,112956,48,0.269849482,0.229,0.024
+" -> Congressional District 22 (118th Congress), Florida",22,Florida,783947,0.513,73404,114136,46.7,0.26959348,0.235,0.025
+" -> Congressional District 23 (118th Congress), Florida",23,Florida,768707,0.513,80179,121695,43.1,0.2136874,0.274,0.024
+" -> Congressional District 24 (118th Congress), Florida",24,Florida,791673,0.505,60388,95698,39.7,0.165784358,0.202,0.029
+" -> Congressional District 25 (118th Congress), Florida",25,Florida,767802,0.504,79024,110218,41.9,0.170180593,0.265,0.028
+" -> Congressional District 26 (118th Congress), Florida",26,Florida,796673,0.509,67071,92098,42.6,0.189362511,0.192,0.021
+" -> Congressional District 27 (118th Congress), Florida",27,Florida,754619,0.509,75323,129442,42.2,0.191162693,0.251,0.018
+" -> Congressional District 28 (118th Congress), Florida",28,Florida,740547,0.503,73429,95459,41.4,0.174433223,0.198,0.017
 " -> Congressional District 1 (118th Congress), Georgia",1,Georgia,790309,0.513,63376,82187,37.1,0.162632591,0.168,0.027
 " -> Congressional District 2 (118th Congress), Georgia",2,Georgia,755007,0.514,48779,68437,37.7,0.166100447,0.122,0.036
 " -> Congressional District 3 (118th Congress), Georgia",3,Georgia,785113,0.511,74348,99129,39.1,0.173208188,0.173,0.023
@@ -124,11 +124,11 @@
 " -> Congressional District 7 (118th Congress), Georgia",7,Georgia,776248,0.512,84547,111242,36.2,0.116447321,0.255,0.027
 " -> Congressional District 8 (118th Congress), Georgia",8,Georgia,769408,0.509,55822,81177,37.2,0.16323849,0.125,0.022
 " -> Congressional District 9 (118th Congress), Georgia",9,Georgia,794277,0.505,76038,99178,40.4,0.176439706,0.201,0.022
-" -> Congressional District 10 (118th Congress), Georgia",1,Georgia,806637,0.511,73988,95128,37.7,0.151582434,0.183,0.026
-" -> Congressional District 11 (118th Congress), Georgia",1,Georgia,786646,0.514,90472,115456,37.6,0.145182204,0.282,0.022
-" -> Congressional District 12 (118th Congress), Georgia",1,Georgia,770831,0.506,56189,80133,37.1,0.160525459,0.145,0.029
-" -> Congressional District 13 (118th Congress), Georgia",1,Georgia,767394,0.531,71993,89033,36.4,0.115705883,0.193,0.033
-" -> Congressional District 14 (118th Congress), Georgia",1,Georgia,779321,0.501,69169,90546,39.1,0.157582049,0.142,0.019
+" -> Congressional District 10 (118th Congress), Georgia",10,Georgia,806637,0.511,73988,95128,37.7,0.151582434,0.183,0.026
+" -> Congressional District 11 (118th Congress), Georgia",11,Georgia,786646,0.514,90472,115456,37.6,0.145182204,0.282,0.022
+" -> Congressional District 12 (118th Congress), Georgia",12,Georgia,770831,0.506,56189,80133,37.1,0.160525459,0.145,0.029
+" -> Congressional District 13 (118th Congress), Georgia",13,Georgia,767394,0.531,71993,89033,36.4,0.115705883,0.193,0.033
+" -> Congressional District 14 (118th Congress), Georgia",14,Georgia,779321,0.501,69169,90546,39.1,0.157582049,0.142,0.019
 " -> Congressional District 1 (118th Congress), Hawaii",1,Hawaii,717738,0.497,96086,119586,40.9,0.205084585,0.242,0.021
 " -> Congressional District 2 (118th Congress), Hawaii",2,Hawaii,722458,0.495,89314,110163,40.7,0.204104598,0.199,0.022
 " -> Congressional District 1 (118th Congress), Idaho",1,Idaho,984950,0.494,72898,93106,39.6,0.185164729,0.205,0.017
@@ -142,14 +142,14 @@
 " -> Congressional District 7 (118th Congress), Illinois",7,Illinois,758917,0.527,76365,123828,34.2,0.130824583,0.257,0.045
 " -> Congressional District 8 (118th Congress), Illinois",8,Illinois,749823,0.498,91317,115163,40,0.155063262,0.267,0.028
 " -> Congressional District 9 (118th Congress), Illinois",9,Illinois,730979,0.498,86692,125253,41.6,0.188283111,0.321,0.033
-" -> Congressional District 10 (118th Congress), Illinois",1,Illinois,744016,0.496,98057,145104,40.2,0.168745027,0.259,0.02
-" -> Congressional District 11 (118th Congress), Illinois",1,Illinois,766225,0.505,99802,133296,40.1,0.160294953,0.276,0.029
-" -> Congressional District 12 (118th Congress), Illinois",1,Illinois,748293,0.496,62253,81304,41.9,0.198515822,0.152,0.022
-" -> Congressional District 13 (118th Congress), Illinois",1,Illinois,739838,0.508,59843,83717,37.3,0.175251879,0.186,0.034
-" -> Congressional District 14 (118th Congress), Illinois",1,Illinois,756472,0.494,86174,109503,36.6,0.134297106,0.201,0.025
-" -> Congressional District 15 (118th Congress), Illinois",1,Illinois,746507,0.503,66614,87685,42.1,0.210729437,0.16,0.019
-" -> Congressional District 16 (118th Congress), Illinois",1,Illinois,745274,0.5,78393,100707,41.7,0.204599919,0.205,0.023
-" -> Congressional District 17 (118th Congress), Illinois",1,Illinois,738355,0.502,56834,76341,38.7,0.189109575,0.158,0.029
+" -> Congressional District 10 (118th Congress), Illinois",10,Illinois,744016,0.496,98057,145104,40.2,0.168745027,0.259,0.02
+" -> Congressional District 11 (118th Congress), Illinois",11,Illinois,766225,0.505,99802,133296,40.1,0.160294953,0.276,0.029
+" -> Congressional District 12 (118th Congress), Illinois",12,Illinois,748293,0.496,62253,81304,41.9,0.198515822,0.152,0.022
+" -> Congressional District 13 (118th Congress), Illinois",13,Illinois,739838,0.508,59843,83717,37.3,0.175251879,0.186,0.034
+" -> Congressional District 14 (118th Congress), Illinois",14,Illinois,756472,0.494,86174,109503,36.6,0.134297106,0.201,0.025
+" -> Congressional District 15 (118th Congress), Illinois",15,Illinois,746507,0.503,66614,87685,42.1,0.210729437,0.16,0.019
+" -> Congressional District 16 (118th Congress), Illinois",16,Illinois,745274,0.5,78393,100707,41.7,0.204599919,0.205,0.023
+" -> Congressional District 17 (118th Congress), Illinois",17,Illinois,738355,0.502,56834,76341,38.7,0.189109575,0.158,0.029
 " -> Congressional District 1 (118th Congress), Indiana",1,Indiana,755538,0.505,69580,92452,39.9,0.179397992,0.186,0.029
 " -> Congressional District 2 (118th Congress), Indiana",2,Indiana,754764,0.505,62487,86538,37.9,0.176210047,0.165,0.019
 " -> Congressional District 3 (118th Congress), Indiana",3,Indiana,762110,0.502,65522,86998,37.5,0.170842792,0.169,0.023
@@ -207,10 +207,10 @@
 " -> Congressional District 7 (118th Congress), Michigan",7,Michigan,779873,0.506,74404,100573,38.7,0.175397789,0.223,0.025
 " -> Congressional District 8 (118th Congress), Michigan",8,Michigan,768166,0.51,57526,81071,41.5,0.198567757,0.169,0.039
 " -> Congressional District 9 (118th Congress), Michigan",9,Michigan,777301,0.501,78456,106685,43.8,0.196492736,0.182,0.019
-" -> Congressional District 10 (118th Congress), Michigan",1,Michigan,764788,0.512,71936,95139,41,0.187787988,0.189,0.03
-" -> Congressional District 11 (118th Congress), Michigan",1,Michigan,769865,0.503,86379,125050,40.7,0.183963422,0.278,0.027
-" -> Congressional District 12 (118th Congress), Michigan",1,Michigan,759672,0.517,54818,79389,37.3,0.167448583,0.165,0.043
-" -> Congressional District 13 (118th Congress), Michigan",1,Michigan,757463,0.516,47778,75789,37.3,0.162566356,0.128,0.049
+" -> Congressional District 10 (118th Congress), Michigan",10,Michigan,764788,0.512,71936,95139,41,0.187787988,0.189,0.03
+" -> Congressional District 11 (118th Congress), Michigan",11,Michigan,769865,0.503,86379,125050,40.7,0.183963422,0.278,0.027
+" -> Congressional District 12 (118th Congress), Michigan",12,Michigan,759672,0.517,54818,79389,37.3,0.167448583,0.165,0.043
+" -> Congressional District 13 (118th Congress), Michigan",13,Michigan,757463,0.516,47778,75789,37.3,0.162566356,0.128,0.049
 " -> Congressional District 1 (118th Congress), Minnesota",1,Minnesota,714126,0.497,73826,97587,39.4,0.191356987,0.204,0.02
 " -> Congressional District 2 (118th Congress), Minnesota",2,Minnesota,724575,0.502,101144,127199,38.5,0.152976572,0.298,0.021
 " -> Congressional District 3 (118th Congress), Minnesota",3,Minnesota,700754,0.504,100867,142010,41.4,0.185129161,0.329,0.021
@@ -251,9 +251,9 @@
 " -> Congressional District 7 (118th Congress), New Jersey",7,New Jersey,775400,0.508,131419,184568,44.1,0.187823059,0.326,0.029
 " -> Congressional District 8 (118th Congress), New Jersey",8,New Jersey,765996,0.494,78229,127181,35.4,0.119304801,0.244,0.034
 " -> Congressional District 9 (118th Congress), New Jersey",9,New Jersey,751224,0.511,77469,111733,38.9,0.162034227,0.215,0.038
-" -> Congressional District 10 (118th Congress), New Jersey",1,New Jersey,746241,0.513,67939,104054,37.9,0.146074794,0.197,0.05
-" -> Congressional District 11 (118th Congress), New Jersey",1,New Jersey,779192,0.506,128233,183318,41.4,0.17518147,0.329,0.029
-" -> Congressional District 12 (118th Congress), New Jersey",1,New Jersey,767218,0.508,109146,148551,40.9,0.165942405,0.267,0.037
+" -> Congressional District 10 (118th Congress), New Jersey",10,New Jersey,746241,0.513,67939,104054,37.9,0.146074794,0.197,0.05
+" -> Congressional District 11 (118th Congress), New Jersey",11,New Jersey,779192,0.506,128233,183318,41.4,0.17518147,0.329,0.029
+" -> Congressional District 12 (118th Congress), New Jersey",12,New Jersey,767218,0.508,109146,148551,40.9,0.165942405,0.267,0.037
 " -> Congressional District 1 (118th Congress), New Mexico",1,New Mexico,713527,0.504,66579,91517,40.6,0.198799765,0.214,0.023
 " -> Congressional District 2 (118th Congress), New Mexico",2,New Mexico,696764,0.503,53550,71424,36.9,0.173502075,0.134,0.03
 " -> Congressional District 3 (118th Congress), New Mexico",3,New Mexico,703053,0.506,58790,81134,40.4,0.202040244,0.156,0.03
@@ -266,23 +266,23 @@
 " -> Congressional District 7 (118th Congress), New York",7,New York,699930,0.512,88141,137243,34.2,0.113467061,0.303,0.036
 " -> Congressional District 8 (118th Congress), New York",8,New York,754074,0.525,58631,100435,38.1,0.176082188,0.215,0.047
 " -> Congressional District 9 (118th Congress), New York",9,New York,756507,0.528,71800,105059,36.9,0.165820012,0.234,0.049
-" -> Congressional District 10 (118th Congress), New York",1,New York,706151,0.523,103988,200712,37,0.15408744,0.325,0.033
-" -> Congressional District 11 (118th Congress), New York",1,New York,740025,0.51,82517,119276,41,0.181791156,0.203,0.03
-" -> Congressional District 12 (118th Congress), New York",1,New York,705008,0.519,142104,232024,40.3,0.198956608,0.403,0.029
-" -> Congressional District 13 (118th Congress), New York",1,New York,770616,0.524,47855,90725,36.8,0.154432298,0.2,0.055
-" -> Congressional District 14 (118th Congress), New York",1,New York,730392,0.507,61052,91735,37.1,0.155212543,0.181,0.045
-" -> Congressional District 15 (118th Congress), New York",1,New York,727699,0.525,42090,74697,35.5,0.136112596,0.136,0.056
-" -> Congressional District 16 (118th Congress), New York",1,New York,756711,0.516,96051,173412,41.2,0.178016442,0.24,0.031
-" -> Congressional District 17 (118th Congress), New York",1,New York,771464,0.5,115661,172012,40.2,0.17825848,0.273,0.03
-" -> Congressional District 18 (118th Congress), New York",1,New York,786432,0.502,87124,113651,39.5,0.175149282,0.192,0.025
-" -> Congressional District 19 (118th Congress), New York",1,New York,768600,0.5,67645,92799,42.2,0.213001561,0.185,0.024
-" -> Congressional District 20 (118th Congress), New York",2,New York,781546,0.508,79758,111011,40.3,0.186911583,0.232,0.032
-" -> Congressional District 21 (118th Congress), New York",2,New York,776361,0.487,66565,85227,42.4,0.207135598,0.155,0.02
-" -> Congressional District 22 (118th Congress), New York",2,New York,764843,0.508,68941,93531,40.4,0.194093428,0.197,0.023
-" -> Congressional District 23 (118th Congress), New York",2,New York,770357,0.505,66388,94297,43.9,0.217518631,0.171,0.026
-" -> Congressional District 24 (118th Congress), New York",2,New York,774173,0.498,66103,85603,42.3,0.205073026,0.16,0.026
-" -> Congressional District 25 (118th Congress), New York",2,New York,768169,0.514,67775,96132,39.7,0.190499747,0.215,0.029
-" -> Congressional District 26 (118th Congress), New York",2,New York,770160,0.51,63995,88324,39.4,0.184896645,0.193,0.021
+" -> Congressional District 10 (118th Congress), New York",10,New York,706151,0.523,103988,200712,37,0.15408744,0.325,0.033
+" -> Congressional District 11 (118th Congress), New York",11,New York,740025,0.51,82517,119276,41,0.181791156,0.203,0.03
+" -> Congressional District 12 (118th Congress), New York",12,New York,705008,0.519,142104,232024,40.3,0.198956608,0.403,0.029
+" -> Congressional District 13 (118th Congress), New York",13,New York,770616,0.524,47855,90725,36.8,0.154432298,0.2,0.055
+" -> Congressional District 14 (118th Congress), New York",14,New York,730392,0.507,61052,91735,37.1,0.155212543,0.181,0.045
+" -> Congressional District 15 (118th Congress), New York",15,New York,727699,0.525,42090,74697,35.5,0.136112596,0.136,0.056
+" -> Congressional District 16 (118th Congress), New York",16,New York,756711,0.516,96051,173412,41.2,0.178016442,0.24,0.031
+" -> Congressional District 17 (118th Congress), New York",17,New York,771464,0.5,115661,172012,40.2,0.17825848,0.273,0.03
+" -> Congressional District 18 (118th Congress), New York",18,New York,786432,0.502,87124,113651,39.5,0.175149282,0.192,0.025
+" -> Congressional District 19 (118th Congress), New York",19,New York,768600,0.5,67645,92799,42.2,0.213001561,0.185,0.024
+" -> Congressional District 20 (118th Congress), New York",20,New York,781546,0.508,79758,111011,40.3,0.186911583,0.232,0.032
+" -> Congressional District 21 (118th Congress), New York",21,New York,776361,0.487,66565,85227,42.4,0.207135598,0.155,0.02
+" -> Congressional District 22 (118th Congress), New York",22,New York,764843,0.508,68941,93531,40.4,0.194093428,0.197,0.023
+" -> Congressional District 23 (118th Congress), New York",23,New York,770357,0.505,66388,94297,43.9,0.217518631,0.171,0.026
+" -> Congressional District 24 (118th Congress), New York",24,New York,774173,0.498,66103,85603,42.3,0.205073026,0.16,0.026
+" -> Congressional District 25 (118th Congress), New York",25,New York,768169,0.514,67775,96132,39.7,0.190499747,0.215,0.029
+" -> Congressional District 26 (118th Congress), New York",26,New York,770160,0.51,63995,88324,39.4,0.184896645,0.193,0.021
 " -> Congressional District 1 (118th Congress), North Carolina",1,North Carolina,753536,0.514,53854,75802,40.7,0.197284536,0.161,0.031
 " -> Congressional District 2 (118th Congress), North Carolina",2,North Carolina,779106,0.508,96138,133177,36.8,0.127126476,0.368,0.016
 " -> Congressional District 3 (118th Congress), North Carolina",3,North Carolina,756848,0.492,61546,80318,37.8,0.185326512,0.176,0.022
@@ -292,12 +292,12 @@
 " -> Congressional District 7 (118th Congress), North Carolina",7,North Carolina,774574,0.514,62763,85247,41.8,0.210931428,0.203,0.024
 " -> Congressional District 8 (118th Congress), North Carolina",8,North Carolina,760699,0.507,69466,97207,40.5,0.170373564,0.177,0.023
 " -> Congressional District 9 (118th Congress), North Carolina",9,North Carolina,769258,0.509,62661,79319,36.5,0.172139906,0.184,0.026
-" -> Congressional District 10 (118th Congress), North Carolina",1,North Carolina,768814,0.5,64668,88672,42.9,0.192945238,0.183,0.023
-" -> Congressional District 11 (118th Congress), North Carolina",1,North Carolina,756051,0.521,62261,85301,45.7,0.248876068,0.224,0.017
-" -> Congressional District 12 (118th Congress), North Carolina",1,North Carolina,770376,0.513,73841,107655,35.8,0.123180109,0.282,0.024
-" -> Congressional District 13 (118th Congress), North Carolina",1,North Carolina,776185,0.506,82201,107430,38.9,0.147535703,0.241,0.021
-" -> Congressional District 14 (118th Congress), North Carolina",1,North Carolina,766123,0.516,81717,127063,36.8,0.134105098,0.33,0.022
-" -> Congressional District (at Large) (118th Congress), North Dakota",AL,North Dakota,779261,0.488,71970,94991,36.2,0.16720072,0.223,0.015
+" -> Congressional District 10 (118th Congress), North Carolina",10,North Carolina,768814,0.5,64668,88672,42.9,0.192945238,0.183,0.023
+" -> Congressional District 11 (118th Congress), North Carolina",11,North Carolina,756051,0.521,62261,85301,45.7,0.248876068,0.224,0.017
+" -> Congressional District 12 (118th Congress), North Carolina",12,North Carolina,770376,0.513,73841,107655,35.8,0.123180109,0.282,0.024
+" -> Congressional District 13 (118th Congress), North Carolina",13,North Carolina,776185,0.506,82201,107430,38.9,0.147535703,0.241,0.021
+" -> Congressional District 14 (118th Congress), North Carolina",14,North Carolina,766123,0.516,81717,127063,36.8,0.134105098,0.33,0.022
+" -> Congressional District (at Large) (118th Congress), North Dakota",1,North Dakota,779261,0.488,71970,94991,36.2,0.16720072,0.223,0.015
 " -> Congressional District 1 (118th Congress), Ohio",1,Ohio,790801,0.511,74773,115110,37.2,0.156945932,0.263,0.021
 " -> Congressional District 2 (118th Congress), Ohio",2,Ohio,786489,0.499,61589,84216,41.1,0.185701262,0.132,0.02
 " -> Congressional District 3 (118th Congress), Ohio",3,Ohio,785836,0.513,67720,99116,34.5,0.133763279,0.272,0.024
@@ -307,12 +307,12 @@
 " -> Congressional District 7 (118th Congress), Ohio",7,Ohio,774125,0.509,81160,107914,42.9,0.207639593,0.234,0.017
 " -> Congressional District 8 (118th Congress), Ohio",8,Ohio,781678,0.504,72748,95642,39,0.181945763,0.193,0.022
 " -> Congressional District 9 (118th Congress), Ohio",9,Ohio,780071,0.506,62077,86175,41.1,0.194420764,0.172,0.022
-" -> Congressional District 10 (118th Congress), Ohio",1,Ohio,782035,0.511,64173,87361,39.4,0.189919888,0.182,0.03
-" -> Congressional District 11 (118th Congress), Ohio",1,Ohio,769169,0.523,50228,81926,38.5,0.183882866,0.189,0.043
-" -> Congressional District 12 (118th Congress), Ohio",1,Ohio,793038,0.499,69819,95227,40,0.177722883,0.179,0.022
-" -> Congressional District 13 (118th Congress), Ohio",1,Ohio,778868,0.513,65001,90261,41.7,0.201669603,0.214,0.022
-" -> Congressional District 14 (118th Congress), Ohio",1,Ohio,784361,0.501,65214,91799,42.9,0.211588796,0.19,0.024
-" -> Congressional District 15 (118th Congress), Ohio",1,Ohio,785817,0.497,71285,96379,36.9,0.148911261,0.21,0.023
+" -> Congressional District 10 (118th Congress), Ohio",10,Ohio,782035,0.511,64173,87361,39.4,0.189919888,0.182,0.03
+" -> Congressional District 11 (118th Congress), Ohio",11,Ohio,769169,0.523,50228,81926,38.5,0.183882866,0.189,0.043
+" -> Congressional District 12 (118th Congress), Ohio",12,Ohio,793038,0.499,69819,95227,40,0.177722883,0.179,0.022
+" -> Congressional District 13 (118th Congress), Ohio",13,Ohio,778868,0.513,65001,90261,41.7,0.201669603,0.214,0.022
+" -> Congressional District 14 (118th Congress), Ohio",14,Ohio,784361,0.501,65214,91799,42.9,0.211588796,0.19,0.024
+" -> Congressional District 15 (118th Congress), Ohio",15,Ohio,785817,0.497,71285,96379,36.9,0.148911261,0.21,0.023
 " -> Congressional District 1 (118th Congress), Oklahoma",1,Oklahoma,807958,0.508,64465,89759,36.7,0.157598539,0.216,0.024
 " -> Congressional District 2 (118th Congress), Oklahoma",2,Oklahoma,802111,0.501,50776,72998,39.7,0.191936029,0.135,0.022
 " -> Congressional District 3 (118th Congress), Oklahoma",3,Oklahoma,796469,0.491,54397,73175,35.5,0.153314191,0.15,0.025
@@ -333,14 +333,14 @@
 " -> Congressional District 7 (118th Congress), Pennsylvania",7,Pennsylvania,774340,0.504,72660,103346,40.9,0.189835215,0.195,0.029
 " -> Congressional District 8 (118th Congress), Pennsylvania",8,Pennsylvania,766586,0.501,63172,87863,43.1,0.205812525,0.174,0.033
 " -> Congressional District 9 (118th Congress), Pennsylvania",9,Pennsylvania,760960,0.5,65710,86986,43.2,0.213241169,0.15,0.024
-" -> Congressional District 10 (118th Congress), Pennsylvania",1,Pennsylvania,779565,0.507,75032,99193,39.6,0.18180652,0.207,0.023
-" -> Congressional District 11 (118th Congress), Pennsylvania",1,Pennsylvania,768350,0.505,82321,104833,40.5,0.202161775,0.195,0.019
-" -> Congressional District 12 (118th Congress), Pennsylvania",1,Pennsylvania,758799,0.507,68078,97284,39.7,0.202726941,0.241,0.03
-" -> Congressional District 13 (118th Congress), Pennsylvania",1,Pennsylvania,764692,0.5,64430,87402,43.6,0.218689355,0.138,0.018
-" -> Congressional District 14 (118th Congress), Pennsylvania",1,Pennsylvania,755713,0.501,62622,88772,45.1,0.229679786,0.172,0.029
-" -> Congressional District 15 (118th Congress), Pennsylvania",1,Pennsylvania,759208,0.488,60094,80712,42.7,0.211631068,0.143,0.019
-" -> Congressional District 16 (118th Congress), Pennsylvania",1,Pennsylvania,761430,0.504,61715,87862,42.9,0.213797723,0.189,0.02
-" -> Congressional District 17 (118th Congress), Pennsylvania",1,Pennsylvania,752331,0.514,77014,114996,43.7,0.216759644,0.266,0.023
+" -> Congressional District 10 (118th Congress), Pennsylvania",10,Pennsylvania,779565,0.507,75032,99193,39.6,0.18180652,0.207,0.023
+" -> Congressional District 11 (118th Congress), Pennsylvania",11,Pennsylvania,768350,0.505,82321,104833,40.5,0.202161775,0.195,0.019
+" -> Congressional District 12 (118th Congress), Pennsylvania",12,Pennsylvania,758799,0.507,68078,97284,39.7,0.202726941,0.241,0.03
+" -> Congressional District 13 (118th Congress), Pennsylvania",13,Pennsylvania,764692,0.5,64430,87402,43.6,0.218689355,0.138,0.018
+" -> Congressional District 14 (118th Congress), Pennsylvania",14,Pennsylvania,755713,0.501,62622,88772,45.1,0.229679786,0.172,0.029
+" -> Congressional District 15 (118th Congress), Pennsylvania",15,Pennsylvania,759208,0.488,60094,80712,42.7,0.211631068,0.143,0.019
+" -> Congressional District 16 (118th Congress), Pennsylvania",16,Pennsylvania,761430,0.504,61715,87862,42.9,0.213797723,0.189,0.02
+" -> Congressional District 17 (118th Congress), Pennsylvania",17,Pennsylvania,752331,0.514,77014,114996,43.7,0.216759644,0.266,0.023
 " -> Congressional District 1 (118th Congress), Rhode Island",1,Rhode Island,543189,0.514,78966,110258,39.9,0.187036188,0.238,0.029
 " -> Congressional District 2 (118th Congress), Rhode Island",2,Rhode Island,550545,0.506,84751,114867,41.2,0.189850058,0.24,0.029
 " -> Congressional District 1 (118th Congress), South Carolina",1,South Carolina,762713,0.507,85282,114474,41.3,0.205288228,0.259,0.016
@@ -350,7 +350,7 @@
 " -> Congressional District 5 (118th Congress), South Carolina",5,South Carolina,758549,0.513,66451,89708,40.5,0.179376678,0.187,0.024
 " -> Congressional District 6 (118th Congress), South Carolina",6,South Carolina,741110,0.521,51364,75482,37.1,0.172225446,0.178,0.035
 " -> Congressional District 7 (118th Congress), South Carolina",7,South Carolina,762499,0.521,53313,77890,45,0.236909163,0.161,0.027
-" -> Congressional District (at Large) (118th Congress), South Dakota",AL,South Dakota,909824,0.492,69728,89048,38.5,0.182352851,0.217,0.019
+" -> Congressional District (at Large) (118th Congress), South Dakota",1,South Dakota,909824,0.492,69728,89048,38.5,0.182352851,0.217,0.019
 " -> Congressional District 1 (118th Congress), Tennessee",1,Tennessee,781128,0.505,54716,76834,43.9,0.210449504,0.15,0.021
 " -> Congressional District 2 (118th Congress), Tennessee",2,Tennessee,790362,0.508,66809,92884,40.3,0.188326362,0.211,0.015
 " -> Congressional District 3 (118th Congress), Tennessee",3,Tennessee,788228,0.509,68127,93286,40.8,0.190076983,0.181,0.018
@@ -369,40 +369,40 @@
 " -> Congressional District 7 (118th Congress), Texas",7,Texas,785353,0.504,70704,112176,33.9,0.115273005,0.274,0.037
 " -> Congressional District 8 (118th Congress), Texas",8,Texas,827950,0.5,83466,115576,36.1,0.124935081,0.225,0.023
 " -> Congressional District 9 (118th Congress), Texas",9,Texas,774848,0.52,63597,87973,34.6,0.126304772,0.174,0.036
-" -> Congressional District 10 (118th Congress), Texas",1,Texas,803507,0.495,80035,117620,36.5,0.148516441,0.26,0.023
-" -> Congressional District 11 (118th Congress), Texas",1,Texas,777332,0.493,62147,86551,33.9,0.135546973,0.167,0.029
-" -> Congressional District 12 (118th Congress), Texas",1,Texas,803772,0.502,78999,106993,36.5,0.142223168,0.229,0.025
-" -> Congressional District 13 (118th Congress), Texas",1,Texas,776421,0.489,64369,85974,36.2,0.151028888,0.167,0.021
-" -> Congressional District 14 (118th Congress), Texas",1,Texas,773046,0.491,68463,97049,38.2,0.155941561,0.18,0.032
-" -> Congressional District 15 (118th Congress), Texas",1,Texas,776813,0.501,55382,78067,32.5,0.128365514,0.161,0.032
-" -> Congressional District 16 (118th Congress), Texas",1,Texas,773386,0.505,53477,75234,33.6,0.132839229,0.177,0.035
-" -> Congressional District 17 (118th Congress), Texas",1,Texas,781996,0.493,63266,81530,35.9,0.152381854,0.167,0.03
-" -> Congressional District 18 (118th Congress), Texas",1,Texas,789388,0.487,58932,93568,32.6,0.10221336,0.176,0.045
-" -> Congressional District 19 (118th Congress), Texas",1,Texas,767757,0.489,58951,84101,33.7,0.140566612,0.167,0.026
-" -> Congressional District 20 (118th Congress), Texas",2,Texas,781188,0.498,56708,72033,33.7,0.121987281,0.165,0.032
-" -> Congressional District 21 (118th Congress), Texas",2,Texas,807859,0.502,88786,118488,40.2,0.188608408,0.297,0.021
-" -> Congressional District 22 (118th Congress), Texas",2,Texas,843195,0.498,100510,128070,37.3,0.125390924,0.296,0.026
-" -> Congressional District 23 (118th Congress), Texas",2,Texas,778355,0.491,71327,95460,34.6,0.136439028,0.195,0.023
-" -> Congressional District 24 (118th Congress), Texas",2,Texas,760070,0.508,106888,164456,38.8,0.144336706,0.328,0.021
-" -> Congressional District 25 (118th Congress), Texas",2,Texas,804617,0.51,73257,93297,37.3,0.16056832,0.207,0.026
-" -> Congressional District 26 (118th Congress), Texas",2,Texas,835578,0.501,105363,134953,37.9,0.120614712,0.308,0.025
-" -> Congressional District 27 (118th Congress), Texas",2,Texas,771898,0.496,61819,82853,38.2,0.171166398,0.136,0.029
-" -> Congressional District 28 (118th Congress), Texas",2,Texas,777758,0.503,60356,79462,33.7,0.124984892,0.151,0.032
-" -> Congressional District 29 (118th Congress), Texas",2,Texas,732116,0.488,50461,69251,33.1,0.110501614,0.095,0.047
-" -> Congressional District 30 (118th Congress), Texas",3,Texas,767034,0.517,67465,96136,33.6,0.114671579,0.179,0.028
-" -> Congressional District 31 (118th Congress), Texas",3,Texas,841841,0.502,89116,118353,37.2,0.14370172,0.253,0.025
-" -> Congressional District 32 (118th Congress), Texas",3,Texas,787408,0.499,65935,98364,32.5,0.101253734,0.262,0.031
-" -> Congressional District 33 (118th Congress), Texas",3,Texas,764729,0.496,57463,79425,32.2,0.102689973,0.14,0.03
-" -> Congressional District 34 (118th Congress), Texas",3,Texas,790190,0.503,48801,65789,31,0.132330199,0.137,0.038
-" -> Congressional District 35 (118th Congress), Texas",3,Texas,802077,0.496,71075,88525,33.2,0.092351482,0.231,0.031
-" -> Congressional District 36 (118th Congress), Texas",3,Texas,770407,0.501,67663,91223,36.7,0.145094736,0.164,0.026
-" -> Congressional District 37 (118th Congress), Texas",3,Texas,785616,0.493,91114,130368,35.1,0.116895532,0.379,0.021
-" -> Congressional District 38 (118th Congress), Texas",3,Texas,769222,0.515,93861,130289,38.2,0.146133366,0.309,0.03
+" -> Congressional District 10 (118th Congress), Texas",10,Texas,803507,0.495,80035,117620,36.5,0.148516441,0.26,0.023
+" -> Congressional District 11 (118th Congress), Texas",11,Texas,777332,0.493,62147,86551,33.9,0.135546973,0.167,0.029
+" -> Congressional District 12 (118th Congress), Texas",12,Texas,803772,0.502,78999,106993,36.5,0.142223168,0.229,0.025
+" -> Congressional District 13 (118th Congress), Texas",13,Texas,776421,0.489,64369,85974,36.2,0.151028888,0.167,0.021
+" -> Congressional District 14 (118th Congress), Texas",14,Texas,773046,0.491,68463,97049,38.2,0.155941561,0.18,0.032
+" -> Congressional District 15 (118th Congress), Texas",15,Texas,776813,0.501,55382,78067,32.5,0.128365514,0.161,0.032
+" -> Congressional District 16 (118th Congress), Texas",16,Texas,773386,0.505,53477,75234,33.6,0.132839229,0.177,0.035
+" -> Congressional District 17 (118th Congress), Texas",17,Texas,781996,0.493,63266,81530,35.9,0.152381854,0.167,0.03
+" -> Congressional District 18 (118th Congress), Texas",18,Texas,789388,0.487,58932,93568,32.6,0.10221336,0.176,0.045
+" -> Congressional District 19 (118th Congress), Texas",19,Texas,767757,0.489,58951,84101,33.7,0.140566612,0.167,0.026
+" -> Congressional District 20 (118th Congress), Texas",20,Texas,781188,0.498,56708,72033,33.7,0.121987281,0.165,0.032
+" -> Congressional District 21 (118th Congress), Texas",21,Texas,807859,0.502,88786,118488,40.2,0.188608408,0.297,0.021
+" -> Congressional District 22 (118th Congress), Texas",22,Texas,843195,0.498,100510,128070,37.3,0.125390924,0.296,0.026
+" -> Congressional District 23 (118th Congress), Texas",23,Texas,778355,0.491,71327,95460,34.6,0.136439028,0.195,0.023
+" -> Congressional District 24 (118th Congress), Texas",24,Texas,760070,0.508,106888,164456,38.8,0.144336706,0.328,0.021
+" -> Congressional District 25 (118th Congress), Texas",25,Texas,804617,0.51,73257,93297,37.3,0.16056832,0.207,0.026
+" -> Congressional District 26 (118th Congress), Texas",26,Texas,835578,0.501,105363,134953,37.9,0.120614712,0.308,0.025
+" -> Congressional District 27 (118th Congress), Texas",27,Texas,771898,0.496,61819,82853,38.2,0.171166398,0.136,0.029
+" -> Congressional District 28 (118th Congress), Texas",28,Texas,777758,0.503,60356,79462,33.7,0.124984892,0.151,0.032
+" -> Congressional District 29 (118th Congress), Texas",29,Texas,732116,0.488,50461,69251,33.1,0.110501614,0.095,0.047
+" -> Congressional District 30 (118th Congress), Texas",30,Texas,767034,0.517,67465,96136,33.6,0.114671579,0.179,0.028
+" -> Congressional District 31 (118th Congress), Texas",31,Texas,841841,0.502,89116,118353,37.2,0.14370172,0.253,0.025
+" -> Congressional District 32 (118th Congress), Texas",32,Texas,787408,0.499,65935,98364,32.5,0.101253734,0.262,0.031
+" -> Congressional District 33 (118th Congress), Texas",33,Texas,764729,0.496,57463,79425,32.2,0.102689973,0.14,0.03
+" -> Congressional District 34 (118th Congress), Texas",34,Texas,790190,0.503,48801,65789,31,0.132330199,0.137,0.038
+" -> Congressional District 35 (118th Congress), Texas",35,Texas,802077,0.496,71075,88525,33.2,0.092351482,0.231,0.031
+" -> Congressional District 36 (118th Congress), Texas",36,Texas,770407,0.501,67663,91223,36.7,0.145094736,0.164,0.026
+" -> Congressional District 37 (118th Congress), Texas",37,Texas,785616,0.493,91114,130368,35.1,0.116895532,0.379,0.021
+" -> Congressional District 38 (118th Congress), Texas",38,Texas,769222,0.515,93861,130289,38.2,0.146133366,0.309,0.03
 " -> Congressional District 1 (118th Congress), Utah",1,Utah,850432,0.495,86951,111939,32,0.11368575,0.252,0.017
 " -> Congressional District 2 (118th Congress), Utah",2,Utah,849661,0.489,80789,106281,33.7,0.139354401,0.213,0.019
 " -> Congressional District 3 (118th Congress), Utah",3,Utah,806633,0.498,87193,114753,30.8,0.126613962,0.294,0.018
 " -> Congressional District 4 (118th Congress), Utah",4,Utah,874074,0.488,100006,114708,31.5,0.09894128,0.236,0.021
-" -> Congressional District (at Large) (118th Congress), Vermont",AL,Vermont,647064,0.504,73991,95179,43.2,0.216094544,0.245,0.018
+" -> Congressional District (at Large) (118th Congress), Vermont",1,Vermont,647064,0.504,73991,95179,43.2,0.216094544,0.245,0.018
 " -> Congressional District 1 (118th Congress), Virginia",1,Virginia,810541,0.511,99057,125150,41.8,0.199153405,0.28,0.017
 " -> Congressional District 2 (118th Congress), Virginia",2,Virginia,780161,0.504,83535,104065,39.3,0.169855966,0.225,0.021
 " -> Congressional District 3 (118th Congress), Virginia",3,Virginia,781088,0.51,63075,80940,34.5,0.142555,0.17,0.039
@@ -412,8 +412,8 @@
 " -> Congressional District 7 (118th Congress), Virginia",7,Virginia,798820,0.5,103589,118497,37.8,0.136954508,0.221,0.025
 " -> Congressional District 8 (118th Congress), Virginia",8,Virginia,764684,0.505,122460,168675,37.6,0.137336468,0.316,0.019
 " -> Congressional District 9 (118th Congress), Virginia",9,Virginia,785166,0.498,54260,80818,44,0.224976629,0.142,0.015
-" -> Congressional District 10 (118th Congress), Virginia",1,Virginia,805988,0.494,152685,176922,38,0.11976481,0.319,0.019
-" -> Congressional District 11 (118th Congress), Virginia",1,Virginia,784031,0.496,152783,180734,39.2,0.148708406,0.34,0.021
+" -> Congressional District 10 (118th Congress), Virginia",10,Virginia,805988,0.494,152685,176922,38,0.11976481,0.319,0.019
+" -> Congressional District 11 (118th Congress), Virginia",11,Virginia,784031,0.496,152783,180734,39.2,0.148708406,0.34,0.021
 " -> Congressional District 1 (118th Congress), Washington",1,Washington,782320,0.491,125412,176190,38,0.129732079,0.306,0.022
 " -> Congressional District 2 (118th Congress), Washington",2,Washington,782277,0.497,82997,112828,40,0.199430636,0.23,0.026
 " -> Congressional District 3 (118th Congress), Washington",3,Washington,789222,0.501,85196,111673,40.4,0.187109584,0.18,0.026
@@ -423,7 +423,7 @@
 " -> Congressional District 7 (118th Congress), Washington",7,Washington,783927,0.49,115418,169142,36.2,0.139784699,0.372,0.024
 " -> Congressional District 8 (118th Congress), Washington",8,Washington,765776,0.49,119767,162820,39.7,0.155165479,0.257,0.02
 " -> Congressional District 9 (118th Congress), Washington",9,Washington,751668,0.498,94488,135669,38.2,0.153791301,0.257,0.03
-" -> Congressional District 10 (118th Congress), Washington",1,Washington,788452,0.498,88325,106415,36.5,0.154979631,0.188,0.026
+" -> Congressional District 10 (118th Congress), Washington",10,Washington,788452,0.498,88325,106415,36.5,0.154979631,0.188,0.026
 " -> Congressional District 1 (118th Congress), West Virginia",1,West Virginia,876813,0.509,49609,78668,43.8,0.222925527,0.137,0.024
 " -> Congressional District 2 (118th Congress), West Virginia",2,West Virginia,898343,0.498,59773,81933,42,0.201145887,0.162,0.026
 " -> Congressional District 1 (118th Congress), Wisconsin",1,Wisconsin,729535,0.501,71781,94789,40.5,0.178639819,0.206,0.021
@@ -434,4 +434,4 @@
 " -> Congressional District 6 (118th Congress), Wisconsin",6,Wisconsin,733889,0.493,68092,93250,42.7,0.205573322,0.189,0.013
 " -> Congressional District 7 (118th Congress), Wisconsin",7,Wisconsin,740385,0.492,66222,89948,45.4,0.225724454,0.178,0.017
 " -> Congressional District 8 (118th Congress), Wisconsin",8,Wisconsin,742030,0.496,71930,94154,41.3,0.188185114,0.209,0.017
-" -> Congressional District (at Large) (118th Congress), Wyoming",AL,Wyoming,581381,0.488,70042,88486,39.1,0.185743944,0.18,0.024
+" -> Congressional District (at Large) (118th Congress), Wyoming",1,Wyoming,581381,0.488,70042,88486,39.1,0.185743944,0.18,0.024

@@ -7,3 +7,9 @@
 4. election_results.csv - election results 
     https://github.com/fivethirtyeight/election-results/blob/main/races.csv
 5. us_demographic_data_clean.csv - data on us demographics with nice formating, the name column is not relevant to the analysis, but needed for excel references. 
+6. joined_final.csv 
+    only variables that matter without winner party 
+7. joined_fianl_winner_party.csv 
+    like 6 but with winner party 
+8. joined_final_with_winner_party2.csv 
+    final data with correct number of rows and correct demographic data 

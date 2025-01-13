@@ -45,7 +45,7 @@ df_house_races_2022$date = as.Date(df_house_races_2022$date,"%m/%d/%y")
 head(df_house_races_2022) 
 
 #df_house_races_2022 includes all states with correct number district and puerto rico 
-
+# df_elect_res %>% filter(state_abbrev == "NY", office_seat_name == "District 19", cycle == "2022") # test for ny
 ```
 
 

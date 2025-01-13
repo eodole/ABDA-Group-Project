@@ -13,3 +13,8 @@
     like 6 but with winner party 
 8. joined_final_with_winner_party2.csv 
     final data with correct number of rows and correct demographic data 
+9. regions.csv 
+    includes state names and four major regions of the US as defined by US census bureau. 
+    csv was created in excel based on https://en.wikipedia.org/wiki/List_of_regions_of_the_United_States
+10. final_data_with regions.csv
+    current final iteration of data with regions 

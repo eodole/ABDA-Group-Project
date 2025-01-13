@@ -190,7 +190,7 @@ head(joined_all)
 ```{r}
 
 # Define the columns to keep
-cols_to_keep <- c("stcd", "state_code","district","urbanindex","grouping","incumbent_party", "Winning.party","Total.Population", "Percentage.Women", "Median.Household.Income", "Mean.Household.Income", "Median.Age", "Percentage.Retirees..65..", "Percentage.Bachelors.Degree.in.Population.over.25", "Unemployment.Rate..16.and.over.")
+cols_to_keep <- c("stcd", "state_code","State", "district","urbanindex","grouping","incumbent_party", "Winning.party","Total.Population", "Percentage.Women", "Median.Household.Income", "Mean.Household.Income", "Median.Age", "Percentage.Retirees..65..", "Percentage.Bachelors.Degree.in.Population.over.25", "Unemployment.Rate..16.and.over.")
 
 # took out "winner", "percent", and "ballot party" because they dont exist wihtout the results 
 
@@ -199,12 +199,24 @@ joined_final <- joined_all %>%
   select(all_of(cols_to_keep))
 
 
+
+
+```
+
+```{r}
+## Add Regions Data 
+
+# import region data 
+regions <- read.csv("./data/regions.csv")
+# join data 
+joined_final <- joined_final %>%
+  left_join(regions, by = "State") 
 ```
 
 
 ```{r}
 # Save your dataframe as a CSV file
-write.csv(joined_final, "joined_final_with_winner_party2.csv", row.names = FALSE)
+write.csv(joined_final, "final_data_with_regions.csv", row.names = FALSE)
 
 ```
 

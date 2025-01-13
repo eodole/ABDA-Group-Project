@@ -190,7 +190,7 @@ head(joined_all)
 ```{r}
 
 # Define the columns to keep
-cols_to_keep <- c("stcd", "state_code","State", "district","urbanindex","grouping","incumbent_party", "Winning.party","Total.Population", "Percentage.Women", "Median.Household.Income", "Mean.Household.Income", "Median.Age", "Percentage.Retirees..65..", "Percentage.Bachelors.Degree.in.Population.over.25", "Unemployment.Rate..16.and.over.")
+cols_to_keep <- c("stcd","State", "district","urbanindex","grouping","incumbent_party", "Winning.party","Total.Population", "Percentage.Women", "Median.Household.Income", "Mean.Household.Income", "Median.Age", "Percentage.Retirees..65..", "Percentage.Bachelors.Degree.in.Population.over.25", "Unemployment.Rate..16.and.over.")
 
 # took out "winner", "percent", and "ballot party" because they dont exist wihtout the results 
 

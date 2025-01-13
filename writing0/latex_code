@@ -56,16 +56,31 @@
 
 %---SECTION 1: INTRO
 \section{Introduction}
-
-%slide
 \begin{frame}
 \frametitle{Introduction}
-
+\begin{enumerate}
+  \item \textbf{Research Question:}
+  How does urbanization of a particular district affect result of an election in the US? 
+  \item \textbf{Variable of Interest:}
+  Winning party in the  House of Representatives 2022 General Election (binary)
+\end{enumerate}
 \end{frame}
 
 
-\section{Dataset Description}
 
+%slide
+\section{Dataset Description}
+\begin{frame}
+\frametitle{Dataset}
+We wanted to consider different factors in the analysis, with our primary focus being the urbanization of each House district. These factors included: 
+\begin{enumerate}
+  \item Demographic Data (US Census Bureau)
+  \item Urbanization (FiveThirtyEight)
+  \item Regional Information (US Census Bureau)
+  \item Election Results (FiveThirtyEight)
+\end{enumerate}
+We combined different sources in order to create our data set containing 16 unique covariates.
+\end{frame}  
 
 %slide
 \begin{frame}

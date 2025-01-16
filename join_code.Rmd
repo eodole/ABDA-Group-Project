@@ -225,8 +225,40 @@ write.csv(joined_final, "final_data_with_regions.csv", row.names = FALSE)
 
 
 ```{r}
+#replace DEM with 0 and REP with 1
+joined_final <- joined_final %>%
+  mutate(incumbent_party = ifelse(incumbent_party == "DEM", 0L, ifelse(incumbent_party == "REP", 1L, incumbent_party))) %>%
+  mutate(Winning.party = ifelse(Winning.party == "DEM", 0L, ifelse(Winning.party == "REP", 1L, Winning.party)))
+
+
+# Louisiana has no winning party noted for any district, but we know incumbent won in all
+
+joined_final <- joined_final %>%
+  mutate(Winning.party = ifelse(State == "Louisiana", incumbent_party, Winning.party))
+
+
+
+
+
+# change column names to numeric 
+joined_final$Winning.party <- as.integer(joined_final$Winning.party)
+joined_final$incumbent_party <- as.integer(joined_final$incumbent_party)
+
+
+
+
+
 
 ```
+
+
+
+```{r}
+# Save your dataframe as a CSV file
+write.csv(joined_final, "final_data_with_regions_and_winners.csv", row.names = FALSE)
+```
+
+
 
 
 

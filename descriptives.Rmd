@@ -1,0 +1,193 @@
+---
+title: "descriptives"
+output: html_document
+date: "2025-01-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("usmap")
+
+install.packages("tigris")
+install.packages("sf")
+install.packages("patchwork")
+```
+
+
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(reshape2)
+library(dplyr)
+library(tigris)
+library(sf)
+library(patchwork)
+```
+
+
+```{r}
+df <- read.csv("./final_data_with_regions.csv")
+
+colnames(df)
+
+vars_to_plot <- c("urbanindex", "Percentage.Women", "Mean.Household.Income", "Percentage.Retirees..65..", "Unemployment.Rate..16.and.over.", "Median.Age", "Percentage.Bachelors.Degree.in.Population.over.25")
+
+
+# Densities
+
+# Define rainbow colors
+rainbow_colors <- rainbow(ncol(df[,vars_to_plot]))
+
+# Loop to create and save density plots for each variable
+for (i in seq_along(df[,vars_to_plot])) {
+  variable_name <- vars_to_plot[i]
+  plot <- ggplot(df, aes_string(x = variable_name)) +
+    geom_density(fill = rainbow_colors[i], alpha = 0.5, color = "black") +
+    labs(
+      title = paste("Density Plot of", variable_name),
+      x = "Value",
+      y = "Density"
+    ) +
+    theme_minimal()
+  
+  # Print the plot to RStudio
+  print(plot)
+  
+  # Optional: Save each plot as an image
+#  ggsave(
+#    filename = paste0(variable_name, "_density_plot.png"),
+#    plot = plot,
+#    width = 6,
+#    height = 4,
+#    dpi = 300
+#  )
+}
+
+
+
+hist(df$Total.Population, breaks = 30)
+
+
+
+```
+
+
+
+
+
+
+
+```{r}
+# Urban Index district map
+
+# Set options for tigris
+options(tigris_use_cache = TRUE)
+
+# Load congressional districts shapefile (Tiger/Line from the US Census Bureau)
+districts <- tigris::congressional_districts(cb = TRUE, year = 2022)  # Use 2022 boundaries
+
+# Replace "00" with "01" for single-district states
+districts <- districts %>%
+  mutate(
+    CD118FP = ifelse(CD118FP == "00", "01", CD118FP)  # Change 00 to 01
+  )
+
+# Load a lookup table for state FIPS to state abbreviation
+state_fips <- tigris::fips_codes %>%
+  select(STATEFP = state_code, state_abbreviation = state) %>%
+  distinct()
+
+# Urban index for districts
+urbanindex_data <- data.frame(
+  district = df$stcd,  # State-District format
+  urbanindex = df$urbanindex  # Urban index values
+)
+
+# Add state abbreviation and create a "state-district" column
+districts <- districts %>%
+  left_join(state_fips, by = "STATEFP") %>%  # Map state FIPS to abbreviations
+  mutate(district = paste0(state_abbreviation, "-", CD118FP))
+
+# Merge data with the shapefile
+map_data <- districts %>%
+  left_join(urbanindex_data, by = "district")
+
+
+# Determine shared scale limits
+urbanindex_limits <- range(urbanindex_data$urbanindex, na.rm = TRUE)
+
+# Define shared color scale
+color_scale <- scale_fill_gradient(
+  name = "Urban Index",
+  low = "lightblue",
+  high = "darkblue",
+  limits = urbanindex_limits,
+  na.value = "gray90"  # For districts without data
+)
+
+# Define separate maps for contiguous US, Alaska, and Hawaii
+contiguous_us <- ggplot(map_data %>% filter(!(state_abbreviation %in% c("AK", "HI")))) +
+  geom_sf(aes(fill = urbanindex), color = "white") +
+  color_scale +
+  coord_sf(
+    xlim = c(-125, -65),  # Contiguous US
+    ylim = c(25, 50)
+  ) +
+  theme_void() +
+  labs(title = "Urban Index by Congressional District")
+
+alaska <- ggplot(map_data %>% filter(state_abbreviation == "AK")) +
+  geom_sf(aes(fill = urbanindex), color = "white") +
+  color_scale +
+  coord_sf(
+    xlim = c(-180, -130),  # Alaska's longitude range
+    ylim = c(50, 72)       # Alaska's latitude range
+  ) +
+  theme_void()
+
+hawaii <- ggplot(map_data %>% filter(state_abbreviation == "HI")) +
+  geom_sf(aes(fill = urbanindex), color = "white") +
+  color_scale +
+  coord_sf(
+    xlim = c(-161, -154),  # Hawaii's longitude range
+    ylim = c(18, 23)       # Hawaii's latitude range
+  ) +
+  theme_void()
+
+
+
+
+# Combine maps with patchwork and fix layout, setting widths and heights for correct proportions
+final_map <- (contiguous_us) / plot_spacer() /
+  (alaska + hawaii) +  # Alaska and Hawaii on one row
+  plot_layout(heights = c(4, 0.1, 1), widths = c(4, 0.1, 1))   # Adjust relative heights and widths
+  
+# Display the map
+final_map
+```
+
+
+
+
+```{r}
+
+vars_to_inspect <- c("Winning.party", "incumbent_party","urbanindex", "Percentage.Women", "Mean.Household.Income", "Percentage.Retirees..65..", "Unemployment.Rate..16.and.over.", "Median.Age", "Percentage.Bachelors.Degree.in.Population.over.25")
+
+df <- df %>%
+  mutate(
+    Winning.party = ifelse(is.na(Winning.party), 0, Winning.party),
+    incumbent_party = ifelse(is.na(incumbent_party), 0, incumbent_party)
+    )
+
+# made the NAs zeros
+
+cor_matrix <- cor((df[,vars_to_inspect]), method = "pearson")
+
+as.data.frame(cor_matrix)
+
+```
+
+

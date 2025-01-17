@@ -15,7 +15,7 @@
 
 \subtitle{A Bayesian's Perspective}
 
-\author[Christy, Cunha, Murthy] % (optional)
+\author[Odole, Cunha, Murthy] % (optional)
 {Eldaleona ~Odole \and Leonor ~Cunha \and Anarghya ~Murthy }
 
 \institute[Technische Universität Dortmund] % (optional)
@@ -118,9 +118,17 @@ We combined different sources in order to create our data set containing 16 uniq
 
 \section{Model Setup}
 
+
 %slide
 \begin{frame}
-\frametitle{----}
+\frametitle{Model}
+Let the response variable 'Winning Party' be \(y\), the main predictor 'Urban index' be \(x\), and the other covariates be a 15-dimensional vector \(z\). Let \(i\), \(j\), and \(k\) be the indices for the district, region, and state respectively. 
+
+\[y_{i, j} \sim Ber.(logit^{-1}(\theta_{j}))\]
+
+\[\theta_j := \beta_0, j + x_{i,j} * \beta_{1,j}  + z_{i, j}^T * \gamma_{1,j}\]
+
+
 
 \end{frame}
 
@@ -146,9 +154,36 @@ We combined different sources in order to create our data set containing 16 uniq
 
 %slide
 \begin{frame}
-\frametitle{=----}
+\frametitle{Varying Intercept Model}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{placeholder_hist_varying_intercept_1_level.jpeg}
+\end{center}
 
 \end{frame}
+
+\begin{frame}{Varying Intercept Model - II}
+
+\begin{table} \centering
+  \caption{Descriptive Statistics by Region} 
+  \label{table:stats}
+  \resizebox{\textwidth}{!}{ % Resizing the table to fit the frame width
+  \begin{tabular}{@{\extracolsep{5pt}} cccccccccccc} 
+  \toprule
+  & Region & Variable & Mean & Median & SD & MAD & Q5 & Q95 & Rhat & ESS\_Bulk & ESS\_Tail \\ 
+  \midrule
+  1 & $1$ & r\_region\_index & $-0.661$ & $-0.627$ & $0.486$ & $0.405$ & $-1.484$ & $0.023$ & $1.014$ & $221.604$ & $240.881$ \\ 
+  2 & $2$ & r\_region\_index & $0.272$ & $0.273$ & $0.496$ & $0.388$ & $-0.443$ & $1.035$ & $1.010$ & $249.762$ & $277.608$ \\ 
+  3 & $3$ & r\_region\_index & $0.424$ & $0.410$ & $0.513$ & $0.417$ & $-0.414$ & $1.242$ & $1.004$ & $267.517$ & $238.103$ \\ 
+  4 & $4$ & r\_region\_index & $-0.164$ & $-0.138$ & $0.495$ & $0.419$ & $-1.008$ & $0.534$ & $1.014$ & $262.794$ & $271.583$ \\ 
+  \bottomrule
+  \end{tabular}
+  } % End of resizebox
+\end{table}
+
+    
+\end{frame}
+
 
 
 \section{Results - Varying Intercept Model}
@@ -159,12 +194,22 @@ We combined different sources in order to create our data set containing 16 uniq
 
 \end{frame}
 
-\section{Centred vs Non-centred Parameterisation}
+\section{Centred vs Non-centred Parameterisation/ Sampling Investigation with STAN}
 
 %slide
 \begin{frame}
 \frametitle{STAN Code}
 
+\end{frame}
+
+\section{Raw References}
+
+\begin{frame}{Raw references}
+    \begin{itemize}
+        \item stargazer
+        \item tidybayes
+        \item brms, stan
+    \end{itemize}
 \end{frame}
 
 

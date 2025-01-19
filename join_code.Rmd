@@ -37,6 +37,7 @@ head(df_urb_index)
 df_urb_index %>% filter(state == "WY")
   # Wyomings at large district is named 01, so the clean data was renamed to reflect this 
 ```
+
 ```{r}
 # Filter then join approach 
 
@@ -225,10 +226,10 @@ write.csv(joined_final, "final_data_with_regions.csv", row.names = FALSE)
 
 
 ```{r}
-#replace DEM with 0 and REP with 1
+#replace DEM with 1 and REP with 0
 joined_final <- joined_final %>%
-  mutate(incumbent_party = ifelse(incumbent_party == "DEM", 0L, ifelse(incumbent_party == "REP", 1L, incumbent_party))) %>%
-  mutate(Winning.party = ifelse(Winning.party == "DEM", 0L, ifelse(Winning.party == "REP", 1L, Winning.party)))
+  mutate(incumbent_party = ifelse(incumbent_party == "DEM", 1L, ifelse(incumbent_party == "REP", 0L, incumbent_party))) %>%
+  mutate(Winning.party = ifelse(Winning.party == "DEM", 1L, ifelse(Winning.party == "REP", 0L, Winning.party)))
 
 
 # Louisiana has no winning party noted for any district, but we know incumbent won in all

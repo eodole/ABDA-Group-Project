@@ -113,3 +113,34 @@ prior_med_income <-ggplot() +
 print(prior_med_income)
 ```
 
+
+```{r}
+# Example Total Populatin 
+library(invgamma)
+state_sigma <- rinvgamma(1, 2, 1)
+prior_total_population <-ggplot() +
+                    stat_function(fun = dnorm, args = list(mean = 0, sd = state_sigma), color = "lightblue", size = 1) +
+                    xlim(c(-10,10)) +
+                    labs(title = paste0("Example Prior for State_j with sigma = ", round(state_sigma, 3)), x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_total_population)
+```
+
+```{r}
+# Percent Retirees 
+library(distributional)
+
+x <- seq(-10,10, length.out =2000)
+t_dist <- dist_student_t(df = 1, mu = -1, sigma = 1)
+pretireedf <- data.frame(x = x, y = density(t_dist, x))
+
+prior_pct_retiree <-ggplot(data = pretireedf, aes(x = x, y = y )) +
+                    geom_line( color = "lightblue", size = 1) +
+                    xlim(c(-10,10)) +
+                    labs(title = paste0("Example Prior for State_j with sigma = ", round(state_sigma, 3)), x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_pct_retiree)
+```
+

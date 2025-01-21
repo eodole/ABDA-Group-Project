@@ -232,27 +232,71 @@ Let the response variable 'Winning Party' be \(y\), the predictor of interest 'U
 %slide - prior place holder 
 \begin{frame}
   \frametitle{Factor name}
-  % what is it 
+  % what is it & reasoning
 
   % prior distribution equation 
+  % \includegraphics[width=0.9\textwidth]{}
 
-  % explaination 
-  \end{frame}
+  % equation 
+\end{frame}
 
-%slide - prior place holder 
+%slide 
 \begin{frame}
   \frametitle{Urbanization Index}
-  % what is it 
-  Urbanization Index is a measure created by fivethirtyeight calculated based on populatin density of a given district.
-  We assume that urbaniation has some positive impact on the likelihood of voting democrat, because urban areas tend to lean more democratic [source]. 
-  However, we assume a regional effect as this relationship is likely more pronounced in more rural regions generally. % should we have a source here? 
+  % Script 
+  % Urbanization Index is a measure created by fivethirtyeight calculated based on populatin density of a given district.
+  % We assume that urbaniation has some positive impact on the likelihood of voting democrat, because urban areas tend to lean more democratic [source]. 
+  % However, we assume a regional effect as this relationship is likely more pronounced in more rural regions generally. % should we have a source here? 
   %prior distribution graph 
+  \includegraphics[width=0.9\textwidth]{plots/prior_urban.index.png}
   
+  % prior distribution equation 
+  $$ \beta_{urbanindex} \sim Gamma(\alpha = 3, \beta = 1 )$$ 
+  % explaination 
+  \end{frame}
+
+\begin{frame}
+  \frametitle{Urbanization Category}
+  % what is it - need to rethink 
+  Urbanization category is the measure created by fivethirtyeight that bounds the numerical values of urban index into several buckets. 
+  We assume that each of these categories with have a postive association 
+  % prior distribution equation 
+
+  % explaination 
+\end{frame}
+
+%slide 
+\begin{frame}
+  \frametitle{Total Population}
+  % what is it 
   
   % prior distribution equation 
 
   % explaination 
-  \end{frame}
+\end{frame}
+
+%slide 
+\begin{frame}
+  \frametitle{Percentage Women}
+  % what is it 
+
+  % prior distribution equation 
+  \includegraphics[width=0.9\textwidth]{plots/prior_pct.women.png}
+  % explaination 
+  $$ \beta_{pct.women} \sim Beta(\alpha = \frac{6}{7}, \beta = 2) $$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Percentage of Population over 25 with Bachelors Degree}
+  % what is it & reasoning
+
+  % prior distribution equation 
+  \includegraphics[width=0.9\textwidth]{plots/prior_pct.bachelors.png}
+
+  % equation 
+  $$  \beta_{pct.bachelors} \sim Beta( \alpha = 1 , \beta = 10 )$$
+\end{frame}
+
 
 
 \section{Pooled Model}

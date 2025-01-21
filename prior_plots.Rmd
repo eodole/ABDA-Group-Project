@@ -1,0 +1,72 @@
+---
+title: "prior_plots"
+output: html_document
+date: "2025-01-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+# Load necessary library
+library(ggplot2)
+```
+
+```{r}
+colnames(df_plot)
+```
+
+
+```{r}
+# Pct.Women
+prior_pct_women <-ggplot() +
+                    stat_function(fun = dbeta, args = list( shape1 = 6/7, shape2 = 2), color = "blue", size = 1) +
+                    labs(title = "Prior for beta_Pct.Women", x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_pct_women)
+```
+
+
+
+```{r}
+# Pct.Bsc.25plus
+prior_pct_bsc <-ggplot() +
+                    stat_function(fun = dbeta, args = list( shape1 = 2, shape2 = 10), color = "blue", size = 1) +
+                    labs(title = "Prior for beta_Pct.Bsc.25plus", x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_pct_bsc)
+```
+
+
+
+```{r}
+# Median.Age
+prior_med_age <-ggplot() +
+                    stat_function(fun = dnorm, args = list(mean = -1, sd = 1), color = "blue", size = 1) +
+                    xlim(c(-4,4)) +
+                    labs(title = "Prior for beta_Median.Age", x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_med_age)
+```
+
+```{r}
+# urbanindex
+prior_urbanindex <-ggplot() +
+                    stat_function(fun = dgamma, args = list(shape = 3, rate = 1), color = "blue", size = 1) +
+                    xlim(c(0,10)) +
+                    labs(title = "Prior for beta_urbanindex", x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_urbanindex)
+```
+
+
+
+
+
+

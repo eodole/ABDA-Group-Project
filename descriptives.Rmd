@@ -30,7 +30,7 @@ library(sf)
 library(patchwork)
 library(ggcorrplot)
 library(knitr)
-
+library(scales)
 ```
 
 
@@ -75,23 +75,38 @@ for (i in seq_along(df_plot[,vars_to_plot])) {
   plot <- ggplot(df_plot, aes_string(x = variable_name)) +
     geom_density(fill = rainbow_colors[i], alpha = 0.5, color = "black") +
     labs(
-      title = paste("Density Plot of", variable_name),
+      title = paste(variable_name),
       x = "Value",
       y = "Density"
     ) +
-    theme_minimal()
+    scale_x_continuous(labels = comma, breaks = pretty(df_plot$variable_name)) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 30),  # Adjust title size and make it bold
+      axis.title = element_text(size = 25),  # Adjust axis title size
+      axis.text = element_text(size = 25)    # Adjust axis text size
+    )
   
   # Print the plot to RStudio
   print(plot)
   
-  # Optional: Save each plot as an image
-#  ggsave(
-#    filename = paste0(variable_name, "_density_plot.png"),
-#    plot = plot,
-#    width = 6,
-#    height = 4,
-#    dpi = 300
-#  )
+  # Optional: Save each plot as an image to plot data folder
+  ggsave(
+    filename = file.path("./data/plots/",paste0(variable_name, "_density_plot.pdf")),
+    plot = plot,
+    width = 6,
+    height = 4,
+    dpi = 300
+  )
+  
+  # Save to writing folder
+  ggsave(
+    filename = file.path("./writing0/plots/",paste0(variable_name, "_density_plot.pdf")),
+    plot = plot,
+    width = 6,
+    height = 4,
+    dpi = 300
+  )
 }
 
 
@@ -113,6 +128,41 @@ for (i in seq_along(df_plot[,vars_to_plot])) {
 ```
 
 
+```{r}
+# Winning Party
+
+# Create the bar chart with custom colors
+winner_barchart <- ggplot(df_plot, aes(x = factor(Winning.party))) +
+                    geom_bar(width = 0.2 ,fill = c("red", "blue"), alpha = 0.7, color = "black") +  # Custom colors
+                    labs(title = "Winning.party", x = "Party", y = "Frequency") +
+                    scale_x_discrete(labels = c("0" = "Republican", "1" = "Democratic")) +
+                    theme_minimal() +
+                    theme(
+                      plot.title = element_text(size = 30),  # Adjust title size and make it bold
+                      axis.title = element_text(size = 25),  # Adjust axis title size
+                      axis.text = element_text(size = 25)    # Adjust axis text size
+                    )
+
+print(winner_barchart)
+
+ggsave(
+    filename = file.path("./data/plots/winner_barchart.pdf"),
+    plot = winner_barchart,
+    width = 6,
+    height = 4,
+    dpi = 300
+  )
+  
+  # Save to writing folder
+  ggsave(
+    filename = file.path("./writing0/plots/winner_barchart.pdf"),
+    plot = winner_barchart,
+    width = 6,
+    height = 4,
+    dpi = 300
+  )
+
+```
 
 
 
@@ -160,8 +210,8 @@ urbanindex_limits <- range(urbanindex_data$urbanindex, na.rm = TRUE)
 # Define shared color scale
 color_scale <- scale_fill_gradient(
   name = "Urban Index",
-  low = "lightblue",
-  high = "darkblue",
+  low = "white",
+  high = "darkgreen",
   limits = urbanindex_limits,
   na.value = "gray90"  # For districts without data
 )
@@ -175,7 +225,8 @@ contiguous_us <- ggplot(map_data %>% filter(!(state_abbreviation %in% c("AK", "H
     ylim = c(25, 50)
   ) +
   theme_void() +
-  labs(title = "Urban Index by Congressional District")
+  labs(title = "Urban Index by Congressional District") +
+  theme(plot.title = element_text(size = 16) )
 
 alaska <- ggplot(map_data %>% filter(state_abbreviation == "AK")) +
   geom_sf(aes(fill = urbanindex), color = "white") +
@@ -184,7 +235,11 @@ alaska <- ggplot(map_data %>% filter(state_abbreviation == "AK")) +
     xlim = c(-180, -130),  # Alaska's longitude range
     ylim = c(50, 72)       # Alaska's latitude range
   ) +
-  theme_void()
+#  labs(title = "Alaska") +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 12),
+    legend.position = "none")
 
 hawaii <- ggplot(map_data %>% filter(state_abbreviation == "HI")) +
   geom_sf(aes(fill = urbanindex), color = "white") +
@@ -193,7 +248,11 @@ hawaii <- ggplot(map_data %>% filter(state_abbreviation == "HI")) +
     xlim = c(-161, -154),  # Hawaii's longitude range
     ylim = c(18, 23)       # Hawaii's latitude range
   ) +
-  theme_void()
+#  labs(title = "Hawaii") +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 12),
+    legend.position = "none")
 
 
 
@@ -205,7 +264,142 @@ final_map <- (contiguous_us) / plot_spacer() /
   
 # Display the map
 final_map
+
+
+# Save
+ggsave(
+  filename = file.path("./data/plots/urbanindexmap.pdf"),
+  plot = final_map,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+ggsave(
+  filename = file.path("./writing0/plots/urbanindexmap.pdf"),
+  plot = final_map,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+
 ```
+
+
+```{r}
+# Winner district map
+
+
+# Urban Index district map with Winning Party
+
+# Set options for tigris
+options(tigris_use_cache = TRUE)
+
+# Load congressional districts shapefile (Tiger/Line from the US Census Bureau)
+districts <- tigris::congressional_districts(cb = TRUE, year = 2022)  # Use 2022 boundaries
+
+# Replace "00" with "01" for single-district states
+districts <- districts %>%
+  mutate(
+    CD118FP = ifelse(CD118FP == "00", "01", CD118FP)  # Change 00 to 01
+  )
+
+# Load a lookup table for state FIPS to state abbreviation
+state_fips <- tigris::fips_codes %>%
+  select(STATEFP = state_code, state_abbreviation = state) %>%
+  distinct()
+
+# Winning party for districts (replace with Winning.party data)
+winning_party_data <- data.frame(
+  district = df_plot$stcd,  # State-District format
+  Winning.party = factor(df_plot$Winning.party, levels = c(0, 1), labels = c("Republican", "Democratic"))  # Convert to factor
+)
+
+
+# Add state abbreviation and create a "state-district" column
+districts <- districts %>%
+  left_join(state_fips, by = "STATEFP") %>%  # Map state FIPS to abbreviations
+  mutate(district = paste0(state_abbreviation, "-", CD118FP))
+
+# Merge data with the shapefile (using Winning.party now)
+map_data <- districts %>%
+  left_join(winning_party_data, by = "district")
+
+# Define color scale for binary variable (Winning.party)
+color_scale <- scale_fill_manual(
+  name = "Winning Party",
+  values = c("Republican" = "red", "Democratic" = "blue"),  # Map colors
+  na.value = "gray90"  # For districts without data
+)
+
+
+
+# Define separate maps for contiguous US, Alaska, and Hawaii
+contiguous_us <- ggplot(map_data %>% filter(!(state_abbreviation %in% c("AK", "HI")))) +
+  geom_sf(aes(fill = Winning.party), color = "white") +  # Use Winning.party for coloring
+  color_scale +
+  coord_sf(
+    xlim = c(-125, -65),  # Contiguous US
+    ylim = c(25, 50)
+  ) +
+  theme_void() +
+  labs(title = "Winning Party by Congressional District") +
+  theme(plot.title = element_text(size = 16))
+
+alaska <- ggplot(map_data %>% filter(state_abbreviation == "AK")) +
+  geom_sf(aes(fill = Winning.party), color = "white") +
+  color_scale +
+  coord_sf(
+    xlim = c(-180, -130),  # Alaska's longitude range
+    ylim = c(50, 72)       # Alaska's latitude range
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 12),
+    legend.position = "none")
+
+hawaii <- ggplot(map_data %>% filter(state_abbreviation == "HI")) +
+  geom_sf(aes(fill = Winning.party), color = "white") +
+  color_scale +
+  coord_sf(
+    xlim = c(-161, -154),  # Hawaii's longitude range
+    ylim = c(18, 23)       # Hawaii's latitude range
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 12),
+    legend.position = "none")
+
+# Combine maps with patchwork and fix layout
+final_map <- (contiguous_us) / plot_spacer() /
+  (alaska + hawaii) +  # Alaska and Hawaii on one row
+  plot_layout(heights = c(4, 0.1, 1), widths = c(4, 0.1, 1))
+
+# Display the map
+final_map
+
+# Save the map
+ggsave(
+  filename = file.path("./data/plots/party_map.pdf"),
+  plot = final_map,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+ggsave(
+  filename = file.path("./writing0/plots/party_map.pdf"),
+  plot = final_map,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+
+```
+
+
 
 
 
@@ -231,13 +425,41 @@ as.data.frame(cor_matrix)
 
 
 # Create the correlation plot
-ggcorrplot(cor_matrix, 
-           method = "circle",   # Use circles for the correlations
-           type = "lower",      # Only plot the lower half of the matrix
-           lab = F,          # Show correlation values
-           lab_size = 3,        # Font size of the correlation labels
-           colors = c("red", "white", "blue"),  # Color gradient
-           title = "Correlation Matrix")
+corr_plot <- ggcorrplot(cor_matrix, 
+     method = "circle",   # Use circles for the correlations
+     type = "lower",      # Only plot the lower half of the matrix
+     lab = F,          # Show correlation values
+     lab_size = 3,        # Font size of the correlation labels
+     colors = c("red", "white", "blue")  # Color gradient
+     ) +
+      labs(x = NULL, y = NULL) +  
+      theme_minimal() +
+      theme(
+        plot.title = element_text(size = 18),        # Title size
+        axis.text.x = element_text(size = 12, angle = 45, hjust = 1), # X-axis text size and angle
+        axis.text.y = element_text(size = 12)                # Y-axis text size
+      )
+
+
+print(corr_plot)
+
+
+# Save
+ggsave(
+  filename = file.path("./data/plots/corrplot.pdf"),
+  plot = corr_plot,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+ggsave(
+  filename = file.path("./writing0/plots/corrplot.pdf"),
+  plot = corr_plot,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
 
 ```
 

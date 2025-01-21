@@ -22,8 +22,8 @@ colnames(df_plot)
 ```{r}
 # Pct.Women
 prior_pct_women <-ggplot() +
-                    stat_function(fun = dbeta, args = list( shape1 = 6/7, shape2 = 2), color = "blue", size = 1) +
-                    labs(title = "Prior for beta_Pct.Women", x = "Value", y = "Density") +
+                    stat_function(fun = dbeta, args = list( shape1 = 6/7, shape2 = 2), color = "lightblue", size = 1) +
+                    labs(title = "Prior for Percentage Women", x = "Value", y = "Density") +
                     theme_minimal()
 
 print(prior_pct_women)
@@ -34,8 +34,8 @@ print(prior_pct_women)
 ```{r}
 # Pct.Bsc.25plus
 prior_pct_bsc <-ggplot() +
-                    stat_function(fun = dbeta, args = list( shape1 = 2, shape2 = 10), color = "blue", size = 1) +
-                    labs(title = "Prior for beta_Pct.Bsc.25plus", x = "Value", y = "Density") +
+                    stat_function(fun = dbeta, args = list( shape1 = 2, shape2 = 10), color = "lightblue", size = 1) +
+                    labs(title = "Prior for Percentage Bachlors Degree ", x = "Value", y = "Density") +
                     theme_minimal()
 
 print(prior_pct_bsc)
@@ -46,9 +46,9 @@ print(prior_pct_bsc)
 ```{r}
 # Median.Age
 prior_med_age <-ggplot() +
-                    stat_function(fun = dnorm, args = list(mean = -1, sd = 1), color = "blue", size = 1) +
+                    stat_function(fun = dnorm, args = list(mean = -1, sd = 1), color = "lightblue", size = 1) +
                     xlim(c(-4,4)) +
-                    labs(title = "Prior for beta_Median.Age", x = "Value", y = "Density") +
+                    labs(title = "Prior for Median Age", x = "Value", y = "Density") +
                     theme_minimal()
 
 print(prior_med_age)
@@ -57,9 +57,9 @@ print(prior_med_age)
 ```{r}
 # urbanindex
 prior_urbanindex <-ggplot() +
-                    stat_function(fun = dgamma, args = list(shape = 3, rate = 1), color = "blue", size = 1) +
+                    stat_function(fun = dgamma, args = list(shape = 3, rate = 1), color = "lightblue", size = 1) +
                     xlim(c(0,10)) +
-                    labs(title = "Prior for beta_urbanindex", x = "Value", y = "Density") +
+                    labs(title = "Prior for Urban Index", x = "Value", y = "Density")+
                     theme_minimal()
 
 print(prior_urbanindex)
@@ -67,6 +67,49 @@ print(prior_urbanindex)
 
 
 
+```{r}
+# urban category 
+# 
+example_tau <- rlnorm(1, 1, 0.5)
+prior_urbanindex <-ggplot() +
+                    stat_function(fun = dgamma, args = list(shape = 1, rate = example_tau ), color = "lightblue", size = 1) +
+                    xlim(c(0,10)) +
+                    labs(title = paste("Example Prior for Urban Category with rate =", round(example_tau, 3)), x = "Value", y = "Density")+
+                    theme_minimal()
+
+print(prior_urbanindex)
 
 
+
+```
+
+
+```{r}
+# region Hierarchical prior 
+# urban category 
+# 
+
+regional_sigma <-ggplot() +
+                    stat_function(fun = dlnorm, args = list(meanlog = 1, sdlog=0.5 ), color = "lightblue", size = 1) +
+                    xlim(c(0,10)) +
+                    labs(title = "Prior for Region Hyperparameter", x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(regional_sigma)
+
+
+```
+
+```{r}
+# Example Median.Income 
+library(invgamma)
+state_sigma <- rinvgamma(1, 2, 1)
+prior_med_income <-ggplot() +
+                    stat_function(fun = dnorm, args = list(mean = 0, sd = state_sigma), color = "lightblue", size = 1) +
+                    xlim(c(-10,10)) +
+                    labs(title = paste0("Example Prior for Median Income with sigma = ", round(state_sigma, 3)), x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_med_income)
+```
 

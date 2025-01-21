@@ -162,6 +162,18 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 % \begin{frame}
 % \frametitle{Frame name}
 
+\begin{frame}{Motivation for Hierarchical Modelling}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{plots/motivation_groupwise_scatterplot.jpeg} %%placeholder!!!!
+    \caption{Your caption here}
+\end{figure}
+
+\end{frame}
+
+
+
+
 % \begin{footnotesize}
 % \begin{verbatim}
 % # Set the maximum number of samples
@@ -200,25 +212,48 @@ Let the response variable 'Winning Party' be \(y\), the main predictor 'Urban in
 
 \[\theta_j := \beta_0, j + x_{i,j} * \beta_{1,j}  + z_{i, j}^T * \gamma_{1,j}\]
 
+\[\beta_{1,j} \sim Gam.(1, \tau)\]
 
-
-\end{frame}
-
-
-\section{Results - Pooled Model}
-
-%slide
-\begin{frame}
-\frametitle{=----}
+\[\tau \sim Normal(0, 1) \]  %placeholder!!!!
 
 \end{frame}
 
 
-\section{Results - Unpooled Model}
+\section{Pooled Model}
 
 %slide
 \begin{frame}
-\frametitle{=----}
+\frametitle{Pooled Model - Description}
+
+The simplest type of model where no hierarchies are taken into account:
+
+\[y_{i, j} \sim Ber.(logit^{-1}(\theta))\]
+
+\[\theta := \beta_0 + x_{i} * \beta_{1}  + z_{i}^T * \gamma_{1}\]
+
+\[\beta_{1,j} \sim Gam.(3, 1)\]
+
+\end{frame}
+
+\begin{frame}{Pooled Model - Trace Plot}
+
+\includegraphics[width=0.9\textwidth]{plots/chains_pooled_model_default_priors_1.jpeg}
+
+\end{frame}
+
+\begin{frame}{Pooled Model - Trace Plot 2}
+
+\includegraphics[width=0.9\textwidth]{plots/chains_pooled_model_default_priors_2.jpeg}
+
+    
+\end{frame}
+
+
+\section{Unpooled Model}
+
+%slide
+\begin{frame}
+\frametitle{Description - Unpooled Model}
 
 \end{frame}
 

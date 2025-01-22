@@ -345,15 +345,34 @@ The simplest type of model where no hierarchies are taken into account:
 \end{frame}
 
 
-\section{Unpooled Model}
+\section{Single Level Models}
 
 %slide
 \begin{frame}
-\frametitle{Description - Unpooled Model}
+\frametitle{Description - Single Level Varying Intercept Model}
+
+\[y_{i, j} \sim Ber.(logit^{-1}(\theta_j))\]
+
+\small
+\theta_j := & \ \beta_{0,j} + \text{Urban\_Grouping}_{i}*\beta_{1} 
+& + \text{Total\_Population}*\beta_{2} + \text{Median \_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4}
+
+
+
+\[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0}\]
+
+\[\sigma_{\beta_0} \sim Halfcauchy(10)\]
+
+\[\beta_k,j \sim Normal(1, 0.5)\]
 
 \end{frame}
 
 \section{Results - Hierarchical Model}
+
+
+
+
+
 
 %slide
 \begin{frame}

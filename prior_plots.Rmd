@@ -133,14 +133,29 @@ library(distributional)
 
 x <- seq(-10,10, length.out =2000)
 t_dist <- dist_student_t(df = 1, mu = -1, sigma = 1)
-pretireedf <- data.frame(x = x, y = density(t_dist, x))
+y = density(t_dist, x)
+pretireedf <- data.frame(x = x)
+pretireedf$y <- y[[1]]
 
-prior_pct_retiree <-ggplot(data = pretireedf, aes(x = x, y = y )) +
+prior_pct_retiree <-ggplot(data = pretireedf, aes(x = x, y = y)) +
                     geom_line( color = "lightblue", size = 1) +
                     xlim(c(-10,10)) +
-                    labs(title = paste0("Example Prior for State_j with sigma = ", round(state_sigma, 3)), x = "Value", y = "Density") +
+                    labs(title = "Prior for Percentage Retirees ", x = "Value", y = "Density") +
                     theme_minimal()
 
 print(prior_pct_retiree)
+```
+
+```{r}
+# Hyper param state_sigma 
+library(invgamma)
+state_sigma <- rinvgamma(1, 2, 1)
+prior_state_sigma <-ggplot() +
+                    stat_function(fun = dinvgamma, args = list(shape = 2, rate = 1), color = "lightblue", size = 1) +
+                    xlim(c(0,10)) +
+                    labs(title = "Hyperprior for State Varience", x = "Value", y = "Density") +
+                    theme_minimal()
+
+print(prior_state_sigma)
 ```
 

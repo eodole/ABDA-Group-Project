@@ -235,7 +235,9 @@ Let the response variable 'Winning Party' be \(y\), the predictor of interest 'U
   % what is it & reasoning
 
   % prior distribution equation 
-  % \includegraphics[width=0.9\textwidth]{}
+  % \begin{center}
+  %   \includegraphics[width=0.5\textwidth]{}
+  % \end{center}
 
   % equation 
 \end{frame}
@@ -244,11 +246,14 @@ Let the response variable 'Winning Party' be \(y\), the predictor of interest 'U
 \begin{frame}
   \frametitle{Urbanization Index}
   % Script 
-  % Urbanization Index is a measure created by fivethirtyeight calculated based on populatin density of a given district.
-  % We assume that urbaniation has some positive impact on the likelihood of voting democrat, because urban areas tend to lean more democratic [source]. 
-  % However, we assume a regional effect as this relationship is likely more pronounced in more rural regions generally. % should we have a source here? 
+  Urbanization Index is a measure created by fivethirtyeight calculated based on populatin density of a given district.
+  We assume that urbaniation has some positive impact on the likelihood of voting democrat, because urban areas tend to lean more democratic [source]. 
+  However, we assume a regional effect as this relationship is likely more pronounced in more rural regions generally. % should we have a source here? 
   %prior distribution graph 
-  \includegraphics[width=0.9\textwidth]{plots/prior_urban.index.png}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{plots/prior_urban.index.png}
+  \end{center}
+ 
   
   % prior distribution equation 
   $$ \beta_{urbanindex} \sim Gamma(\alpha = 3, \beta = 1 )$$ 
@@ -269,19 +274,27 @@ Let the response variable 'Winning Party' be \(y\), the predictor of interest 'U
 \begin{frame}
   \frametitle{Total Population}
   % what is it 
-  
+  Since each district is drawn to have roughly the same population within each state, we think that this covariate will have a very small influence as there should be nearly no variance within a state. However, this effect maybe be state dependent. 
   % prior distribution equation 
-
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{plots/prior_total_pop.png}
+  \end{center}
+  
   % explaination 
+  $$ \beta_{total.pop} | state \sim  N(0, \sigma_{state})$$
 \end{frame}
 
 %slide 
 \begin{frame}
   \frametitle{Percentage Women}
   % what is it 
-
+  We found that women tend to lean more democratic and have higher turnout than men. Leading us to believe there should be a positive association between percentage women in a district and probability of voting democratic. 
+  However percentage of women isn't a variable that varies greatly with geography so we assume if there is an effect that it will be quite small.  
   % prior distribution equation 
-  \includegraphics[width=0.9\textwidth]{plots/prior_pct.women.png}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{plots/prior_pct.women.png}
+  \end{center}
+  
   % explaination 
   $$ \beta_{pct.women} \sim Beta(\alpha = \frac{6}{7}, \beta = 2) $$
 \end{frame}
@@ -289,9 +302,12 @@ Let the response variable 'Winning Party' be \(y\), the predictor of interest 'U
 \begin{frame}
   \frametitle{Percentage of Population over 25 with Bachelors Degree}
   % what is it & reasoning
-
+  We found that those holding a bachelors degree or higher education lean democratic however they make up a small part of the population 
   % prior distribution equation 
-  \includegraphics[width=0.9\textwidth]{plots/prior_pct.bachelors.png}
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{plots/prior_pct.bachelors.png}
+  \end{center}
+  
 
   % equation 
   $$  \beta_{pct.bachelors} \sim Beta( \alpha = 1 , \beta = 10 )$$

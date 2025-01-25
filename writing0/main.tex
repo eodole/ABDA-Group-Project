@@ -4,6 +4,15 @@
 \usetheme{Darmstadt}
 \usecolortheme{default}
 
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
 \begin{document}
 
 
@@ -114,7 +123,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \hfill
     \begin{minipage}{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{plots/Mean.Income_density_plot.pdf}
+        \includegraphics[width=\textwidth]{plots/Median.Income_density_plot.pdf}
     \end{minipage}
     
     \vspace{0.2cm} % Add vertical space between rows
@@ -211,252 +220,332 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
   \end{itemize}
   \end{frame}
 
-%slide
-\begin{frame}{Model}
-Let the response variable 'Winning Party' be \(y\), the predictor of interest 'Urban index' be \(x\), and the other covariates be a 15-dimensional vector \(z\). Let \(i\), \(j\), and \(k\) be the indices for the district, region, and state respectively. 
 
-\[y_{i, j} \sim Ber.(logit^{-1}(\theta_{j}))\]
 
-\[\theta_j := \beta_0, j + x_{i,j} * \beta_{1,j}  + z_{i, j}^T * \gamma_{1,j}\]
 
-\[\beta_{1,j} \sim Gam.(1, \tau)\]
 
-\[\tau \sim Normal(0, 1) \]  %placeholder!!!!
+\section{Models}
 
+\begin{frame}{Model 1}
+    % equation 
+    % priors
+
+    Let the response variable 'Winning Party' be \(y\), the predictor of interest 'Urban index' be \(x\), and the other covariates be a 15-dimensional vector \(z\). Let \(i\), \(j\), and \(k\) be the indices for the district, region, and state respectively. 
+
+    \[y_{i, j} \sim Ber.(logit^{-1}(\theta_{j}))\]
+    
+    \[\theta_j := \beta_0, j + x_{i,j} * \beta_{1,j}  + z_{i, j}^T * \gamma_{1,j}\]
+    
+    \[\beta_{1,j} \sim Gam.(1, \tau)\]
+    
+    \[\tau \sim Normal(0, 1) \]  %placeholder!!!!
 
 \end{frame}
-%slide - prior place holder 
 
-%slide 
-\begin{frame}
-\frametitle{Urbanization Index}
-  % Script 
-  Urbanization Index is a measure created by fivethirtyeight calculated based on populatin density of a given district.
-  We assume that urbaniation has some positive impact on the likelihood of voting democrat, because urban areas tend to lean more democratic [source]. 
-  However, we assume a regional effect as this relationship is likely more pronounced in more rural regions generally. % should we have a source here? 
-  %prior distribution graph 
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{plots/prior_urban.index.png}
-  \end{center}
+
+\begin{frame}{Model 1: Results}
+    % summary
+    % trace plot and hist of urbanindex
+\end{frame}
+
+
+\begin{frame}{Model 2}
+    % equation 
+    % priors
+\end{frame}
+
+
+\begin{frame}{Model 2: Results}
+    % summary
+    % trace plot and hist of urbanindex
+\end{frame}
+
+
+\begin{frame}{Model 3}
+    % equation 
+    % priors
+\end{frame}
+
+
+\begin{frame}{Model 3: Results}
+    % summary
+    % trace plot and hist of urbanindex
+\end{frame}
+
+
+\begin{frame}{Model 4}
+    % equation 
+    % priors
+\end{frame}
+
+
+\begin{frame}{Model 4: Results}
+    % summary
+    % trace plot and hist of urbanindex
+\end{frame}
+
+
+
+
+
+
+\section{Model Comparison}
+
+\begin{frame}{Model Comparison}
+    % satatistics
+    % plots (?)
+\end{frame}
+
+
+
+
+\section{Prior Sensitivity Analysis}
+
+\begin{frame}{Alternative Priors}
+    % listing what different priors where changed
+\end{frame}
+
+\begin{frame}{What's changed}
+    
+\end{frame}
+
+
+
+
+
+
+
+% %slide 
+% \begin{frame}
+% \frametitle{Urbanization Index}
+%   % Script 
+%   Urbanization Index is a measure created by fivethirtyeight calculated based on populatin density of a given district.
+%   We assume that urbaniation has some positive impact on the likelihood of voting democrat, because urban areas tend to lean more democratic [source]. 
+%   However, we assume a regional effect as this relationship is likely more pronounced in more rural regions generally. % should we have a source here? 
+%   %prior distribution graph 
+%   \begin{center}
+%     \includegraphics[width=0.5\textwidth]{plots/prior_urban.index.png}
+%   \end{center}
  
   
-  % prior distribution equation 
-  $$ \beta_{urbanindex} \sim Gamma(\alpha = 3, \beta = 1 )$$ 
-  % explaination 
-  \end{frame}
+%   % prior distribution equation 
+%   $$ \beta_{urbanindex} \sim Gamma(\alpha = 3, \beta = 1 )$$ 
+%   % explaination 
+%   \end{frame}
 
-\begin{frame}
-  \frametitle{Urbanization Category}
-  % what is it - need to rethink 
-  Urbanization category is the measure created by fivethirtyeight that bounds the numerical values of urban index into several buckets. 
-  We assume that each of these categories with have a postive association 
-  % prior distribution equation 
+% \begin{frame}
+%   \frametitle{Urbanization Category}
+%   % what is it - need to rethink 
+%   Urbanization category is the measure created by fivethirtyeight that bounds the numerical values of urban index into several buckets. 
+%   We assume that each of these categories with have a postive association 
+%   % prior distribution equation 
 
-  % explaination 
-\end{frame}
+%   % explaination 
+% \end{frame}
 
-%slide 
-\begin{frame}
-  \frametitle{Total Population}
-  % what is it 
-  Since each district is drawn to have roughly the same population within each state, we think that this covariate will have a very small influence as there should be nearly no variance within a state. However, this effect maybe be state dependent. 
-  % prior distribution equation 
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{plots/prior_total_pop.png}
-  \end{center}
+% %slide 
+% \begin{frame}
+%   \frametitle{Total Population}
+%   % what is it 
+%   Since each district is drawn to have roughly the same population within each state, we think that this covariate will have a very small influence as there should be nearly no variance within a state. However, this effect maybe be state dependent. 
+%   % prior distribution equation 
+%   \begin{center}
+%     \includegraphics[width=0.5\textwidth]{plots/prior_total_pop.png}
+%   \end{center}
   
-  % explaination 
-  $$ \beta_{total.pop} | state \sim  N(0, \sigma_{state})$$
-\end{frame}
+%   % explaination 
+%   $$ \beta_{total.pop} | state \sim  N(0, \sigma_{state})$$
+% \end{frame}
 
-%slide 
-\begin{frame}
-  \frametitle{Percentage Women}
-  % what is it 
-  We found that women tend to lean more democratic and have higher turnout than men. Leading us to believe there should be a positive association between percentage women in a district and probability of voting democratic. 
-  However percentage of women isn't a variable that varies greatly with geography so we assume if there is an effect that it will be quite small.  
-  % prior distribution equation 
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{plots/prior_pct.women.png}
-  \end{center}
+% %slide 
+% \begin{frame}
+%   \frametitle{Percentage Women}
+%   % what is it 
+%   We found that women tend to lean more democratic and have higher turnout than men. Leading us to believe there should be a positive association between percentage women in a district and probability of voting democratic. 
+%   However percentage of women isn't a variable that varies greatly with geography so we assume if there is an effect that it will be quite small.  
+%   % prior distribution equation 
+%   \begin{center}
+%     \includegraphics[width=0.5\textwidth]{plots/prior_pct.women.png}
+%   \end{center}
   
-  % explaination 
-  $$ \beta_{pct.women} \sim Beta(\alpha = \frac{6}{7}, \beta = 2) $$
-\end{frame}
+%   % explaination 
+%   $$ \beta_{pct.women} \sim Beta(\alpha = \frac{6}{7}, \beta = 2) $$
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Percentage of Population over 25 with Bachelors Degree}
-  % what is it & reasoning
-  We found that those holding a bachelors degree or higher education lean democratic however they make up a small part of the population only 21.5\% on average in our dataset. So we imagine it will have a small positive effect
-  % prior distribution equation 
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{plots/prior_pct.bachelors.png}
-  \end{center}
+% \begin{frame}
+%   \frametitle{Percentage of Population over 25 with Bachelors Degree}
+%   % what is it & reasoning
+%   We found that those holding a bachelors degree or higher education lean democratic however they make up a small part of the population only 21.5\% on average in our dataset. So we imagine it will have a small positive effect
+%   % prior distribution equation 
+%   \begin{center}
+%     \includegraphics[width=0.5\textwidth]{plots/prior_pct.bachelors.png}
+%   \end{center}
   
 
-  % equation 
-  $$  \beta_{pct.bachelors} \sim Beta( \alpha = 1 , \beta = 10 )$$
-\end{frame}
+%   % equation 
+%   $$  \beta_{pct.bachelors} \sim Beta( \alpha = 1 , \beta = 10 )$$
+% \end{frame}
 
 
 
-\section{Pooled Model}
+% \section{Pooled Model}
 
-%slide
-\begin{frame}{Pooled Model - Description}
+% %slide
+% \begin{frame}{Pooled Model - Description}
 
-The simplest type of model where no hierarchies are taken into account:
+% The simplest type of model where no hierarchies are taken into account:
 
-\[y_{i, j} \sim Ber.(logit^{-1}(\theta))\]
+% \[y_{i, j} \sim Ber.(logit^{-1}(\theta))\]
 
-\[\theta := \beta_0 + x_{i} * \beta_{1}  + z_{i}^T * \gamma_{1}\]
+% \[\theta := \beta_0 + x_{i} * \beta_{1}  + z_{i}^T * \gamma_{1}\]
 
-\[\beta_{1,j} \sim Gam.(3, 1)\]
+% \[\beta_{1,j} \sim Gam.(3, 1)\]
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Pooled Model - Trace Plot}
+% \begin{frame}{Pooled Model - Trace Plot}
 
-\includegraphics[width=0.9\textwidth]{plots/chains_pooled_model_default_priors_1.jpeg}
+% \includegraphics[width=0.9\textwidth]{plots/chains_pooled_model_default_priors_1.jpeg}
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Pooled Model - Trace Plot 2}
+% \begin{frame}{Pooled Model - Trace Plot 2}
 
-\includegraphics[width=0.9\textwidth]{plots/chains_pooled_model_default_priors_2.jpeg}
+% \includegraphics[width=0.9\textwidth]{plots/chains_pooled_model_default_priors_2.jpeg}
 
     
-\end{frame}
+% \end{frame}
 
 
-\section{Single Level Models}
+% \section{Single Level Models}
+
+
+% \begin{frame}{Description - Single Level Varying Intercept Model}
+
+% \[y_{i, j} \sim Ber.(logit^{-1}(\theta_j))\]
+
+% \small
+% \theta_j := & \beta_0 + \ \beta_{0,j} + \text{Urban\_Grouping}_{i}*\beta_{1} 
+% & + \text{Total\_Population}*\beta_{2} + \text{Median\_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4} + \text{Med.\_Age}*\beta_{5}*\text{Pct\_Bachelor}
+
+
+% \[\beta_0 \sim ~ t(3, 0, 2.5)\]
+
+% \[\beta_4 \sim Normal(-1, 1)\]
+
+% \[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0})\]
+
+% \[\sigma_{\beta_0} \sim Halfcauchy(10)\]
+
+% \[\beta_{k,j} \sim \mathcal{N}(1, 0.5), \quad \text{for } k \neq 0, 4\]
+
+
+% \end{frame}
 
 
 
-\begin{frame}{Description - Single Level Varying Intercept Model}
+% \begin{frame}{Single Level Varying Slope Model}
 
-\[y_{i, j} \sim Ber.(logit^{-1}(\theta_j))\]
+% \[y_{i, j} \sim Ber.(logit^{-1}(\theta_j))\]
 
-\small
-\theta_j := & \beta_0 + \ \beta_{0,j} + \text{Urban\_Grouping}_{i}*\beta_{1} 
-& + \text{Total\_Population}*\beta_{2} + \text{Median\_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4} + \text{Med.\_Age}*\beta_{5}*\text{Pct\_Bachelor}
+% \small
+% \theta_j := & \beta_0 + \ \beta_{0,j} + \text{Urban\_Grouping}_{i}*\beta_{1} & + \text{Urban\_Grouping}_{i}*\beta_{1,j} 
+% & + \text{Total\_Population}*\beta_{2} + \text{Median\_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4} + \text{Med.\_Age}*\beta_{5}*\text{Pct\_Bachelor}
 
+% \[\beta_0 \sim ~ t(3, 0, 2.5)\]
 
-\[\beta_0 \sim ~ t(3, 0, 2.5)\]
+% \[\beta_4 \sim Normal(-1, 1)\]
 
-\[\beta_4 \sim Normal(-1, 1)\]
+% \[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0})\]
 
-\[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0})\]
+% \[\sigma_{\beta_0} \sim Halfcauchy(10); \sigma_{\beta_1} \sim Halfcauchy(10)\]
 
-\[\sigma_{\beta_0} \sim Halfcauchy(10)\]
-
-\[\beta_{k,j} \sim \mathcal{N}(1, 0.5), \quad \text{for } k \neq 0, 4\]
-
-
-\end{frame}
-
-\begin{frame}{Single Level Varying Slope Model}
-
-\[y_{i, j} \sim Ber.(logit^{-1}(\theta_j))\]
-
-\small
-\theta_j := & \beta_0 + \ \beta_{0,j} + \text{Urban\_Grouping}_{i}*\beta_{1} & + \text{Urban\_Grouping}_{i}*\beta_{1,j} 
-& + \text{Total\_Population}*\beta_{2} + \text{Median\_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4} + \text{Med.\_Age}*\beta_{5}*\text{Pct\_Bachelor}
-
-\[\beta_0 \sim ~ t(3, 0, 2.5)\]
-
-\[\beta_4 \sim Normal(-1, 1)\]
-
-\[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0})\]
-
-\[\sigma_{\beta_0} \sim Halfcauchy(10); \sigma_{\beta_1} \sim Halfcauchy(10)\]
-
-\[\beta_{k,j} \sim \mathcal{N}(1, 0.5), \quad \text{for } k \neq 0, 4\]
+% \[\beta_{k,j} \sim \mathcal{N}(1, 0.5), \quad \text{for } k \neq 0, 4\]
     
-\end{frame}
+% \end{frame}
 
-\section{Two Level Models}
+% \section{Two Level Models}
 
-\begin{frame}{Two Level Varying Intercept Model}
+% \begin{frame}{Two Level Varying Intercept Model}
 
-\[y_{i, j, k} \sim Ber.(logit^{-1}(\theta_{j,k}))\]
+% \[y_{i, j, k} \sim Ber.(logit^{-1}(\theta_{j,k}))\]
 
 
-\small
-\theta_{j, k} := & \beta_0 + \beta_{0,j} + \beta_{0, k} \text{Urban\_Grouping}_{i}*\beta_{1} & + \text{Urban\_Grouping}_{i}*\beta_{1,j} 
-& + \text{Total\_Population}*\beta_{2} + \text{Median\_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4} + \text{Med.\_Age}*\beta_{5}*\text{Pct\_Bachelor}
+% \small
+% \theta_{j, k} := & \beta_0 + \beta_{0,j} + \beta_{0, k} \text{Urban\_Grouping}_{i}*\beta_{1} & + \text{Urban\_Grouping}_{i}*\beta_{1,j} 
+% & + \text{Total\_Population}*\beta_{2} + \text{Median\_Income} *\beta_{3} + \text{Med.\_Age}*\beta_{4} + \text{Med.\_Age}*\beta_{5}*\text{Pct\_Bachelor}
 
-\[\beta_0 \sim ~ t(3, 0, 2.5)\]
+% \[\beta_0 \sim ~ t(3, 0, 2.5)\]
 
-\[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0})\]
+% \[\beta_{0,j} \sim Normal(0, \sigma_{\beta_0})\]
 
-\[\beta_{0,k} \sim Normal(0, \sigma_{\beta_0})\]
+% \[\beta_{0,k} \sim Normal(0, \sigma_{\beta_0})\]
 
-\[\sigma_{\beta_{0,j}} \sim Halfcauchy(10); \sigma_{\beta_{0,k}} \sim Halfcauchy(10)\]
+% \[\sigma_{\beta_{0,j}} \sim Halfcauchy(10); \sigma_{\beta_{0,k}} \sim Halfcauchy(10)\]
 
-\[Cor.(j,k) \sim Halfcauchy(10)\]
+% \[Cor.(j,k) \sim Halfcauchy(10)\]
 
 
     
-\end{frame}
+% \end{frame}
 
 
 
-\section{Results}
+% \section{Results}
 
 
-\begin{frame}{Posterior Densities  - Single Level Varying Intercept Model}
+% \begin{frame}{Posterior Densities  - Single Level Varying Intercept Model}
 
-\includegraphics[width=0.9\textwidth]{plots/vary_intercept_grouping_density.png}
+% \includegraphics[width=0.9\textwidth]{plots/vary_intercept_grouping_density.png}
     
-\end{frame}
+% \end{frame}
 
-\begin{frame}{Single Level Varying Intercept Model - SD}
-    \includegraphics[width=0.9\textwidth]{plots/sd_vary_intercept_grouping_density.jpeg}
-\end{frame}
+% \begin{frame}{Single Level Varying Intercept Model - SD}
+%     \includegraphics[width=0.9\textwidth]{plots/sd_vary_intercept_grouping_density.jpeg}
+% \end{frame}
 
-\begin{frame}{Single Level Varying Intercept Model - Groups}
-    \includegraphics[width=0.9\textwidth]{plots/vary_intercept_grouping_density_groups_only.png}
-\end{frame}
+% \begin{frame}{Single Level Varying Intercept Model - Groups}
+%     \includegraphics[width=0.9\textwidth]{plots/vary_intercept_grouping_density_groups_only.png}
+% \end{frame}
 
-%slide
-\begin{frame}
-\frametitle{Varying Intercept Model}
+% %slide
+% \begin{frame}
+% \frametitle{Varying Intercept Model}
 
-\begin{center}
-    \includegraphics[width=0.8\textwidth]{placeholder_hist_varying_intercept_1_level.jpeg}
-\end{center}
+% \begin{center}
+%     \includegraphics[width=0.8\textwidth]{placeholder_hist_varying_intercept_1_level.jpeg}
+% \end{center}
 
-\end{frame}
+% \end{frame}
 
 
-\begin{frame}
-  \frametitle{Varying Intercept Model - II}%% wasn't rendering properly 
+% \begin{frame}
+%   \frametitle{Varying Intercept Model - II}%% wasn't rendering properly 
   
-  % \begin{table} \centering
-  %   \caption{Descriptive Statistics by Region} 
-  %   \label{table:stats}
-  %   \resizebox{\textwidth}{!}{ % Resizing the table to fit the frame width
-  %   \begin{tabular}{@{\extracolsep{5pt}} cccccccccccc} 
-  %   \toprule
-  %   & Region & Variable & Mean & Median & SD & MAD & Q5 & Q95 & Rhat & ESS\_Bulk & ESS\_Tail \\ 
-  %   \midrule
-  %   1 & $1$ & r\_region\_index & $-0.661$ & $-0.627$ & $0.486$ & $0.405$ & $-1.484$ & $0.023$ & $1.014$ & $221.604$ & $240.881$ \\ 
-  %   2 & $2$ & r\_region\_index & $0.272$ & $0.273$ & $0.496$ & $0.388$ & $-0.443$ & $1.035$ & $1.010$ & $249.762$ & $277.608$ \\ 
-  %   3 & $3$ & r\_region\_index & $0.424$ & $0.410$ & $0.513$ & $0.417$ & $-0.414$ & $1.242$ & $1.004$ & $267.517$ & $238.103$ \\ 
-  %   4 & $4$ & r\_region\_index & $-0.164$ & $-0.138$ & $0.495$ & $0.419$ & $-1.008$ & $0.534$ & $1.014$ & $262.794$ & $271.583$ \\ 
-  %   \bottomrule
-  %   \end{tabular}
-  %   } % End of resizebox
-  % \end{table}
-\end{frame}
+%   % \begin{table} \centering
+%   %   \caption{Descriptive Statistics by Region} 
+%   %   \label{table:stats}
+%   %   \resizebox{\textwidth}{!}{ % Resizing the table to fit the frame width
+%   %   \begin{tabular}{@{\extracolsep{5pt}} cccccccccccc} 
+%   %   \toprule
+%   %   & Region & Variable & Mean & Median & SD & MAD & Q5 & Q95 & Rhat & ESS\_Bulk & ESS\_Tail \\ 
+%   %   \midrule
+%   %   1 & $1$ & r\_region\_index & $-0.661$ & $-0.627$ & $0.486$ & $0.405$ & $-1.484$ & $0.023$ & $1.014$ & $221.604$ & $240.881$ \\ 
+%   %   2 & $2$ & r\_region\_index & $0.272$ & $0.273$ & $0.496$ & $0.388$ & $-0.443$ & $1.035$ & $1.010$ & $249.762$ & $277.608$ \\ 
+%   %   3 & $3$ & r\_region\_index & $0.424$ & $0.410$ & $0.513$ & $0.417$ & $-0.414$ & $1.242$ & $1.004$ & $267.517$ & $238.103$ \\ 
+%   %   4 & $4$ & r\_region\_index & $-0.164$ & $-0.138$ & $0.495$ & $0.419$ & $-1.008$ & $0.534$ & $1.014$ & $262.794$ & $271.583$ \\ 
+%   %   \bottomrule
+%   %   \end{tabular}
+%   %   } % End of resizebox
+%   % \end{table}
+% \end{frame}
 
 
-%slide
-\begin{frame}
-\frametitle{Results - Varying Intercept Model}
----
-\end{frame}
+% %slide
+% \begin{frame}
+% \frametitle{Results - Varying Intercept Model}
+% ---
+% \end{frame}
 
 \section{Raw References}
 
@@ -465,7 +554,7 @@ The simplest type of model where no hierarchies are taken into account:
         \item stargazer
         \item tidybayes
         \item brms, stan
-        \item https://lnalborczyk.github.io/phd_thesis/appendix-brms.html#shrink
+      %  \item https://lnalborczyk.github.io/phd_thesis/appendix-brms.html#shrink
     \end{itemize}
 \end{frame}
 

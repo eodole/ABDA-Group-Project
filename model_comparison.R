@@ -39,7 +39,7 @@ model.comp <- function(model, model_number, model_color){
   
   q <- df %>% ggplot( aes(x = log.like) ) +
     geom_histogram(bins =15, color = model_color, fill = "white") + 
-    labs(title = paste0("Log-Likelihood Histogram for Model ", model_number), xlab = "Log Likelihood") +
+    labs(title = paste0("Log-Likelihood Histogram for Model ", model_number), x = "Log Likelihood") +
     theme_minimal()
   
   print(q)
@@ -52,13 +52,12 @@ model.comp <- function(model, model_number, model_color){
     ui = ui_post
   )
   
-  print(df)
   
-  r <- df %>% ggplot( aes(x= ui) ) +
-    geom_histogram(bins =30, color = model_color, fill = "white") + 
-    labs(title = paste0("Posterior Distribution for Urban Index ", model_number)) +
+  r <- df %>% ggplot( aes( x = ui) ) +
+    geom_histogram(bins =30, color = model_color, fill = "white") +
+    labs(title = "Posterior Distribution for Urban Index", x = "Parameter Value" ) +
     theme_minimal()
-  
+
   print(r)
-    
+
 }

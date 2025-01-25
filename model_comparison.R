@@ -43,4 +43,20 @@ model.comp <- function(model, model_number, model_color){
     theme_minimal()
   
   print(q)
+  
+  # posterior distribution of urbanindex 
+  posts <- posterior_samples(model)
+  ui_post <- posts$b_urbanindex
+
+  df <- data.frame(
+    value = ui.post
+  )
+  
+  r <- df %>% ggplot( aes(x = value) ) +
+    geom_histogram(bins =30, color = model_color, fill = "white") + 
+    labs(title = paste0("Posterior Distribution for Urban Index ", model_number)) +
+    theme_minimal()
+  
+  print(r)
+    
 }

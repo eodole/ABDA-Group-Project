@@ -36,20 +36,17 @@ g5_prior <- set_prior('normal(1, 0.5)', class = 'b', coef = 'groupingUrbanMSubur
 
 int_region_prior <- set_prior('cauchy(0, 10)', class = 'sd')
 
-vary_slope_fit <- brm(cat_form_intercept, family = 'bernoulli', 
+vary_intercept_fit <- brm(cat_form_intercept, family = 'bernoulli', 
                       prior = total_pop_prior + med_income_prior + med_age_prior + 
                         bachelor_prior + int_region_prior + g1_prior + g2_prior +
                         g3_prior + g4_prior + g5_prior, chains = 2, iter = 2000,
                       data = df_scaled)
 
 
-get_prior(vary_slope_fit)
+get_prior(vary_intercept_fit)
 
-plot(vary_slope_fit, combo = c('trace', 'hist'))
+plot(vary_intercept_fit, combo = c('trace', 'hist'))
 
-
-##let us try to 
-## (4) experiment with the priors
 
 
 ##single level varying slope and intercept model 
@@ -60,10 +57,28 @@ index_form_slope_intercept <- as.formula('Winning.party ~ 1 + Total.Population +
 
 
 
+##we need to set a prior on the sd's of each group
+
+
+
+vary_slope_intercept_fit <- brm(cat_form_slope_intercept, family = 'bernoulli',  
+                                prior = total_pop_prior + med_income_prior + med_age_prior + 
+                                  bachelor_prior + int_region_prior + g1_prior + g2_prior +
+                                  g3_prior + g4_prior + g5_prior, chains = 2, iter = 2000,
+                                data = df_scaled)
+
+get_prior(vary_slope_intercept_fit)
+
+plot(vary_slope_intercept_fit, combo = c('trace', 'hist'))
+
+
+
 ##double level varying intercept model 
 two_level_cat_form_slope <- as.formula('Winning.party ~ 1 + Total.Population + Median.Household.Income + Median.Age + Percentage.Bachelors.Degree.in.Population.over.25 + grouping + (1 || Region || State)')
 
 two_level_index_form_slope <- as.formula('Winning.party ~ 1 + Total.Population + Median.Household.Income + Median.Age + Percentage.Bachelors.Degree.in.Population.over.25 + urbanindex + (1 || Region || State)')
+
+
 
 
 

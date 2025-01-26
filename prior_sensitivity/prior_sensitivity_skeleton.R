@@ -1,6 +1,6 @@
 rm(list = ls())
 df <- read.csv('C:/Users/anarm/OneDrive/Documents/R Scripts/bayesian/data_with_region_indices.csv')[,-1]
-
+df <- read.csv("./data/data_with_region_indices.csv")
 library(ggplot2)
 library(dplyr)
 library(tibble)
@@ -17,7 +17,7 @@ df_scaled$Median.Household.Income <- df_scaled$Median.Household.Income/100000
 
 
 
-#1. 
+#1. (model 3)
 ###state level only -  single level varying slope model
 form1 <- as.formula('Winning.party ~ 1 + urbanindex + Percentage.Retirees..65.. +  (0 + urbanindex|| State)')
 int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
@@ -29,9 +29,10 @@ sd_urb_prior <- set_prior('cauchy(0,10)', class = 'sd')
 
 vary_slope_fit <- brm(form1, family = 'bernoulli',  
                       prior = int_prior + urb_prior + pct_ret_prior + 
-                        sd_urb_prior, chains = 2, iter = 2000,
+                        sd_urb_prior, chains = 4, iter = 2000,
                       data = df_scaled)
 
+model.comp(vary_slope_fit, 3, "lightblue")
 
 #2. 
 ###state level only -  single level varying slope model
@@ -144,7 +145,7 @@ vary_slope_fit <- brm(form1, family = 'bernoulli',
                       data = df_scaled)
 
 
-#9. 
+#9. ( model number 2)
 ###tiny model - two level varying slope model 
 
 form3 <- as.formula('Winning.party ~ 1 + urbanindex + Percentage.Retirees..65.. +  (0 + urbanindex | State / Region)')
@@ -158,9 +159,11 @@ sd_urb_prior <- set_prior('cauchy(0,10)', class = 'sd')
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
                                 prior = int_prior + urb_prior + pct_ret_prior + 
-                                  sd_urb_prior, chains = 2, iter = 2000,
+                                  sd_urb_prior, chains = 4, iter = 2000,
                                 data = df_scaled)
 
+
+model.comp(two_level_vary_slope_fit)
 
 #10. 
 ###tiny model - two level varying slope model 

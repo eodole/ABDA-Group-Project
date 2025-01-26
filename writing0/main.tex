@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont}
+\usepackage{subfigure}
 \usetheme{Darmstadt}
 \usecolortheme{default}
 
@@ -303,15 +304,71 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     % satatistics
     % plots (?)
     % R2 output for Model 1: 
+    \begin{center}
+        
+   
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         Model & Estimate & Estimate Error & Q 2.5 & Q 97.5 \\
         \hline
         1 & 0.568   & 0.0246 & 0.516 & 0.612 \\
         \hline 
+        % M2 
+        % Estimate  Est.Error      Q2.5     Q97.5
+        % R2 0.5343788 0.02557753 0.4790438 0.5792852
+        2 & 0.534 & 0.0255&  0.479 & 0.579\\
+        % M3
+        % Estimate  Est.Error      Q2.5     Q97.5
+        % R2 0.5292589 0.02553931 0.4744139 0.5743095
+        3 & 0.529 &  0.0255 &  0.474& 0.574 \\
+
+
     \end{tabular}  
+\end{center}
 \end{frame}
 
+\begin{frame}{Model Comparison: RMSE}
+    \begin{figure}[h!]
+        \centering
+        
+        \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_rmse.png}} 
+        \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_rmse.png}} 
+        \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_rmse.png}}
+        % \subfigure(d){\includegraphics[width=0.45\textwidth]{}} % model 4
+      
+        \caption{RMSE Comparison}
+      
+    
+      \end{figure}   
+\end{frame}
+
+\begin{frame}{Model Comparison: Data Log-likelihood}
+    \begin{figure}[h!]
+        \centering
+        
+        \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_llm.png}} 
+        \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_llm.png}} 
+        \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_llm.png}}
+        % \subfigure(d){\includegraphics[width=0.45\textwidth]{}} % model 4
+      
+        \caption{RMSE Comparison}
+      
+   
+      \end{figure}  
+\end{frame}
+
+\begin{frame}{Model Comparison: Posterior Distribution of Urban Index}
+    \begin{figure}[h!]
+        \centering
+        
+        \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_postdistui.png}} 
+        \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_postui.png}} 
+        \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_postui.png}}
+        % \subfigure(d){\includegraphics[width=0.45\textwidth]{}} % model 4
+      
+        \caption{RMSE Comparison}
+      \end{figure} 
+\end{frame}
 
 
 

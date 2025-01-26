@@ -8,10 +8,14 @@ date: "2025-01-19"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+install.packages("LaplacesDemon")
+```
 
 ```{r}
 # Load necessary library
 library(ggplot2)
+library(LaplacesDemon)
 ```
 
 ```{r}
@@ -158,4 +162,103 @@ prior_state_sigma <-ggplot() +
 
 print(prior_state_sigma)
 ```
+
+
+
+
+```{r}
+ggplot() +
+    stat_function(fun = dgamma, args = list(shape = 2, rate = 2), color = "blue", size = 1) +
+    xlim(c(0,10)) +
+    labs(title = "Gamma(2,2)", x = "Value", y = "Density") +
+    theme_minimal()
+
+```
+
+```{r}
+ggplot() +
+    stat_function(fun = dgamma, args = list(shape = 2, rate = 5), color = "blue", size = 1) +
+    xlim(c(0,10)) +
+    labs(title = "Gamma(2,5)", x = "Value", y = "Density") +
+    theme_minimal()
+
+```
+
+
+```{r}
+ggplot() +
+    stat_function(fun = dgamma, args = list(shape = 2, rate = 0.5), color = "blue", size = 1) +
+    xlim(c(0,10)) +
+    labs(title = "Gamma(2,2)", x = "Value", y = "Density") +
+    theme_minimal()
+
+
+```
+
+
+
+
+```{r}
+
+# Define individual distributions manually
+ggplot() +
+  stat_function(
+    fun = dhalfcauchy, 
+    args = list(scale = 10), 
+    aes(color = "(Half) Cauchy(0,10)"), 
+    size = 1
+    ) +
+  stat_function(
+    fun = dgamma,
+    args = list(shape = 2, rate = 0.5),
+    aes(color = "Gamma(2,0.5)"),
+    size = 1
+  ) +
+  stat_function(
+    fun = dgamma,
+    args = list(shape = 2, rate = 2),
+    aes(color = "Gamma(2,2)"),
+    size = 1
+  ) +
+  stat_function(
+    fun = dgamma,
+    args = list(shape = 5, rate = 2),
+    aes(color = "Gamma(5,2)"),
+    size = 1
+  ) +
+  xlim(0, 10) +
+  scale_color_manual(
+    values = c("(Half) Cauchy(0,10)" = "black",
+               "Gamma(2,0.5)" = "lightblue", 
+               "Gamma(2,2)" = "lightgreen", 
+               "Gamma(5,2)" = "lightcoral")
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Priors for 'sd' class",
+    x = "x",
+    y = "Density",
+    color = "Distribution"
+  )
+
+```
+
+
+
+
+
+```{r}
+
+
+ggplot() +
+    stat_function(fun = dhalfcauchy, args = list(scale = 10), color = "blue", size = 1) +
+    xlim(c(0,10)) +
+    labs(title = "(Half) Cauchy(0,10)", x = "Value", y = "Density") +
+    theme_minimal()
+
+
+```
+
+
+
 

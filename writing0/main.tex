@@ -234,15 +234,39 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
     % priors
 
-    Let the response variable 'Winning Party' be \(y\), the predictor of interest 'Urban index' be \(x\), and the other covariates be a 15-dimensional vector \(z\). Let \(i\), \(j\), and \(k\) be the indices for the district, region, and state respectively. 
+    Let the response variable 'Winning Party' be \(y\), and \(i\), \(j\), and \(k\) be the indices for the district, state, and region respectively. 
 
-    \[y_{i, j} \sim Ber.(logit^{-1}(\theta_{j}))\]
+    \[y_{i,j,k} \sim Ber.(logit^{-1}(\theta_{j}))\]
     
-    \[\theta_j := \beta_0, j + x_{i,j} * \beta_{1,j}  + z_{i, j}^T * \gamma_{1,j}\]
+\[
+\theta_{j,k} =
+\begin{aligned}
+    &\beta_0 + \beta_1 \cdot \text{Pct\_Women} + \beta_2 \cdot \text{Urban\_Index} + \beta_{2,j} \cdot \text{Urban\_Index} \\
+    &+ \beta_3 \cdot \text{Pct\_Bachelor's} + \beta_{3,k} \cdot \text{Pct\_Bach.} + \beta_{4} \cdot \text{Median\_Income} \\ 
+    &+ \beta_{4,j} \cdot \text{Median\_Income} + \beta_{5} \cdot \text{Pct\_Retirees}
+\end{aligned}
+\]
+
+% Priors
+    \[\beta_0 \sim \text{Normal}(0, 0.5)\]
+    \[\beta_1, \beta_2 \sim \text{Normal}(0, 1); \beta_3 \sim \text{Cauchy(0,1)}\] 
+    \[\beta_4 \sim \text{Normal}(0,1); \beta_5 \sim \text{t}(1,-1,1)\]
     
-    \[\beta_{1,j} \sim Gam.(1, \tau)\]
-    
-    \[\tau \sim Normal(0, 1) \]  %placeholder!!!!
+\end{frame}
+
+\begin{frame}{Model 1 - Cont.}
+
+\[\beta_{2,j} \sim \text{Normal}(0, \sigma_{\beta_{2,j}})\]
+
+\[\beta_{3,k} \sim \text{Normal}(0, \sigma_{\beta_{3,k}})\]
+
+\[\beta_{4,j} \sim \text{Normal}(0, \sigma_{\beta_{4,j}})\]
+
+\[\sigma_{\beta_{2,j}} \sim \text{Gamma}(2,5) \]
+
+\[\sigma_{\beta_{3,k}} \sim \text{Normal}(0,1) \]
+
+\[\sigma_{\beta_{4,j}} \sim \text{Normal}(0,1) \]
 
 \end{frame}
 
@@ -282,7 +306,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
     % Priors
     \[\beta_0 \sim \text{Normal}(0, 0.5)\]
-    \[\beta_1 \sim \text{Normal}(0, 1)\]
+    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(1,-2,1)\]
     \[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
     \[\beta_{1,j:k} \sim \text{Normal}(0, \sigma_{j:k})\]
     \[ \sigma_j; \sigma_{j:k} \sim \text{Halfcauchy}(10)\]
@@ -325,7 +349,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
     % Priors
     \[\beta_0 \sim \text{Normal}(0, 0.5)\]
-    \[\beta_1 \sim \text{Normal}(0, 1)\]
+    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(-2,1,1)\]
     \[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
     \[ \sigma_j \sim \text{Halfcauchy}(10)\]
 
@@ -365,7 +389,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
     % Priors
     \[\beta_0 \sim \text{Normal}(0, 0.5)\]
-    \[\beta_1 \sim \text{Normal}(0, 1)\]
+    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(-2,1,1)\]
     \[\beta_{1,k} \sim \text{Normal}(0, \sigma_k)\]
     \[ \sigma_k \sim \text{Halfcauchy}(10)\]
     

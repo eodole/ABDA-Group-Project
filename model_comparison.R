@@ -74,13 +74,13 @@ model.comp <- function(model, model_number, model_color, graph_num){
 
 }
 
-loom1 <-loo(model1.final)
+loom1 <-loo(model1.final, moment_match = TRUE)
 
-loom2 <- loo(model2.final)
+loom2 <- loo(model2.final, moment_match = TRUE)
 
-loom3 <- loo(model3.final)
+loom3 <- loo(model3.final, moment_match = TRUE)
 
-loom4 <- loo(model4.final)
+loom4 <- loo(model4.final, moment_match = TRUE)
 
 
 stargazer(loo_compare(loom1, loom2,loom3, loom4))

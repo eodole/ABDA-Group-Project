@@ -27,10 +27,10 @@ pct_ret_prior <- set_prior('student_t(1, -2, 1)', class = 'b', coef = 'Percentag
 sd_urb_prior <- set_prior('cauchy(0,10)', class = 'sd')
 
 
-vary_slope_fit <- brm(form1, family = 'bernoulli',  
+model3.final <- brm(form1, family = 'bernoulli',  
                       prior = int_prior + urb_prior + pct_ret_prior + 
                         sd_urb_prior, chains = 4, iter = 2000,
-                      data = df_scaled)
+                      data = df_scaled,  save_pars = save_pars(all = TRUE))
 
 model.comp(vary_slope_fit, 3, "lightblue")
 
@@ -157,10 +157,10 @@ pct_ret_prior <- set_prior('student_t(1, -2, 1)', class = 'b', coef = 'Percentag
 sd_urb_prior <- set_prior('cauchy(0,10)', class = 'sd')
 
 
-two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
+model2.final <- brm(form3, family = 'bernoulli',  
                                 prior = int_prior + urb_prior + pct_ret_prior + 
                                   sd_urb_prior, chains = 4, iter = 2000,
-                                data = df_scaled)
+                                data = df_scaled,  save_pars = save_pars(all = TRUE))
 
 
 model.comp(two_level_vary_slope_fit)

@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 rm(list = ls())
-df <- read.csv('C:/Users/anarm/OneDrive/Documents/R Scripts/bayesian/data_with_region_indices.csv')[,-1]
+df <- read.csv('./data//data_with_region_indices.csv')[,-1]
 
 library(ggplot2)
 library(dplyr)
@@ -64,10 +64,10 @@ pct_ret_prior <- set_prior('student_t(1, -2, 1)', class = 'b', coef = 'Pct.Retir
 sd_urb_prior <- set_prior('cauchy(0,10)', class = 'sd')
 
 
-vary_slope_fit <- brm(form1, family = 'bernoulli',  
+model4.final <- brm(form1, family = 'bernoulli',  
                       prior = int_prior + urb_prior + pct_ret_prior + 
                         sd_urb_prior, chains = 4, iter = 2000,
-                      data = df_scaled)
+                      data = df_scaled, save_pars = save_pars(all = TRUE))
 
 
 

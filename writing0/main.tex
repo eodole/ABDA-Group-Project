@@ -191,12 +191,13 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 
 %%%% nicer plot needed
-% \begin{frame}{Motivation for Hierarchical Modelling}
-%     \begin{figure}
-%     \centering
-%     \includegraphics[width=0.95\textwidth]{plots/motivation_groupwise_scatterplot.jpeg} %%placeholder!!!!
-%     \caption{Your caption here}
-% \end{figure}
+\begin{frame}{Motivation for Hierarchical Modelling}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{plots/Census_Regions_and_Division_of_the_United_States.svg.png} %%placeholder!!!!
+    \caption{Nested Geographical Hierachy}
+    Each district exists in a state which exists within a region. We know that urbanization is more concentrated in the Northeast and West regions so we that we can model it and other covariates via their geographical hierarchies.
+\end{figure}
 
 % \end{frame}
 
@@ -237,7 +238,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \item District voting outcomes can be modeled via logistic regression 
     \item Districts are exchangable within each state and each state is exchangable within its region
     % would be nice to have a graphic showing the geographic hierachry 
-    \item We assume that the variation is explained by out predictors, and were there no additonal predictors $\theta = .5$ across all levels of geography 
+    \item We assume that the variation is explained by our predictors, and were there no additonal predictors $\theta = .5$ across all levels of geography 
   \end{itemize}
   \end{frame}
 
@@ -285,6 +286,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \[\sigma_{\beta_{4,j}} \sim \text{Normal}(0,1) \]
 
+\end{frame}
+
+\begin{frame}{Model 1: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model1_cong.png}
+            \caption{Trace Plots for Model 1}
+        \end{figure}
+    \end{center}
 \end{frame}
 
 
@@ -337,6 +347,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     
 \end{frame}
 
+\begin{frame}{Model 2: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model2_convg.png}
+            \caption{Trace Plots for Model 2}
+        \end{figure}
+    \end{center}
+\end{frame}
+
 
 
 \begin{frame}{Model 2: Results (I)}
@@ -383,6 +402,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
     \[ \sigma_j \sim \text{Halfcauchy}(10)\]
 
+\end{frame}
+
+\begin{frame}{Model 3: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model3_convg.png}
+            \caption{Trace Plots for Model 2}
+        \end{figure}
+    \end{center}
 \end{frame}
 
 
@@ -432,6 +460,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \[\beta_{1,k} \sim \text{Normal}(0, \sigma_k)\]
     \[ \sigma_k \sim \text{Halfcauchy}(10)\]
     
+\end{frame}
+
+\begin{frame}{Model 4: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model4_convg.png}
+            \caption{Trace Plots for Model 2}
+        \end{figure}
+    \end{center}
 \end{frame}
 
 
@@ -553,17 +590,36 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \end{frame}
 
+% Second Table 
+% \begin{table}[!htbp] \centering 
+%     \caption{} 
+%     \label{} 
+%   \begin{tabular}{@{\extracolsep{5pt}} ccccccccc} 
+%   \\[-1.8ex]\hline 
+%   \hline \\[-1.8ex] 
+%    & elpd\_diff & se\_diff & elpd\_loo & se\_elpd\_loo & p\_loo & se\_p\_loo & looic & se\_looic \\ 
+%   \hline \\[-1.8ex] 
+%   model1.final & $0$ & $0$ & $$-$165.411$ & $11.641$ & $29.961$ & $3.142$ & $330.822$ & $23.281$ \\ 
+%   model2.final & $$-$13.223$ & $2.453$ & $$-$178.634$ & $12.068$ & $31.769$ & $3.291$ & $357.268$ & $24.135$ \\ 
+%   model3.final & $$-$14.070$ & $2.502$ & $$-$179.481$ & $12.027$ & $30.759$ & $3.228$ & $358.963$ & $24.054$ \\ 
+%   model4.final & $$-$36.956$ & $7.352$ & $$-$202.367$ & $12.056$ & $5.383$ & $0.508$ & $404.734$ & $24.112$ \\ 
+%   \hline \\[-1.8ex] 
+%   \end{tabular} 
+%   \end{table} 
 
 
 \section{Conclusion}
 
 \begin{frame}{Best Model}
-    % listing what different priors where changed
+    According the model comparison and leave one out statistics, Model 1 performed the best. Here is the results predictive posterior check.
+    \begin{figure}
+        \includegraphics[width=0.9\textwidth]{plots/model1_posteriortheta.png}
+    \end{figure} 
 \end{frame}
 
 
 
-\begin{frame}{Possible Improvemnts & Next Steps}
+\begin{frame}{Possible Improvements & Next Steps}
     \begin{itemize}
         \item Scaling all covariates to same scale for better parameter estimation interpretability
         \item More prior experimentation 

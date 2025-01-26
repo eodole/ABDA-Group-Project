@@ -102,7 +102,7 @@ model3.priors <- c(
   set_prior("student_t(1,-1,1)", class = "b", coef = "pct.retirees")
 )
 
-model3.fit <- brm(model3, family = "bernoulli", prior = model3.priors, data = df)
+model1.final <- brm(model3, family = "bernoulli", prior = model3.priors, data = df, save_pars = save_pars(all = TRUE))
 
 plot(model3.fit)
 
@@ -156,3 +156,31 @@ model4.fit <- brm(model3, family = "bernoulli", prior = model4.priors, data = df
 
 plot(model4.fit)
 get_prior(model4.fit)
+
+mcmc_plot(model1.final, type = "trace") + theme(
+  strip.background = element_blank(),  # Remove background for variable names (strip labels)
+  axis.text.x = element_text(size = 16),  # Set the variable name (x-axis) text size to 20
+  axis.text.y = element_text(size = 16),  # Set the variable name (y-axis) text size to 20
+  strip.text = element_text(size = 16),  # Set the size of the variable name in the title (facet labels)
+)
+
+mcmc_plot(model2.final, type = "trace") + theme(
+  strip.background = element_blank(),  # Remove background for variable names (strip labels)
+  axis.text.x = element_text(size = 16),  # Set the variable name (x-axis) text size to 20
+  axis.text.y = element_text(size = 16),  # Set the variable name (y-axis) text size to 20
+  strip.text = element_text(size = 16),  # Set the size of the variable name in the title (facet labels)
+)
+
+mcmc_plot(model3.final, type = "trace") + theme(
+  strip.background = element_blank(),  # Remove background for variable names (strip labels)
+  axis.text.x = element_text(size = 16),  # Set the variable name (x-axis) text size to 20
+  axis.text.y = element_text(size = 16),  # Set the variable name (y-axis) text size to 20
+  strip.text = element_text(size = 16),  # Set the size of the variable name in the title (facet labels)
+)
+
+mcmc_plot(model4.final, type = "trace") + theme(
+  strip.background = element_blank(),  # Remove background for variable names (strip labels)
+  axis.text.x = element_text(size = 16),  # Set the variable name (x-axis) text size to 20
+  axis.text.y = element_text(size = 16),  # Set the variable name (y-axis) text size to 20
+  strip.text = element_text(size = 16),  # Set the size of the variable name in the title (facet labels)
+)

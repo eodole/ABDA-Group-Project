@@ -422,7 +422,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \begin{frame}{Model 4: Trace Plots}
     \begin{center}
         \begin{figure}
-            \includegraphics{plots/model3_convg.png}
+            \includegraphics{plots/model4_convg.png}
             \caption{Trace Plots for Model 2}
         \end{figure}
     \end{center}
@@ -531,12 +531,31 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
       \end{table}
 \end{frame}
 
+% Second Table 
+% \begin{table}[!htbp] \centering 
+%     \caption{} 
+%     \label{} 
+%   \begin{tabular}{@{\extracolsep{5pt}} ccccccccc} 
+%   \\[-1.8ex]\hline 
+%   \hline \\[-1.8ex] 
+%    & elpd\_diff & se\_diff & elpd\_loo & se\_elpd\_loo & p\_loo & se\_p\_loo & looic & se\_looic \\ 
+%   \hline \\[-1.8ex] 
+%   model1.final & $0$ & $0$ & $$-$165.411$ & $11.641$ & $29.961$ & $3.142$ & $330.822$ & $23.281$ \\ 
+%   model2.final & $$-$13.223$ & $2.453$ & $$-$178.634$ & $12.068$ & $31.769$ & $3.291$ & $357.268$ & $24.135$ \\ 
+%   model3.final & $$-$14.070$ & $2.502$ & $$-$179.481$ & $12.027$ & $30.759$ & $3.228$ & $358.963$ & $24.054$ \\ 
+%   model4.final & $$-$36.956$ & $7.352$ & $$-$202.367$ & $12.056$ & $5.383$ & $0.508$ & $404.734$ & $24.112$ \\ 
+%   \hline \\[-1.8ex] 
+%   \end{tabular} 
+%   \end{table} 
 
 
 \section{Conclusion}
 
 \begin{frame}{Best Model}
-    % listing what different priors where changed
+    According the model comparison and leave one out statistics, Model 1 performed the best. Here is the results predictive posterior check.
+    \begin{figure}
+        \includegraphics[width=0.9\textwidth]{plots/model1_posteriortheta.png}
+    \end{figure} 
 \end{frame}
 
 

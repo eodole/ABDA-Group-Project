@@ -454,18 +454,25 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
       \end{figure}  
 \end{frame}
 
-% \begin{frame}{Model Comparison: Posterior Distribution of Urban Index}
-    % \begin{figure}[h!]
-    %     \centering
-        
-    %     \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_postdistui.png}} 
-    %     \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_postui.png}} 
-    %     \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_postui.png}}
-    %     % \subfigure(d){\includegraphics[width=0.45\textwidth]{}} % model 4
-      
-    %     \caption{RMSE Comparison}
-    %   \end{figure} 
-% \end{frame}
+\begin{frame}{Model Comparison: Leave One Out}
+    \begin{table}[!htbp] \centering 
+        \caption{} 
+        \label{} 
+        \resizebox{\columnwidth}{!}{%
+      \begin{tabular}{@{\extracolsep{5pt}} ccccccccc} 
+      \\[-1.8ex]\hline 
+      \hline \\[-1.8ex] 
+       & elpd\_diff & se\_diff & elpd\_loo & se\_elpd\_loo & p\_loo & se\_p\_loo & looic & se\_looic \\ 
+      \hline \\[-1.8ex] 
+      model1.final & $0$ & $0$ & $-165.575$ & $11.670$ & $30.124$ & $3.210$ & $331.149$ & $23.339$ \\ 
+      model3.final & $-13.051$ & $2.469$ & $-178.625$ & $11.915$ & $30.126$ & $3.028$ & $357.250$ & $23.830$ \\ 
+      model2.final & $-13.397$ & $2.507$ & $-178.972$ & $12.101$ & $31.864$ & $3.319$ & $357.944$ & $24.202$ \\ 
+      model4.final & $-36.792$ & $7.355$ & $-202.367$ & $12.056$ & $5.383$ & $0.508$ & $404.734$ & $24.112$ \\ 
+      \hline \\[-1.8ex] 
+      \end{tabular}%
+      }
+      \end{table}
+\end{frame}
 
 
 
@@ -477,17 +484,16 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 
 
-\begin{frame}{Possible Improvemnts}
+\begin{frame}{Possible Improvemnts & Next Steps}
     \begin{itemize}
         \item Scaling all covariates to same scale for better parameter estimation interpretability
         \item More prior experimentation 
         \item Varying intercept models, as we currently only have varying slopes
+        \item Prior sensitivity analysis     
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Next Steps}
-    
-\end{frame}
+
 
 
 
@@ -731,10 +737,9 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \\
     Contact:\\
     \{eldaleona.odole, leonor.cunha, anarghya.murthy\}@tu-dortmund.de
-    
 \end{frame}
 
-\section{Raw References}
+% \section{Raw References}
 
 % \begin{frame}{Raw references}
 %     \begin{itemize}

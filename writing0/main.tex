@@ -239,9 +239,8 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \[y_{i,j,k} \sim Ber.(logit^{-1}(\theta_{j}))\]
     
 \[
-\theta_{j,k} =
 \begin{aligned}
-    &\beta_0 + \beta_1 \cdot \text{Pct\_Women} + \beta_2 \cdot \text{Urban\_Index} + \beta_{2,j} \cdot \text{Urban\_Index} \\
+   \theta_{j,k} = &\beta_0 + \beta_1 \cdot \text{Pct\_Women} + \beta_2 \cdot \text{Urban\_Index} + \beta_{2,j} \cdot \text{Urban\_Index} \\
     &+ \beta_3 \cdot \text{Pct\_Bachelor's} + \beta_{3,k} \cdot \text{Pct\_Bach.} + \beta_{4} \cdot \text{Median\_Income} \\ 
     &+ \beta_{4,j} \cdot \text{Median\_Income} + \beta_{5} \cdot \text{Pct\_Retirees}
 \end{aligned}
@@ -295,9 +294,8 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \]
 
 \[
-\theta_{j,k} =
 \begin{aligned}
-    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,j} \cdot \text{Urban\_Index} \\
+\theta_{j,k} =    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,j} \cdot \text{Urban\_Index} \\
     &+ \beta_{1,j:k} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
 \end{aligned}
 \]
@@ -341,15 +339,14 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \]
 
 \[
-\theta_{j} =
 \begin{aligned}
-    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,j} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
+\theta_{j} =   &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,j} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
 \end{aligned}
 \]
 
     % Priors
     \[\beta_0 \sim \text{Normal}(0, 0.5)\]
-    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(-2,1,1)\]
+    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(1,-2,1)\]
     \[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
     \[ \sigma_j \sim \text{Halfcauchy}(10)\]
 
@@ -381,15 +378,14 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \]
 
 \[
-\theta_{j} =
 \begin{aligned}
-    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,k} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
+\theta_{j} =    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,k} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
 \end{aligned}
 \]
 
     % Priors
     \[\beta_0 \sim \text{Normal}(0, 0.5)\]
-    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(-2,1,1)\]
+    \[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(1,-2,1)\]
     \[\beta_{1,k} \sim \text{Normal}(0, \sigma_k)\]
     \[ \sigma_k \sim \text{Halfcauchy}(10)\]
     

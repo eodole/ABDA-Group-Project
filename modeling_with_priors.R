@@ -107,7 +107,7 @@ model3.fit <- brm(model3, family = "bernoulli", prior = model3.priors, data = df
 plot(model3.fit)
 
 
-modelsummary()
+
 ## model analysis 
 summary(model3.fit)
 # percentage of variation explained by the model 
@@ -126,6 +126,10 @@ ll_model3 <- log_lik(model3.fit)
 llm_model3 <- colMeans(ll_model3)
 hist(llm_model3)
 
+
+# plot urban index for the big model 
+posteriors <- posterior_samples(model3.fit)
+urbanindex_post <- posteriors$b_urbanindex
 
 
 ## model 4 small model with nested hierarchy butt currently broken 

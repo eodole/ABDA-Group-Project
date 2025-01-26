@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont}
+\usepackage{subfigure}
 \usetheme{Darmstadt}
 \usecolortheme{default}
 
@@ -245,6 +246,14 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \begin{frame}{Model 1: Results}
     % summary
+    \begin{center}
+        \begin{figure}
+            \includegraphics[width=0.5\textwidth]{plots/post_urbanindex_model1.png}
+        \end{figure}
+        \begin{figure}
+            \includegraphics[width=0.95\textwidth]{plots/model1_summary_output.png}
+        \end{figure}
+    \end{center}
     % trace plot and hist of urbanindex
 \end{frame}
 
@@ -258,6 +267,12 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \begin{frame}{Model 2: Results}
     % summary
     % trace plot and hist of urbanindex
+    \begin{figure}
+        \includegraphics[width=0.5\textwidth]{plots/model2_postui.png}
+    \end{figure}
+    \begin{figure}
+        \includegraphics[width=0.95\textwidth]{plots/model2_coeff.png}
+    \end{figure}
 \end{frame}
 
 
@@ -270,18 +285,31 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \begin{frame}{Model 3: Results}
     % summary
     % trace plot and hist of urbanindex
+    \begin{figure}
+        \includegraphics[width=0.5\textwidth]{plots/model3_postui.png}
+    \end{figure}
+    \begin{figure}
+        \includegraphics[width=0.95\textwidth]{plots/model3_coeff.png}
+    \end{figure}
 \end{frame}
 
 
 \begin{frame}{Model 4}
     % equation 
     % priors
+    
 \end{frame}
 
 
 \begin{frame}{Model 4: Results}
     % summary
     % trace plot and hist of urbanindex
+    \begin{figure}
+        \includegraphics[width=0.5\textwidth]{plots/model4_postui.png}
+    \end{figure}
+    \begin{figure}
+        \includegraphics[width=0.95\textwidth]{plots/model4_coeff.png}
+    \end{figure}
 \end{frame}
 
 
@@ -291,11 +319,82 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \section{Model Comparison}
 
-\begin{frame}{Model Comparison}
+\begin{frame}{Model Comparison: $R^2$ }
     % satatistics
     % plots (?)
+    % R2 output for Model 1: 
+    \begin{center}
+        
+   
+    \begin{tabular}{|c|c|c|c|c|}
+
+        \hline
+        Model & Estimate & Estimate Error & Q 2.5 & Q 97.5 \\
+        \hline
+        1 & 0.568   & 0.0246 & 0.516 & 0.612 \\
+        % M2 tiny 
+        % Estimate  Est.Error      Q2.5     Q97.5
+        % R2 0.5343788 0.02557753 0.4790438 0.5792852
+        2 & 0.534 & 0.0255&  0.479 & 0.579\\
+        % M3 state level only 
+        % Estimate  Est.Error      Q2.5     Q97.5
+        % R2 0.5292589 0.02553931 0.4744139 0.5743095
+        3 & 0.529 &  0.0255 &  0.474& 0.574 \\
+        % M4 
+        % Estimate  Est.Error      Q2.5     Q97.5
+        % R2 0.4075487 0.02341934 0.3588656 0.4493727
+        4 & 0.408 & 0.0234 & 0.359 & 0.449 \\
+        \hline
+
+
+    \end{tabular}  
+\end{center}
 \end{frame}
 
+\begin{frame}{Model Comparison: RMSE}
+    \begin{figure}[h!]
+        \centering
+        
+        \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_rmse.png}} 
+        \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_rmse.png}} 
+        \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_rmse.png}}
+        \subfigure(d){\includegraphics[width=0.33\textwidth]{plots/model4_rmse.png}}
+       
+      
+        \caption{RMSE Comparison}
+      
+    
+      \end{figure}   
+\end{frame}
+
+\begin{frame}{Model Comparison: Data Log-likelihood}
+    \begin{figure}[h!]
+        \centering
+        
+        \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_llm.png}} 
+        \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_llm.png}} 
+        \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_llm.png}}
+        \subfigure(d){\includegraphics[width=0.33\textwidth]{plots/model4_llm.png}}
+        % \subfigure(d){\includegraphics[width=0.45\textwidth]{}} % model 4
+      
+        \caption{Log-Likelihood Comparison}
+      
+   
+      \end{figure}  
+\end{frame}
+
+% \begin{frame}{Model Comparison: Posterior Distribution of Urban Index}
+    % \begin{figure}[h!]
+    %     \centering
+        
+    %     \subfigure(a){\includegraphics[width=0.33\textwidth]{plots/model1_postdistui.png}} 
+    %     \subfigure(b){\includegraphics[width=0.33\textwidth]{plots/model2_postui.png}} 
+    %     \subfigure(c){\includegraphics[width=0.33\textwidth]{plots/model3_postui.png}}
+    %     % \subfigure(d){\includegraphics[width=0.45\textwidth]{}} % model 4
+      
+    %     \caption{RMSE Comparison}
+    %   \end{figure} 
+% \end{frame}
 
 
 
@@ -547,16 +646,24 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 % ---
 % \end{frame}
 
+\begin{frame}{Conclusions}
+    In all of our models we found that urbanization has a small positive impact on the logit probility of voting democratically.
+    \\
+    Contact:\\
+    \{eldaleona.odole, leonor.cunha, anarghya.murthy\}@tu-dortmund.de
+    
+\end{frame}
+
 \section{Raw References}
 
-\begin{frame}{Raw references}
-    \begin{itemize}
-        \item stargazer
-        \item tidybayes
-        \item brms, stan
-      %  \item https://lnalborczyk.github.io/phd_thesis/appendix-brms.html#shrink
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Raw references}
+%     \begin{itemize}
+%         \item stargazer
+%         \item tidybayes
+%         \item brms, stan
+%       %  \item https://lnalborczyk.github.io/phd_thesis/appendix-brms.html#shrink
+%     \end{itemize}
+% \end{frame}
 
 
 \end{document}

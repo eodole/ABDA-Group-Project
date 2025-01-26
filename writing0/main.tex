@@ -220,7 +220,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \item District voting outcomes can be modeled via logistic regression 
     \item Districts are exchangable within each state and each state is exchangable within its region
     % would be nice to have a graphic showing the geographic hierachry 
-    \item We assume that the variation is explained by out predictors, and were there no additonal predictors $\theta = .5$ across all levels of geography 
+    \item We assume that the variation is explained by our predictors, and were there no additonal predictors $\theta = .5$ across all levels of geography 
   \end{itemize}
   \end{frame}
 
@@ -270,6 +270,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \end{frame}
 
+\begin{frame}{Model 1: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model1_cong.png}
+            \caption{Trace Plots for Model 1}
+        \end{figure}
+    \end{center}
+\end{frame}
+
 
 \begin{frame}{Model 1: Results}
     % summary
@@ -313,6 +322,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     
 \end{frame}
 
+\begin{frame}{Model 2: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model2_convg.png}
+            \caption{Trace Plots for Model 2}
+        \end{figure}
+    \end{center}
+\end{frame}
+
 
 
 \begin{frame}{Model 2: Results}
@@ -353,6 +371,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \end{frame}
 
+\begin{frame}{Model 3: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model3_convg.png}
+            \caption{Trace Plots for Model 2}
+        \end{figure}
+    \end{center}
+\end{frame}
+
 
 \begin{frame}{Model 3: Results}
     % summary
@@ -390,6 +417,15 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \[\beta_{1,k} \sim \text{Normal}(0, \sigma_k)\]
     \[ \sigma_k \sim \text{Halfcauchy}(10)\]
     
+\end{frame}
+
+\begin{frame}{Model 4: Trace Plots}
+    \begin{center}
+        \begin{figure}
+            \includegraphics{plots/model3_convg.png}
+            \caption{Trace Plots for Model 2}
+        \end{figure}
+    \end{center}
 \end{frame}
 
 

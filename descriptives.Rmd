@@ -468,9 +468,7 @@ vars_to_inspect <- c("Winning.party",
                      "Median.Income",
                      "Pct.Retirees.65",
                      "Unempl.16plus",
-                     "Median.Age",
-                     "Pct.Bsc.25plus", 
-                     "Total.Pop")
+                     "Pct.Bsc.25plus")
 
 
 # made the NAs zeros

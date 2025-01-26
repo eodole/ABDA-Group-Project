@@ -96,8 +96,31 @@ We combined different sources in order to create our data set containing 435 ins
 \end{frame}  
 
 
+
+\begin{frame}{Variables}
+    
+    \begin{table}
+        \centering
+        \begin{tabular}{l p{0.6\textwidth}}
+            \hline
+            Variable & Description\\
+            \hline 
+            Winning.party & Binary Variable signaling if the winner is a Republican (0) or a Democrat (1) \\
+            urbanindex & FiveThirtyEight’s urbanization index; higher values indicate more urbanization\\
+            Pct.Women & Percentage of women in the population\\
+            Median.Income & Median household income \\
+            Pct.Retirees.65 & Percentage of retirees (people 65 years old and older)\\
+            Pct.Bsc.25plus & Percentage of Bsc degrees in the population over 25 \\
+            \hline
+        \end{tabular}
+        \caption{Model variable names and descriptions}
+        \label{tab:my_label}
+    \end{table}
+\end{frame}
+
+
 \begin{frame}{Winning Party}
-Our independent variable is Winning party in the 2022 Election.
+Our independent variable is Winning party in the 2022 Election. The Democratic Party was the winner in 48.97\% of the congressional districts.
  \includegraphics[width=0.9\textwidth]{plots/party_map.pdf}
 \end{frame} 
 
@@ -111,6 +134,9 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \begin{frame}{Densities}
     \centering
+\begin{figure}
+    \centering
+    \label{fig:enter-label}
     % First row
     \begin{minipage}{0.3\textwidth}
         \centering
@@ -137,35 +163,27 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \hfill
     \begin{minipage}{0.3\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{plots/Unempl.16plus_density_plot.pdf}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{plots/Median.Age_density_plot.pdf}
-    \end{minipage}
-    
-    \vspace{0.2cm} % Add vertical space between rows
-
-    % Third row
-    \begin{minipage}{0.3\textwidth}
-        \centering
         \includegraphics[width=\textwidth]{plots/Pct.Bsc.25plus_density_plot.pdf}
     \end{minipage}
     \hfill
     \begin{minipage}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{plots/Total.Pop_density_plot.pdf}
-    \end{minipage} 
-    \hfill
-    \begin{minipage}{0.3\textwidth}
         \hfill
     \end{minipage}
+
+    \caption{Density plots of predictor variables}
+    
+\end{figure}
+      
 \end{frame}
 
 
 \begin{frame}{Correlation Matrix}
+\begin{figure}
+    \centering
+    \caption{Correlation Plot for our Variables}
     \includegraphics[width=0.9\textwidth]{plots/corrplot.pdf}
+    \label{fig:enter-label}
+\end{figure}
 \end{frame}
 %slide
 % \begin{frame}
@@ -270,13 +288,20 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \end{frame}
 
 
-\begin{frame}{Model 1: Results}
+\begin{frame}{Model 1: Results (I)}
     % summary
     \begin{center}
         \begin{figure}
+        \caption{Model 1 Posterior Distribution for Urban Index variable}
             \includegraphics[width=0.5\textwidth]{plots/post_urbanindex_model1.png}
         \end{figure}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Model 1: Results (II)}
+    \begin{center}
         \begin{figure}
+            \caption{Model 1 Coefficient Summary}
             \includegraphics[width=0.95\textwidth]{plots/model1_summary_output.png}
         \end{figure}
     \end{center}
@@ -314,13 +339,21 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 
 
-\begin{frame}{Model 2: Results}
+\begin{frame}{Model 2: Results (I)}
     % summary
     % trace plot and hist of urbanindex
     \begin{figure}
+        \caption{Model 2 Posterior Distribution for Urban Index variable}
         \includegraphics[width=0.5\textwidth]{plots/model2_postui.png}
     \end{figure}
+\end{frame}
+
+
+\begin{frame}{Model 2: Results (II)}
+    % summary
+    % trace plot and hist of urbanindex
     \begin{figure}
+                \caption{Model 2 Coefficient Summary}
         \includegraphics[width=0.95\textwidth]{plots/model2_coeff.png}
     \end{figure}
 \end{frame}
@@ -353,13 +386,23 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \end{frame}
 
 
-\begin{frame}{Model 3: Results}
+\begin{frame}{Model 3: Results (I)}
     % summary
     % trace plot and hist of urbanindex
     \begin{figure}
+            \caption{Model 3 Posterior Distribution for Urban Index variable}
         \includegraphics[width=0.5\textwidth]{plots/model3_postui.png}
     \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Model 3: Results (II)}
+    % summary
+    % trace plot and hist of urbanindex
+
     \begin{figure}
+         \caption{Model 3 Coefficient Summary}
         \includegraphics[width=0.95\textwidth]{plots/model3_coeff.png}
     \end{figure}
 \end{frame}
@@ -392,13 +435,22 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \end{frame}
 
 
-\begin{frame}{Model 4: Results}
+\begin{frame}{Model 4: Results (I)}
     % summary
     % trace plot and hist of urbanindex
     \begin{figure}
+        \caption{Model 4 Posterior Distribution for Urban Index variable}
         \includegraphics[width=0.5\textwidth]{plots/model4_postui.png}
     \end{figure}
+
+\end{frame}
+
+\begin{frame}{Model 4: Results (II)}
+    % summary
+    % trace plot and hist of urbanindex
+
     \begin{figure}
+        \caption{Model 4 Coefficient Summary}
         \includegraphics[width=0.95\textwidth]{plots/model4_coeff.png}
     \end{figure}
 \end{frame}
@@ -406,41 +458,39 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 
 
-
-
 \section{Model Comparison}
 
-\begin{frame}{Model Comparison: $R^2$ }
-    % satatistics
-    % plots (?)
-    % R2 output for Model 1: 
-    \begin{center}
+% \begin{frame}{Model Comparison: $R^2$ }
+%     % satatistics
+%     % plots (?)
+%     % R2 output for Model 1: 
+%     \begin{center}
         
    
-    \begin{tabular}{|c|c|c|c|c|}
+%     \begin{tabular}{|c|c|c|c|c|}
 
-        \hline
-        Model & Estimate & Estimate Error & Q 2.5 & Q 97.5 \\
-        \hline
-        1 & 0.568   & 0.0246 & 0.516 & 0.612 \\
-        % M2 tiny 
-        % Estimate  Est.Error      Q2.5     Q97.5
-        % R2 0.5343788 0.02557753 0.4790438 0.5792852
-        2 & 0.534 & 0.0255&  0.479 & 0.579\\
-        % M3 state level only 
-        % Estimate  Est.Error      Q2.5     Q97.5
-        % R2 0.5292589 0.02553931 0.4744139 0.5743095
-        3 & 0.529 &  0.0255 &  0.474& 0.574 \\
-        % M4 
-        % Estimate  Est.Error      Q2.5     Q97.5
-        % R2 0.4075487 0.02341934 0.3588656 0.4493727
-        4 & 0.408 & 0.0234 & 0.359 & 0.449 \\
-        \hline
+%         \hline
+%         Model & Estimate & Estimate Error & Q 2.5 & Q 97.5 \\
+%         \hline
+%         1 & 0.568   & 0.0246 & 0.516 & 0.612 \\
+%         % M2 tiny 
+%         % Estimate  Est.Error      Q2.5     Q97.5
+%         % R2 0.5343788 0.02557753 0.4790438 0.5792852
+%         2 & 0.534 & 0.0255&  0.479 & 0.579\\
+%         % M3 state level only 
+%         % Estimate  Est.Error      Q2.5     Q97.5
+%         % R2 0.5292589 0.02553931 0.4744139 0.5743095
+%         3 & 0.529 &  0.0255 &  0.474& 0.574 \\
+%         % M4 
+%         % Estimate  Est.Error      Q2.5     Q97.5
+%         % R2 0.4075487 0.02341934 0.3588656 0.4493727
+%         4 & 0.408 & 0.0234 & 0.359 & 0.449 \\
+%         \hline
 
 
-    \end{tabular}  
-\end{center}
-\end{frame}
+%     \end{tabular}  
+% \end{center}
+% \end{frame}
 
 \begin{frame}{Model Comparison: RMSE}
     \begin{figure}[h!]
@@ -476,7 +526,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \begin{frame}{Model Comparison: Leave One Out}
     \begin{table}[!htbp] \centering 
-        \caption{} 
+        \caption{Model comparison with LOO statistics} 
         \label{} 
         \resizebox{\columnwidth}{!}{%
       \begin{tabular}{@{\extracolsep{5pt}} ccccccccc} 
@@ -491,7 +541,16 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
       \hline \\[-1.8ex] 
       \end{tabular}%
       }
+      
       \end{table}
+
+
+      \begin{table}[!htbp] \centering 
+        \caption{Model comparison with LOO statistics, Moment Matching} 
+        
+      
+      \end{table}
+
 \end{frame}
 
 

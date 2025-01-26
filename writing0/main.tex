@@ -259,9 +259,34 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 
 \begin{frame}{Model 2}
-    % equation 
-    % priors
+    % Introduction of variables
+    Let the response variable 'Winning Party' be \(y\), predicted by the variables Urban Index and the Percentage of Retirees. Let \(i\), \(j\), and \(k\) represent the indices for district, state, and region, respectively.
+
+    % Model equation
+    \[
+    y_{i,j,k} \sim \text{Ber.}\left(\text{logit}^{-1}(\theta_{j,k})\right)
+    \]
+
+\[
+\theta_{j,k} =
+\begin{aligned}
+    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,j} \cdot \text{Urban\_Index} \\
+    &+ \beta_{1,j:k} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
+\end{aligned}
+\]
+
+
+
+    % Priors
+    \[\beta_0 \sim \text{Normal}(0, 0.5)\]
+    \[\beta_1 \sim \text{Normal}(0, 1)\]
+    \[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
+    \[\beta_{1,j:k} \sim \text{Normal}(0, \sigma_{j:k})\]
+    \[ \sigma_j; \sigma_{j:k} \sim \text{Halfcauchy}(10)\]
+
+    
 \end{frame}
+
 
 
 \begin{frame}{Model 2: Results}
@@ -279,6 +304,28 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \begin{frame}{Model 3}
     % equation 
     % priors
+
+    % Introduction of variables
+    Let the response variable 'Winning Party' be \(y\), predicted by the variables Urban Index and the Percentage of Retirees. Let \(i\) and \(j\) represent the indices for district and state respectively.
+
+    % Model equation
+    \[
+    y_{i,j} \sim \text{Ber.}\left(\text{logit}^{-1}(\theta_{j})\right)
+    \]
+
+\[
+\theta_{j} =
+\begin{aligned}
+    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,j} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
+\end{aligned}
+\]
+
+    % Priors
+    \[\beta_0 \sim \text{Normal}(0, 0.5)\]
+    \[\beta_1 \sim \text{Normal}(0, 1)\]
+    \[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
+    \[ \sigma_j \sim \text{Halfcauchy}(10)\]
+
 \end{frame}
 
 
@@ -297,6 +344,27 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 \begin{frame}{Model 4}
     % equation 
     % priors
+
+    % Introduction of variables
+    Let the response variable 'Winning Party' be \(y\), predicted by the variables Urban Index and the Percentage of Retirees. Let \(i\) and \(k\) represent the indices for district and region respectively.
+
+    % Model equation
+    \[
+    y_{i,j} \sim \text{Ber.}\left(\text{logit}^{-1}(\theta_{j})\right)
+    \]
+
+\[
+\theta_{j} =
+\begin{aligned}
+    &\beta_0 + \beta_1 \cdot \text{Urban\_Index} + \beta_{1,k} \cdot \text{Urban\_Index} + \beta_2 \cdot \text{Pct\_Retirees}
+\end{aligned}
+\]
+
+    % Priors
+    \[\beta_0 \sim \text{Normal}(0, 0.5)\]
+    \[\beta_1 \sim \text{Normal}(0, 1)\]
+    \[\beta_{1,k} \sim \text{Normal}(0, \sigma_k)\]
+    \[ \sigma_k \sim \text{Halfcauchy}(10)\]
     
 \end{frame}
 

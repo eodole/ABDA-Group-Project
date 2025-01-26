@@ -192,7 +192,7 @@ int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
 urb_prior <- set_prior('normal(0, 1)', class = 'b', coef = 'urbanindex')
 pct_ret_prior <- set_prior('student_t(1, -2, 1)', class = 'b', coef = 'Percentage.Retirees..65..')
 
-sd_urb_prior <- set_prior('beta(5,2)', class = 'sd')
+sd_urb_prior <- set_prior('gamma(5,2)', class = 'sd')
 
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
@@ -210,7 +210,7 @@ int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
 urb_prior <- set_prior('normal(0, 1)', class = 'b', coef = 'urbanindex')
 pct_ret_prior <- set_prior('student_t(1, -2, 1)', class = 'b', coef = 'Percentage.Retirees..65..')
 
-sd_urb_prior <- set_prior('beta(2,0.5)', class = 'sd')
+sd_urb_prior <- set_prior('gamma(2,0.5)', class = 'sd')
 
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
@@ -228,7 +228,7 @@ int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
 urb_prior <- set_prior('normal(0, 1)', class = 'b', coef = 'urbanindex')
 pct_ret_prior <- set_prior('student_t(1, -2, 1)', class = 'b', coef = 'Percentage.Retirees..65..')
 
-sd_urb_prior <- set_prior('beta(2,2)', class = 'sd')
+sd_urb_prior <- set_prior('gamma(2,2)', class = 'sd')
 
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
@@ -247,7 +247,7 @@ int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
 urb_prior <- set_prior('normal(0, 1)', class = 'b', coef = 'urbanindex')
 pct_ret_prior <- set_prior('student_t(1, -6, 1)', class = 'b', coef = 'Percentage.Retirees..65..')
 
-sd_urb_prior <- set_prior('beta(5,2)', class = 'sd')
+sd_urb_prior <- set_prior('gamma(5,2)', class = 'sd')
 
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
@@ -265,7 +265,7 @@ int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
 urb_prior <- set_prior('normal(0, 1)', class = 'b', coef = 'urbanindex')
 pct_ret_prior <- set_prior('student_t(1, -6, 1)', class = 'b', coef = 'Percentage.Retirees..65..')
 
-sd_urb_prior <- set_prior('beta(2,0.5)', class = 'sd')
+sd_urb_prior <- set_prior('gamma(2,0.5)', class = 'sd')
 
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  
@@ -283,7 +283,7 @@ int_prior <- set_prior('normal(0, 0.5)', class = 'Intercept')
 urb_prior <- set_prior('normal(0, 1)', class = 'b', coef = 'urbanindex')
 pct_ret_prior <- set_prior('student_t(1, -6, 1)', class = 'b', coef = 'Percentage.Retirees..65..')
 
-sd_urb_prior <- set_prior('beta(2,2)', class = 'sd')
+sd_urb_prior <- set_prior('gamma(2,2)', class = 'sd')
 
 
 two_level_vary_slope_fit <- brm(form3, family = 'bernoulli',  

@@ -171,14 +171,16 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 % \begin{frame}
 % \frametitle{Frame name}
 
-\begin{frame}{Motivation for Hierarchical Modelling}
-    \begin{figure}
-    \centering
-    \includegraphics[width=0.95\textwidth]{plots/motivation_groupwise_scatterplot.jpeg} %%placeholder!!!!
-    \caption{Your caption here}
-\end{figure}
 
-\end{frame}
+%%%% nicer plot needed
+% \begin{frame}{Motivation for Hierarchical Modelling}
+%     \begin{figure}
+%     \centering
+%     \includegraphics[width=0.95\textwidth]{plots/motivation_groupwise_scatterplot.jpeg} %%placeholder!!!!
+%     \caption{Your caption here}
+% \end{figure}
+
+% \end{frame}
 
 
 
@@ -217,7 +219,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
     \item District voting outcomes can be modeled via logistic regression 
     \item Districts are exchangable within each state and each state is exchangable within its region
     % would be nice to have a graphic showing the geographic hierachry 
-    \item ??? 
+    \item We assume that the variation is explained by out predictors, and were there no additonal predictors $\theta = .5$ across all levels of geography 
   \end{itemize}
   \end{frame}
 
@@ -229,6 +231,7 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 \begin{frame}{Model 1}
     % equation 
+
     % priors
 
     Let the response variable 'Winning Party' be \(y\), the predictor of interest 'Urban index' be \(x\), and the other covariates be a 15-dimensional vector \(z\). Let \(i\), \(j\), and \(k\) be the indices for the district, region, and state respectively. 
@@ -466,16 +469,25 @@ Our dependent variable of interest is the Urban Index from FiveThirtyEight.
 
 
 
-\section{Prior Sensitivity Analysis}
+\section{Conclusion}
 
-\begin{frame}{Alternative Priors}
+\begin{frame}{Best Model}
     % listing what different priors where changed
 \end{frame}
 
-\begin{frame}{What's changed}
-    
+
+
+\begin{frame}{Possible Improvemnts}
+    \begin{itemize}
+        \item Scaling all covariates to same scale for better parameter estimation interpretability
+        \item More prior experimentation 
+        \item Varying intercept models, as we currently only have varying slopes
+    \end{itemize}
 \end{frame}
 
+\begin{frame}{Next Steps}
+    
+\end{frame}
 
 
 

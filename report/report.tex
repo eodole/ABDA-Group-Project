@@ -167,13 +167,23 @@
 \section{Introduction}
 
 Every two years the United States elects 435 officials to the House of Representatives. The 435 House seats are allocated roughly proportional to population with additional constraint that each state must have at least one seat in the House of Representatives. However, despite being roughly equivalent in population size, the characteristics of voters living in each district varies greatly by district. 
-As the U.S. is a two party system, the association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidate is a topic of extensive study. However, little is known about the relationship between voting outcomes and the voters environment.  In a very general sense, conventional wisdom says that cities tend to be more “blue”, meaning voters in large cities tend to vote for democrats. Our project is focused on characterizing this relationship more concretely. 
-
+Although technically a multiparty system, the U.S. is often called a two party system due to the domination of Democrats and Republicans at all levels of govenrment (cite). These parties dominate because political candidates are only required to get a plurality of votes, of which the two largest parties often reach. Additionaly would be third-party voters, will often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate who will likely not win (cite). Within our dataset, there are no districts represented by a third-party candidate and as such we often refer to the U.S. as being a two party system.  The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. However, little is known about the relationship between voting outcomes and the voters environment.  In a very general sense, conventional wisdom says that cities tend to be more “blue”, meaning voters in large cities tend to vote for democrats. Our project is focused on characterizing this relationship more concretely. 
+To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. This election takes places during a non-presidential year, which may cause additonal effects, this election also takes place most recently after the 2020 Census, allowing us to use the most recently available demographic data. 
+Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. The parameters 
+% Previous attempts? 
 
 
 \section{Dataset}
 
-Our dataset was made by combining three independent datasets from the same time period. The first
+
+Our dataset was made by combining three independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. 
+% maybe add something about this analysis? 
+
+The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. From this dataset we used the party, state, and winner variables. 
+
+The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we used the following variables for each House district; 
+
+
 
 \subsection{Data Cleaning}
 

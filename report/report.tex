@@ -46,7 +46,7 @@
 \setlength{\headheight}{15pt}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{Your Names} % Fill in your name
+\rhead{Odole, Cunha, and Murthy} % Fill in your name
 %\lhead{Bayesian Statistics \& Probabilistic Machine Learning---Project Report}
 \rfoot{Page \thepage}
 
@@ -66,7 +66,7 @@
           Advanced Bayesian Data Analysis\\[\baselineskip]} % Tagline(s) or further description
         \vspace*{\baselineskip}
         
-        {\LARGE Eldaleona Odole \and Leonor Cunha \and Anarghya Murthy\\[\baselineskip]} % Editor list  
+        {\LARGE Eldaleona Odole,  Leonor Cunha, and Anarghya Murthy\\[\baselineskip]} % Editor list  
         
         \vspace*{\baselineskip}
 
@@ -186,6 +186,23 @@ The third data used in our analysis is a subset of the 2022 American Commuity Su
 
 
 \subsection{Data Cleaning}
+
+In the initial cleaning we wanted all the variable to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables that are in the range of zero to one as they are percentages. 
+
+\section{Models}
+
+To describe our approach we wanted to test different models that incorporate the geographical hierarchy into the model. We made several common assumptions for the the four models that we compared with addtional more specific assumptions for each model. The first common assumption we made was that district voting outcomes can be modeled via logistic regression. This assumption gets at the basic logic of our models. As we said previously the outcomes of any particular district electoral race is binary (democrat/republic) so it is most appropriate to choose a modeling technique that can model binary outcomes. 
+\textit{Why did we choose logisitic regression?}
+We then moved on to our assumptions about the parameters of the linear regression model within the logistic regression model. We also assume that geography is a characteristic of each district that can be modeled hierarchical. For that reason we assume that each district is exchangeable within each state and that each state is exchangeable within each region. We assume this because for complicated historical reasons certain regiions of the united states are more similar to eachother than others. For example the Southern United states tends to be more religious and religous people tend to vote more conservatively, as a result the parameter associated with region would likely be smaller or more negative as compared to other regions. 
+We also are assuming that in some regions the value of urban index is more informative than others, the logic being that a city in a rural area will likely have stronger signal than an city among a bunch of other cities. 
+
+We also 
+
+\section{Priors}
+
+\section{Limitations and Improvements}
+
+
 
 
 

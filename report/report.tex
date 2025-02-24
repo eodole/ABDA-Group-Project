@@ -19,6 +19,7 @@
 
 \usepackage{graphicx}
 \usepackage[headings]{fullpage}
+\usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
  %For aligned formulas
@@ -166,9 +167,15 @@
 
 \section{Introduction}
 
-Every two years the United States elects 435 officials to the House of Representatives. The 435 House seats are allocated roughly proportional to population with additional constraint that each state must have at least one seat in the House of Representatives. However, despite being roughly equivalent in population size, the characteristics of voters living in each district varies greatly by district. 
-Although technically a multiparty system, the U.S. is often called a two party system due to the domination of Democrats and Republicans at all levels of govenrment (cite). These parties dominate because political candidates are only required to get a plurality of votes, of which the two largest parties often reach. Additionaly would be third-party voters, will often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate who will likely not win (cite). Within our dataset, there are no districts represented by a third-party candidate and as such we often refer to the U.S. as being a two party system.  The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. However, little is known about the relationship between voting outcomes and the voters environment.  In a very general sense, conventional wisdom says that cities tend to be more “blue”, meaning voters in large cities tend to vote for democrats. Our project is focused on characterizing this relationship more concretely. 
-To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. This election takes places during a non-presidential year, which may cause additonal effects, this election also takes place most recently after the 2020 Census, allowing us to use the most recently available demographic data. 
+
+\textcolor{red}{notes to ourselves about things that should go in each section can be in red like this so we dont forget to delete them :)}
+
+Every two years the United States elects 435 officials to the House of Representatives. The 435 House seats are allocated roughly proportional to population with additional constraint that each state must have at least one seat in the House of Representatives. However, despite being roughly equivalent in population size, the characteristics of voters living in each district varies greatly by district.
+
+Although technically a multiparty system, the U.S. is often called a two party system due to the domination of Democrats and Republicans at all levels of govenrment (cite). These parties dominate because political candidates are only required to get a plurality of votes, of which the two largest parties often reach. Additionaly would be third-party voters, will often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate who will likely not win (cite). Within our dataset, there are no districts represented by a third-party candidate and as such we often refer to the U.S. as being a two party system.  The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. However, little is known about the relationship between voting outcomes and the voters environment.  In a very general sense, conventional wisdom says that cities tend to be more “blue”, meaning voters in large cities tend to vote for democrats. Our project is focused on characterizing this relationship more concretely.
+
+To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. This election takes places during a non-presidential year, which may cause additonal effects, this election also takes place most recently after the 2020 Census, allowing us to use the most recently available demographic data.
+
 Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. The parameters 
 % Previous attempts? 
 
@@ -200,10 +207,37 @@ We also
 
 \section{Priors}
 
+\textcolor{red}{A table summarizing priors for each model would be nice here}
+
+\section{Code}
+
+
+\section{Results}
+
+\textcolor{red}{This section is not on the instructions but is probably the easiest way to talk about the results we got }
+
+
+
+
+\section{Convergence Diagnostics}
+
+
+
+\section{Model Comparison}
+
+
+\section{Prior Sensitivity Analysis}
+
+\textcolor{red}{another table with priors here, maybe not all because thats a lot}
+
 \section{Limitations and Improvements}
 
 
+\section{Conclusion}
 
+\subsection{Reflection on own learnings}
+
+\textcolor{red}{please lets call this subsection something else, this sounds so childish}
 
 
 \printbibliography

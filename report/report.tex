@@ -199,15 +199,95 @@ In the initial cleaning we wanted all the variable to be on roughly the same sca
 \section{Models}
 
 To describe our approach we wanted to test different models that incorporate the geographical hierarchy into the model. We made several common assumptions for the the four models that we compared with addtional more specific assumptions for each model. The first common assumption we made was that district voting outcomes can be modeled via logistic regression. This assumption gets at the basic logic of our models. As we said previously the outcomes of any particular district electoral race is binary (democrat/republic) so it is most appropriate to choose a modeling technique that can model binary outcomes. 
+
 \textit{Why did we choose logisitic regression?}
+
 We then moved on to our assumptions about the parameters of the linear regression model within the logistic regression model. We also assume that geography is a characteristic of each district that can be modeled hierarchical. For that reason we assume that each district is exchangeable within each state and that each state is exchangeable within each region. We assume this because for complicated historical reasons certain regiions of the united states are more similar to eachother than others. For example the Southern United states tends to be more religious and religous people tend to vote more conservatively, as a result the parameter associated with region would likely be smaller or more negative as compared to other regions. 
 We also are assuming that in some regions the value of urban index is more informative than others, the logic being that a city in a rural area will likely have stronger signal than an city among a bunch of other cities. 
 
 We also 
 
+
+\subsubsection*{Model 1}
+
+Let the response variable 'Winning Party' be \(y\), and \(i\), \(j\), and \(k\) be the indices for the district, state, and region respectively. 
+
+\[y_{i,j,k} \sim Ber.(logit^{-1}(\theta_{j}))\]
+
+
+\begin{equation}
+	\begin{aligned}
+		\theta_{j,k} = &\beta_0 + \beta_1 \cdot \text{Pct\_Women} + \beta_2 \cdot \text{Urban\_Index} + \beta_{2,j} \cdot \text{Urban\_Index} \\
+		&+ \beta_3 \cdot \text{Pct\_Bachelor's} + \beta_{3,k} \cdot \text{Pct\_Bach.} + \beta_{4} \cdot \text{Median\_Income} \\ 
+		&+ \beta_{4,j} \cdot \text{Median\_Income} + \beta_{5} \cdot \text{Pct\_Retirees}
+	\end{aligned}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
 \section{Priors}
 
 \textcolor{red}{A table summarizing priors for each model would be nice here}
+
+
+%% Priors
+%\[\beta_0 \sim \text{Normal}(0, 0.5)\]
+%\[\beta_1, \beta_2 \sim \text{Normal}(0, 1); \beta_3 \sim \text{Cauchy(0,1)}\] 
+%\[\beta_4 \sim \text{Normal}(0,1); \beta_5 \sim \text{t}(1,-1,1)\]
+%
+%
+%\[\beta_{2,j} \sim \text{Normal}(0, \sigma_{\beta_{2,j}})\]
+%
+%\[\beta_{3,k} \sim \text{Normal}(0, \sigma_{\beta_{3,k}})\]
+%
+%\[\beta_{4,j} \sim \text{Normal}(0, \sigma_{\beta_{4,j}})\]
+%
+%\[\sigma_{\beta_{2,j}} \sim \text{Gamma}(2,5) \]
+%
+%\[\sigma_{\beta_{3,k}} \sim \text{Normal}(0,1) \]
+%
+%\[\sigma_{\beta_{4,j}} \sim \text{Normal}(0,1) \]
+
+
+
+
+For many of our parameters we picked Normal distributions [reasons]
+
+For the intercept $\beta_0$ in Model 1 we set a Normal prior centered at zero with a small standard deviation. This represents our assumption that the probability of either party winning is roughly 50\% (corresponding to a $\theta_{j,k}$ of zero) when all other factors are absent. [wrong]
+
+
+
+In Model 1, neither Pct.Women nor Pct.Retirees are modeled hierarchically. 
+
+
+The percentage of women is roughly the same in every district, so we do not expect this covariate to have a strong effect on the probability of either party winning, i.e, we expect $\beta_{women}$ to be close to zero. So, we set a prior for this slope which is centered around zero and has little variability: a standard normal prior. 
+
+The Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{Pct.Retirees}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty. 
+
+
+
+The effects of urban index, percentage of bachelor degrees, and median income are all parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior).
+
+ 
+For the average component of the urbanindex slope we opted for a standard normal prior. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying. So, we set comparatively less-informative priors on the parameters representing the effect of the index.
+
+
+As we expected the average effects of both Median Income and Pct Bscs to be positive in some cases and negative in others, we picked symmetric priors for both $\beta_{Pct.Bsc}$ and $\beta_{Med.Income}$. We are, however, less sure about the average null effect of the Percentage of Bachelor degrees, so for this slope parameter we opted for a prior with 'fatter tails', the standard Cauchy distribution rather than the Normal one.
+
+
+For the hyperparameters, we chose a half standard normal prior for both the standard deviations of $\beta_{Pct.Bsc,k}$ and $\beta_{Med.Income,j}$. This is a narrow distribution, with most values falling between 0 and 1, as we expect to see weak effects for these covariates, and thus small standard deviations (and positive, as any SD is by definition). For the standard deviation of $\beta_{urbanindex,j}$, on the contrary, we opted for a less informative prior. Again, we do not want to make such strong assumptions about the effect of our variable of interest, hence we "allow the estimates to fluctuate more".
+
+
+
+
+
 
 \section{Code}
 

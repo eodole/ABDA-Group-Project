@@ -306,9 +306,58 @@ For the hyperparameters, we chose a half standard normal prior for both the stan
 \section{Model Comparison}
 
 
+Our four models were built based on somewhat different assumptions about the structure of our data, and all produced slightly different results. We need to know which of these is \textit{better}, that is, which results are more trustworthy and allow us to answer our original research question.
+To this end, we measured and compared our models' predictive performance first by looking at absolute predictive performance, then at relative and finally at the Leave-One-Out statistics to compare out-of-sample Predictive Performance.
+
+
+To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE)
+\textcolor{red}{(FORMULA???)}.
+This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable, meaning it has a direct interpretation in the context of our problem.
+It takes into account the uncertainty of the posterior distribution by...
+
+
+[plots of RMSE draws, overlap for comparison]
+
+[interpretation]
+
+
+
+To assess relative predictive performance, we looked at log-likelihood scores, that is, the average of posterior draws' log-likelihoods for each observation
+\textcolor{red}{(FORMULA???)}. 
+This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, we need to compare it between different models to establish which is better.
+ 
+
+[plot of ll scores or likelihood differences?, overlap]
+
+[interpretation]
+
+Note: these metrics are in-sample, so is biased towards more complex models 
+
+
+In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they tend to favor more complex models.
+(In our case, the bigger mmodel (Model 1) was indeed the preferred one using both RMSE and LL scores.?????????????????')
+Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and assessing the likelihood (ELPD) of the observations in the latter, given the model estimates with the training set.
+\textcolor{red}{ELPD FORMULA??????????????}
+
+The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (PSIS).
+
+[LOO statistics table]
+
+According to the LOO statistics, model 1 is the preferred one.
+
+[pareto k estimates issue and momnet matching?]
+
+
 \section{Prior Sensitivity Analysis}
 
 \textcolor{red}{another table with priors here, maybe not all because thats a lot}
+
+One of the most important parts of Bayesian Data Analysis is setting the prior distributions. The choice of priors could greatly affect the final results in a model..  \textcolor{red}{(cite prior sensitivity guys)}
+So, we conducted a prior sensitivity analysis, by refitting our model(s) using alternative priors (which also fit our model assumptions) and assessing the impact in our results.
+
+[BRIEFLY explain new priors, graphs comparing them]
+
+
 
 \section{Limitations and Improvements}
 

@@ -76,4 +76,5 @@ ggplot(prediction_df, aes(x = x_new)) +
   labs(title = "Posterior Predictions with 95% Credible Interval", x = "x", y = "Predicted Probability") +
   theme_minimal()
 
+#no brms models here
 

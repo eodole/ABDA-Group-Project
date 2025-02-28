@@ -246,6 +246,9 @@ Both the state and region hierarchies were included, but on different covariates
 
 Equation \ref{eq:mod1_uncentered} describes our model conceptually. In order to have a specification more compatible with R syntax so we can fit our model with brms, we reformulate the model as Equation \ref{eq:mod1_centered}, with the group-level (state or region) centered around zero, following \textcolor{red}{cite brms book}
 
+To better understand what happens in the backend when we want to fit this model with BRMS, it is helpful to rewrite the equation \ref{eq:mod1_uncentered} in terms of 'global' and 'hierarchical' effects.
+
+
 
 
 
@@ -258,7 +261,7 @@ Equation \ref{eq:mod1_uncentered} describes our model conceptually. In order to 
 	\end{aligned}
 \end{equation}
 
-
+Note that although we are interested in hierarchically varying coefficients for certain variables, we nevertheless include a non-varying coefficient for the same variables, e.g. we have both a global coefficient as well as a state dependent coefficient for urban index. 
 
 \subsubsection*{Model 2} 
 
@@ -418,7 +421,13 @@ For the hyperparameters, we chose a half standard normal prior for both the stan
 
 \section{Convergence Diagnostics}
 
+One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. This ensures we have access to both the posterior samples and (in our case) the posterior regression coefficients themselves. All our data analysis was done using BRMS, which runs on STAN, which itself uses the Hamiltonian Monte Carlo algorithm for the posterior generation. 
 
+"Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'.
+
+HMC Convergence diagnostics in itself can be a rather extensive topic, so for this project we only consider graphical and summary output based diagnostics, namely: the MCMC trace plots as provided by BRMS, and the Effective Sample Size as provided by the summary output command.
+
+For the first model, we see that all 4 chains are relatively horizontal, and each chain appears to be 'centred' around a particular value. There are no divergent transitions for any coefficient for this model. 
 
 \section{Model Comparison}
 

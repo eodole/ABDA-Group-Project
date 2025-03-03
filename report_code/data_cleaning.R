@@ -89,12 +89,21 @@ joined_final = joined_final %>%
     urban.cat = grouping,
     pct.retirees = Percentage.Retirees..65.., 
     pct.unemployed = Unemployment.Rate..16.and.over.,
-    pct.bach = Percentage.Bachelors.Degree.in.Population.over.25
+    pct.bach = Percentage.Bachelors.Degree.in.Population.over.25,
+    pct.women = Percentage.Women
   )
 
 # rescale total population and household income
 joined_final$Total.Population <- joined_final$Total.Population/1000000
 joined_final$Median.Household.Income <- joined_final$Median.Household.Income/100000
+
+#rescale percentage variables 
+joined_final$pct.bach <- joined_final$pct.bach*100
+joined_final$pct.retirees <- joined_final$pct.retirees*100
+joined_final$pct.unemployed <- joined_final$pct.unemployed*100
+joined_final$pct.women <- joined_final$pct.women*100
+
+
 
 write.csv(joined_final, "final_data_for_report.csv", row.names = FALSE)
 

@@ -9,6 +9,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
 
 \usepackage[
     a4paper,
@@ -230,7 +231,7 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 \textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
 Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
 
-The Winning party in each congressional district race ($y_{i,j,k}$ for district $i$, state $j$, region $k$) can be modeled as the outcome of Bernoulli trial, since this is a binary variable: \textcolor{red}{NOTE ON HOW WE KNOW IT IS NOT A 2 PARTY SYSTEM EXCEPT THAT OOPS IT IS}
+The Winning party in each congressional district race\blue{ ($y_{i,j,k}$ for district $i$, state $j$, region $k$)}can be modeled as the outcome of Bernoulli trial, since this is a binary variable: \textcolor{red}{NOTE ON HOW WE KNOW IT IS NOT A 2 PARTY SYSTEM EXCEPT THAT OOPS IT IS}
 \begin{equation}
 	y_{i,j,k} \sim Ber \left( \pi_{j,k} = logit^{-1}(\theta_{j,k})  \right)
 \end{equation}
@@ -341,7 +342,9 @@ The idea behind the differing effect strength of urban index values per region i
 \subsubsection*{Model 1 (state level)}
 
 
-Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept. Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{j}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
+Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept.
+\blue{ Murthy didn't you find something in initial testing? please write about that}
+Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{j}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
 
 Equation \ref{eq:state_level_uncentered} describes our model conceptually.
 
@@ -385,8 +388,12 @@ Equation \ref{eq:region_level_centered} describes this model, in its specificati
 
 \subsubsection*{Model 3 (nested)}
 
+
 In this model we include the entire geographical hierarchy: a \textit{nested hierarchy} of districts within states within regions.
 Here the assumption is that the effect of urbanindex ($\beta_{urb, j:k}$) depends on state $j$ and region $k$ through a prior with mean parameter $\beta_{urb, k}$, which in turn varies by region and depends on hyper-mean $\beta_{urb}$ (which has its own prior, with hyper-hyper-parameters). Equation \ref{eq:nested_centered} specifies the model, with the centered around zero formulation. 
+
+
+
 % Model equation
 \begin{equation} \label{eq:nested_centered}
 	\begin{aligned}
@@ -590,6 +597,11 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 \section{Limitations and Improvements}
 
+\section{Changes from Presentation}
+\blue{Please keep track of the changes we make from the presentation}
+\begin{enumerate}
+	\item stuff probably for exmaple the priors 
+\end{enumerate}
 
 \section{Conclusion}
 

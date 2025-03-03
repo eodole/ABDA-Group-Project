@@ -225,7 +225,7 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 %We also 
 %
 %++++++++++++++++++++++++++++++++++++++++++++++
-\subsubsection{Two party system}
+\subsubsection*{Two party system}
 
 \textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
 Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
@@ -237,7 +237,7 @@ The Winning party in each congressional district race ($y_{i,j,k}$ for district 
 with probability of a Democrat win $\pi_{j,k}$ modeled as the inverse logit transform of $\theta_{j,k}$, a linear combination of our covariates. The inverse logit function converts real numbers into quantities between 0 and 1, and is therefore a standard way to model probabilities \textcolor{red}{cite}.
 
 
-We tested four different models for $\theta_{j,k}$, which include different covariates in addition to out variable of interest (Urban index) and incorporate our data's hierarchical structure in different ways. Therefore, all four are Multilevel Bayesian (Logistic) Models, which require particular assumptions: \textcolor{red}{CITE} 
+We tested four different models for $\theta_{j,k}$, which include different covariates in addition to our variable of interest (Urban index) and incorporate our data's hierarchical structure in different ways. Therefore, all four are Multilevel Bayesian (Logistic) Models, which require particular assumptions: \textcolor{red}{CITE} 
 first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, interchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
@@ -247,49 +247,148 @@ The idea behind the differing effect strength of urban index values per region i
 
 
 
-\subsubsection*{Model 1}
+%\subsubsection*{Model 1}
+%
+%Model 1 is our most extensive model.
+%
+%Here we used urban index and 4 additional covariates plus an intercept to explain $\theta_{j,k}$.
+%
+%Both the state and region hierarchies were included, but on different covariates. Urban index and median income effects vary by state, while the slope of percentage of bachelor's degrees varies by region. The intercept and the slopes of percentage of women and percentage of retirees were considered to have the same effect for all districts, hence were modeled non-hierarchically.
+%
+%
+%
+%\begin{equation} \label{eq:big_uncentered}
+%	\begin{aligned}
+%		\theta_{j,k} = & \beta_0 + \beta_{women} \cdot \text{Pct\_Women} + \beta_{uncent \: urbindex, j} \cdot \text{Urban\_Index} \\
+%		               & + \beta_{uncent \: bsc,k} \cdot \text{Pct\_Bach.} \\
+%		               & + \beta_{uncent \: inc,j} \cdot \text{Median\_Income} + \beta_{ret} \cdot \text{Pct\_Retirees}
+%	\end{aligned}
+%\end{equation}
+%
+%
+%
+%Equation \ref{eq:big_uncentered} describes our model conceptually. In order to have a specification more compatible with R syntax so we can fit our model with brms, we reformulate the model as Equation \ref{eq:big_centered}, with the group-level (state or region) centered around zero, following \textcolor{red}{cite brms book}
+%
+%To better understand what happens in the backend when we want to fit this model with BRMS, it is helpful to rewrite the equation \ref{eq:big_uncentered} in terms of 'global' and 'hierarchical' effects.
+%
+%
+%
+%
+%
+%\begin{equation} \label{eq:big_centered}
+%	\begin{aligned}
+%		\theta_{j,k} = & \beta_0 + \beta_{women} \cdot \text{Pct\_Women}                                                                              \\
+%		               & + \beta_{urbindex} \cdot \text{Urban\_Index} + \beta_{urbindex, j} \cdot \text{Urban\_Index}                                 \\
+%		               & + \beta_{bsc} \cdot \text{Pct\_Bachelor's} + \beta_{bsc,k} \cdot \text{Pct\_Bach.} + \beta_{inc} \cdot \text{Median\_Income} \\
+%		               & + \beta_{inc,k} \cdot \text{Median\_Income} + \beta_{ret} \cdot \text{Pct\_Retirees}
+%	\end{aligned}
+%\end{equation}
+%
+%Note that although we are interested in hierarchically varying coefficients for certain variables, we nevertheless include a non-varying coefficient for the same variables, e.g. we have both a global coefficient as well as a state dependent coefficient for urban index. 
 
-Model 1 is our most extensive model. Here we used urban index and 4 additional covariates plus an intercept to explain $\theta_{j,k}$.
-Both the state and region hierarchies were included, but on different covariates. Urban index and median income effects vary by state, while the slope of percentage of bachelor's degrees varies by region. The intercept and the slopes of percentage of women and percentage of retirees were considered to have the same effect for all districts, hence were modeled non-hierarchically.
+%\subsubsection*{Model 2} 
+%
+%For Model 2 we significantly reduced the number of variables. We kept only our variable of interest, urban index, and percentage of retirees \textcolor{red}{[why?????]}
+%Here, the geographical hierarchy was incorporated through a \textit{nested hierarchy} of districts within states within regions.
+%So, this model assumes that the effect of urbanindex ($\beta_{urb, j:k}$) depends on state $j$ and region $k$ through a prior with mean parameter $\beta_{urb, k}$, which in turn varies by region and depends on hyper-mean $\beta_{urb}$ (which has its own prior, with hyper-hyper-parameters). Equation \ref{eq:nested_centered} specifies the model, with the centered around zero formulation. 
+%% Model equation
+%\begin{equation} \label{eq:nested_centered}
+%	\begin{aligned}
+%		\theta_{j,k} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,k} \cdot \text{Urban\_Index} \\
+%		&+ \beta_{urb,j:k} \cdot \text{Urban\_Index} + \beta_{ret} \cdot \text{Pct\_Retirees}
+%	\end{aligned}
+%\end{equation}
 
 
 
-\begin{equation} \label{eq:mod1_uncentered}
+
+
+%
+%
+%\subsubsection*{Model 3}
+%
+%
+%
+%
+%\begin{equation} \label{eq:state_level_centered}
+%	\begin{aligned}
+%		\theta_{j} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,j} \cdot \text{Urban\_Index} \\
+%		&+ \beta_{ret} \cdot \text{Pct\_Retirees}
+%	\end{aligned}
+%\end{equation}
+
+
+
+
+
+%\subsubsection*{Model 4}
+%
+%
+%
+%
+%\begin{equation} \label{eq:region_level_centered}
+%	\begin{aligned}
+%		\theta_{k} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,k} \cdot \text{Urban\_Index} \\
+%		&+ \beta_{ret} \cdot \text{Pct\_Retirees}
+%	\end{aligned}
+%\end{equation}
+
+
+
+
+
+
+\subsubsection*{Model 1 (state level)}
+
+
+Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept. Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{j}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
+
+Equation \ref{eq:state_level_uncentered} describes our model conceptually.
+
+
+\begin{equation} \label{eq:state_level_uncentered}
 	\begin{aligned}
-		\theta_{j,k} = & \beta_0 + \beta_{women} \cdot \text{Pct\_Women} + \beta_{uncent \: urbindex, j} \cdot \text{Urban\_Index} \\
-		               & + \beta_{uncent \: bsc,k} \cdot \text{Pct\_Bach.} \\
-		               & + \beta_{uncent \: inc,j} \cdot \text{Median\_Income} + \beta_{ret} \cdot \text{Pct\_Retirees}
+		\theta_{j} =    &\beta_0 + \beta_{urb,j}^{uncent} \cdot \text{Urban\_Index} + \beta_{ret} \cdot \text{Pct\_Retirees}
+	\end{aligned}
+\end{equation}
+
+To better understand what happens in the backend when we want to fit this model with BRMS, it is helpful to rewrite the equation \ref{eq:state_level_centered} in terms of 'global' and 'hierarchical' effects. The previously considered coefficient is then decomposed into these effects, i.e.
+$\beta_{urb,j}^{uncent} = \beta_{urb} + \beta_{urb,j}$
+with $\beta_{urb,j}$ centered around zero, which does not alter the meaning of the model. \textcolor{red}{cite brms book}
+
+\begin{equation} \label{eq:state_level_centered}
+	\begin{aligned}
+		\theta_{j} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,j} \cdot \text{Urban\_Index} \\
+		&+ \beta_{ret} \cdot \text{Pct\_Retirees}
 	\end{aligned}
 \end{equation}
 
 
-
-Equation \ref{eq:mod1_uncentered} describes our model conceptually. In order to have a specification more compatible with R syntax so we can fit our model with brms, we reformulate the model as Equation \ref{eq:mod1_centered}, with the group-level (state or region) centered around zero, following \textcolor{red}{cite brms book}
-
-To better understand what happens in the backend when we want to fit this model with BRMS, it is helpful to rewrite the equation \ref{eq:mod1_uncentered} in terms of 'global' and 'hierarchical' effects.
+Although we assume that there is indeed state-level clustering in the district election outcomes, we have 50 states, and some of them include only one or two districts. This can make the hierarchical estimates unreliable. 
 
 
+\subsubsection*{Model 2 (region level)}
 
 
+To overcome this problem, we fit another model, with only one difference from the previous one: the hierarchy is at the region level, rather than state. This means the coefficients of urban index vary by region now, with a common mean and variance which are parameters to be estimated themselves.
+Equation \ref{eq:region_level_centered} describes this model, in its specification with separate global and hierarchical effects for urban index.
 
-\begin{equation} \label{eq:mod1_centered}
+
+\begin{equation} \label{eq:region_level_centered}
 	\begin{aligned}
-		\theta_{j,k} = & \beta_0 + \beta_{women} \cdot \text{Pct\_Women}                                                                              \\
-		               & + \beta_{urbindex} \cdot \text{Urban\_Index} + \beta_{urbindex, j} \cdot \text{Urban\_Index}                                 \\
-		               & + \beta_{bsc} \cdot \text{Pct\_Bachelor's} + \beta_{bsc,k} \cdot \text{Pct\_Bach.} + \beta_{inc} \cdot \text{Median\_Income} \\
-		               & + \beta_{inc,k} \cdot \text{Median\_Income} + \beta_{ret} \cdot \text{Pct\_Retirees}
+		\theta_{k} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,k} \cdot \text{Urban\_Index} \\
+		&+ \beta_{ret} \cdot \text{Pct\_Retirees}
 	\end{aligned}
 \end{equation}
 
-Note that although we are interested in hierarchically varying coefficients for certain variables, we nevertheless include a non-varying coefficient for the same variables, e.g. we have both a global coefficient as well as a state dependent coefficient for urban index. 
+%The theoretical reasoning for this model is not as strong. 
 
-\subsubsection*{Model 2} 
+\subsubsection*{Model 3 (nested)}
 
-For Model 2 we significantly reduced the number of variables. We kept only our variable of interest, urban index, and percentage of retirees \textcolor{red}{[why?????]}
-Here, the geographical hierarchy was incorporated through a \textit{nested hierarchy} of districts within states within regions.
-So, this model assumes that the effect of urbanindex ($\beta_{urb, j:k}$) depends on state $j$ and region $k$ through a prior with mean parameter $\beta_{urb, k}$, which in turn varies by region and depends on hyper-mean $\beta_{urb}$ (which has its own prior, with hyper-hyper-parameters). Equation \ref{eq:mod2_centered} specifies the model, with the centered around zero formulation. 
+In this model we include the entire geographical hierarchy: a \textit{nested hierarchy} of districts within states within regions.
+Here the assumption is that the effect of urbanindex ($\beta_{urb, j:k}$) depends on state $j$ and region $k$ through a prior with mean parameter $\beta_{urb, k}$, which in turn varies by region and depends on hyper-mean $\beta_{urb}$ (which has its own prior, with hyper-hyper-parameters). Equation \ref{eq:nested_centered} specifies the model, with the centered around zero formulation. 
 % Model equation
-\begin{equation} \label{eq:mod2_centered}
+\begin{equation} \label{eq:nested_centered}
 	\begin{aligned}
 		\theta_{j,k} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,k} \cdot \text{Urban\_Index} \\
 		&+ \beta_{urb,j:k} \cdot \text{Urban\_Index} + \beta_{ret} \cdot \text{Pct\_Retirees}
@@ -298,24 +397,22 @@ So, this model assumes that the effect of urbanindex ($\beta_{urb, j:k}$) depend
 
 
 
-%% Priors
-%\[\beta_0 \sim \text{Normal}(0, 0.5)\]
-%\[\beta_1 \sim \text{Normal}(0, 1); \beta_2 \sim \text{t}(1,-2,1)\]
-%\[\beta_{1,j} \sim \text{Normal}(0, \sigma_j)\]
-%\[\beta_{1,j:k} \sim \text{Normal}(0, \sigma_{j:k})\]
-%\[ \sigma_j; \sigma_{j:k} \sim \text{Halfcauchy}(10)\]
+\subsubsection*{Model 4 (big model)}
 
 
+This is our most extensive model.
+Here we used urban index and 4 additional covariates plus an intercept to explain $\theta_{j,k}$.
+It can be seen as an extension of Model 1, as urban index is modeled hierarchical by state. The region level hierarchy is instead included only in the effect of percentage of bachelors degrees.
+Median income effect is also considered to vary by state, and the intercept and the slopes of percentage of women and percentage of retirees were modeled non-hierarchically.
 
-\subsubsection*{Model 3}
+Equation \ref{eq:big_centered} describes this model, in the brms adapted specification.
 
-
-
-
-\begin{equation} \label{eq:mod3_centered}
+\begin{equation} \label{eq:big_centered}
 	\begin{aligned}
-		\theta_{j} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,j} \cdot \text{Urban\_Index} \\
-		&+ \beta_{ret} \cdot \text{Pct\_Retirees}
+		\theta_{j,k} = & \beta_0 + \beta_{women} \cdot \text{Pct\_Women}                                                                              \\
+		& + \beta_{urbindex} \cdot \text{Urban\_Index} + \beta_{urbindex, j} \cdot \text{Urban\_Index}                                 \\
+		& + \beta_{bsc} \cdot \text{Pct\_Bachelor's} + \beta_{bsc,k} \cdot \text{Pct\_Bach.} + \beta_{inc} \cdot \text{Median\_Income} \\
+		& + \beta_{inc,k} \cdot \text{Median\_Income} + \beta_{ret} \cdot \text{Pct\_Retirees}
 	\end{aligned}
 \end{equation}
 
@@ -323,17 +420,9 @@ So, this model assumes that the effect of urbanindex ($\beta_{urb, j:k}$) depend
 
 
 
-\subsubsection*{Model 4}
 
 
 
-
-\begin{equation} \label{eq:mod4_centered}
-	\begin{aligned}
-		\theta_{k} =    &\beta_0 + \beta_{urb} \cdot \text{Urban\_Index} + \beta_{urb,k} \cdot \text{Urban\_Index} \\
-		&+ \beta_{ret} \cdot \text{Pct\_Retirees}
-	\end{aligned}
-\end{equation}
 
 
 
@@ -347,82 +436,76 @@ So, this model assumes that the effect of urbanindex ($\beta_{urb, j:k}$) depend
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{l|llll}
 			\toprule
-			              & \multicolumn{1}{c}{Model 1}                  & \multicolumn{1}{c}{Model 2}                  & \multicolumn{1}{c}{Model 3}              & \multicolumn{1}{c}{Model 4}              \\ \hline
-			Intercept     & $\beta_0 \sim N(0, 10)$                      & $\beta_0 \sim N(0, 10)$                      & $\beta_0 \sim N(0, 10)$                  & $\beta_0 \sim N(0, 10)$                  \\
-			Urban Index   & $\beta_{urb} \sim N(0,1)$                    & $\beta_{urb} \sim N(0,1)$                    & $\beta_{urb} \sim N(0,1)$                & $\beta_{urb} \sim N(0,1)$                \\
-			              & $\beta_{urb, j} \sim N(0, \sigma_{urb,j}), $ & $\beta_{urb, k} \sim N(0, \sigma_{k}), $     & $\beta_{urb, j} \sim N(0, \sigma_{j}), $ & $\beta_{urb, k} \sim N(0, \sigma_{k}), $ \\
-			              & $\sigma_{urb,j} \sim Gamma(2,5)$             & $\sigma_{k} \sim Halfcauchy(10)$             & $\sigma_{j} \sim Halfcauchy(10)$         & $\sigma_{k} \sim Halfcauchy(10)$         \\
-			              &                                              & $\beta_{urb, j:k} \sim N(0, \sigma_{j:k}), $ &                                          &                                          \\
-			              &                                              & $\sigma_{j:k} \sim Halfcauchy(10)$           &                                          &                                          \\
-			Pct.retirees  & $\beta_{ret} \sim t(1,-2,1)$                 & $\beta_{ret} \sim t(1,-2,1)$                 & $\beta_{ret} \sim t(1,-2,1)$             & $\beta_{ret} \sim t(1,-2,1)$             \\
-			pct.women     & $\beta_{urb} \sim N(0,1)$                    &                                              &                                          &                                          \\
-			pct bsc       & $\beta_{bsc} \sim t(1,0,1)$                  &                                              &                                          &                                          \\
-			              & $\beta_{bsc, k} \sim N(0, \sigma_{bsc,k}), $ &                                              &                                          &                                          \\
-			              & $\sigma_{bsc,k} \sim Halfnormal(0,1)$        &                                              &                                          &                                          \\
-			median income & $\beta_{inc} \sim N(0,1)$                    &                                              &                                          &                                          \\
-			              & $\beta_{inc, j} \sim N(0, \sigma_{inc,j}), $ &                                              &                                          &                                          \\
-			              & $\sigma_{inc,j} \sim Halfnormal(0,1)$        &                                              &                                          &                                          \\ \bottomrule
+			& \multicolumn{1}{c}{Model 3}              & \multicolumn{1}{c}{Model 4}              & \multicolumn{1}{c}{Model 2}                  & \multicolumn{1}{c}{Model 1}                  \\ 
+			\hline
+			Intercept     & $\beta_0 \sim N(0, 10)$                  & $\beta_0 \sim N(0, 10)$                  & $\beta_0 \sim N(0, 10)$                      & $\beta_0 \sim N(0, 10)$                      \\
+			Urban Index   & $\beta_{urb} \sim N(0,1)$                & $\beta_{urb} \sim N(0,1)$                & $\beta_{urb} \sim N(0,1)$                    & $\beta_{urb} \sim N(0,1)$                    \\
+			& $\beta_{urb, j} \sim N(0, \sigma_{j}), $ & $\beta_{urb, k} \sim N(0, \sigma_{k}), $ & $\beta_{urb, k} \sim N(0, \sigma_{k}), $     & $\beta_{urb, j} \sim N(0, \sigma_{urb,j}), $ \\
+			& $\sigma_{j} \sim Halfcauchy(10)$         & $\sigma_{k} \sim Halfcauchy(10)$         & $\sigma_{k} \sim Halfcauchy(10)$             & $\sigma_{urb,j} \sim Halfcauchy(10)$             \\
+			&                                          &                                          & $\beta_{urb, j:k} \sim N(0, \sigma_{j:k}), $ &                                          \\
+			&                                          &                                          & $\sigma_{j:k} \sim Halfcauchy(10)$           &                                          \\
+			Pct.retirees  & $\beta_{ret} \sim t(1,-2,1)$             & $\beta_{ret} \sim t(1,-2,1)$             & $\beta_{ret} \sim t(1,-2,1)$                 & $\beta_{ret} \sim t(1,-2,1)$                 \\
+			pct.women     &                                          &                                          &                                              & $\beta_{women} \sim N(0,1)$                    \\
+			pct bsc       &                                          &                                          &                                              & $\beta_{bsc} \sim t(1,0,1)$                  \\
+			&                                          &                                          &                                              & $\beta_{bsc, k} \sim N(0, \sigma_{bsc,k}), $ \\
+			&                                          &                                          &                                              & $\sigma_{bsc,k} \sim Halfnormal(0,1)$        \\
+			median income &                                          &                                          &                                              & $\beta_{inc} \sim N(0,1)$                    \\
+			&                                          &                                          &                                              & $\beta_{inc, j} \sim N(0, \sigma_{inc,j}), $ \\
+			&                                          &                                          &                                              & $\sigma_{inc,j} \sim Halfnormal(0,1)$        \\ 
+			\bottomrule
 		\end{tabular}%
-		}
-		\caption{Prior summary table}
-		\label{tab:priors}
+	}
+	\caption{Prior summary table}
+	\label{tab:priors}
 \end{table}
 
 
 
 
-%% Priors
-%\[\beta_0 \sim \text{Normal}(0, 0.5)\]
-%\[\beta_1, \beta_2 \sim \text{Normal}(0, 1); \beta_3 \sim \text{Cauchy(0,1)}\] 
-%\[\beta_4 \sim \text{Normal}(0,1); \beta_5 \sim \text{t}(1,-1,1)\]
-%
-%
-%\[\beta_{2,j} \sim \text{Normal}(0, \sigma_{\beta_{2,j}})\]
-%
-%\[\beta_{3,k} \sim \text{Normal}(0, \sigma_{\beta_{3,k}})\]
-%
-%\[\beta_{4,j} \sim \text{Normal}(0, \sigma_{\beta_{4,j}})\]
-%
-%\[\sigma_{\beta_{2,j}} \sim \text{Gamma}(2,5) \]
-%
-%\[\sigma_{\beta_{3,k}} \sim \text{Normal}(0,1) \]
-%
-%\[\sigma_{\beta_{4,j}} \sim \text{Normal}(0,1) \]
-
+We assumed the same priors for the same terms included in different models (intercept, percentage of retirees, urban index for the same levels)
 
 
 
 %For many of our parameters we picked Normal distributions [reasons]
 
-For the intercept $\beta_0$ in Model 1 we set a Normal prior centered at zero with a large standard deviation. 
+For the intercept $\beta_0$ we set a Normal prior centered at zero with a large standard deviation. 
 This represents a weakly informative prior, as we had no strong beliefs about the intercept value, nor does it have any straightforward interpretation in our model: it theoretically represents the (logit of the) probability of a Democrat win in a district with no urbanization at all, a median income of zero dollars, and 0\% of women, retirees and citizens with a bachelor's degree in the population; such a district is obviously nonexistent.
 %our assumption that the probability of either party winning is roughly 50\% (corresponding to a $\theta_{j,k}$ of zero) when all other factors are absent. [wrong]
 
 
-
-
-
-In Model 1, neither Pct.Women nor Pct.Retirees are modeled hierarchically. 
-
-
-The percentage of women is roughly the same in every district, so we do not expect this covariate to have a strong effect on the probability of either party winning, i.e, we expect $\beta_{women}$ to be close to zero. So, we set a prior for this slope which is centered around zero and has little variability: a standard normal prior. 
-
-The Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty. 
-
-
-
-The effects of urban index, percentage of bachelor degrees, and median income are all parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior).
-
- 
-For the population-level component of the urbanindex slope we opted for a standard normal prior. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying. So, we set comparatively less-informative priors on the parameters representing the effect of the index.
-
-
-As we expected the population-level effects of both Median Income and Pct Bscs to be positive in some cases and negative in others, we picked symmetric priors for both $\beta_{bsc}$ and $\beta_{inc}$. We are, however, less sure about the average null effect of the Percentage of Bachelor degrees, so for this slope parameter we opted for a prior with 'fatter tails', the standard Cauchy distribution rather than the Normal one.
-
+%%%%%%%%%%%%%%%%%% urban index %%%%%%%%%%%%%%%%%%%%%%%%
+For the population-level component of the urbanindex slope we opted for a standard normal prior in all models. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying, although we are assuming that its absolute value will be below 1.96 with 95\% certainty. 
+%So, we set comparatively less-informative priors on the parameters representing the effect of the index.
 
 All group-level (zero-centered) priors are Normal, by brms specification \textcolor{red}{is there a reason???}
 
-For the hyperparameters, we chose a half standard normal prior for both the standard deviations of $\beta_{bsc,k}$ and $\beta_{inc,j}$. This is a narrow distribution, with most values falling between 0 and 1, as we expect to see weak effects for these covariates, and thus small standard deviations (and positive, as any SD is by definition). For the standard deviation of $\beta_{urb,j}$, on the contrary, we opted for a less informative prior. Again, we do not want to make such strong assumptions about the effect of our variable of interest, hence we "allow the estimates to fluctuate more".
+For the standard deviation of the hierarchical effects we opted for a relatively weakly informative prior, a $(half)Cauchy(0,10)$.
+We do not want to place strong constraints on the effect of our variable of interest, hence we 'allow the estimates to fluctuate'.
+
+
+
+%%%%%%%%%%%%%%%%%%% pct_ret %%%%%%%%%%%%%%%%%%%%%%%
+The Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% women %%%%%%%%%%%%%%%%%%%%
+In Model 4, Pct.Women is not modeled hierarchically.
+The percentage of women is roughly the same in every district, so we do not expect this covariate to have a strong effect on the probability of either party winning, i.e, we expect $\beta_{women}$ to be close to zero. So, we set a prior for this slope which is centered around zero and has little variability: a standard normal prior. 
+
+
+
+The effects of percentage of bachelor degrees and median income are parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior).
+
+ 
+
+As we expected the population-level effects of both Median Income and Pct Bscs to be positive in some cases and negative in others, we picked symmetric priors for both $\beta_{bsc}$ and $\beta_{inc}$. We are, however, less sure about the on-average-null effect of the Percentage of Bachelor degrees, so for this slope parameter we opted for a prior with 'fatter tails', the standard Cauchy distribution rather than the Normal one, representing a higher degree of uncertainty.
+
+
+For the hyperparameters, we chose a half standard normal prior for both the standard deviations of $\beta_{bsc,k}$ and $\beta_{inc,j}$. This is a narrow distribution, with most values falling between 0 and 1, as we expect to see weak effects for these covariates, and thus small standard deviations (and positive, as any SD is by definition).
+
+
+
 
 
 

@@ -17,7 +17,7 @@ df$grouping <- as.factor(df$grouping)  # this is urban category
 df$Region <- as.factor(Region)
 
 
-## Model 1 
+## Model 4  (Big Model) 
 set.seed(1234) # set seed for consistency across runs, devices, and models
 model1 <- as.formula( "Winning.party ~ urbanindex + (0 + urbanindex || State) + 
                       Percentage.Women + pct.bach + ( 0 + pct.bach || Region)  + 
@@ -39,7 +39,7 @@ model1.priors <- c(
 model1.final <- brm(model1, family = "bernoulli", prior = model1.priors, data = df, save_pars = save_pars(all = TRUE))
 
 
-## Model 2 
+## Model 3 ( Nested )
 set.seed(1234)
 model2 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | State / Region)  +  pct.retirees")
 
@@ -54,7 +54,7 @@ model2.priors <-c(
 model2.final <- brm(model2, family = "bernoulli", prior = model2.priors, data = df, save_pars = save_pars(all = TRUE))
 
 
-# Model 3 
+# Model 1 (State Level)
 set.seed(1234)
 model3 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | State ) + pct.retirees") 
 
@@ -69,7 +69,7 @@ model3.final <- brm(model3, family = "bernoulli", prior = model3.priors, data = 
 
 
 
-# Model 4
+# Model 1 ( State Level )
 set.seed(1234)
 model4 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees") 
 

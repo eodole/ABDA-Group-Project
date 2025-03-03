@@ -183,7 +183,7 @@ To answer our question about the nature of the relationship between urbanizaiton
 
 Inherent in our analysis is the assumption that voters for each are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, and assume that the districts are drawn fairly.
 
-As we are using a custom dataset it was difficult to find directly comparable research, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they show that Democrats tend to more often be located quite densly in the urban core or surrounding nearby suburbs of a city, whereas Republicans tend to live further from city centers. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on describing partisal spatial efficency. \textcolor{red}{what is partisan spatial efficency/inefficency?}
+As we are using a custom dataset it was difficult to find directly comparable research, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they show that Democrats tend to more often be located quite densly in the urban core or surrounding nearby suburbs of a city, whereas Republicans tend to live further from city centers. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on describing partisan spatial efficency. \red{They} define partisan spatial efficency to be 
 This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
 
 
@@ -212,7 +212,16 @@ The fourth dataset was the region dataset, which was put together manually by us
 
 Since we used four different data sources, this meant merging different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three dataset, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
 
-In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables that are in the range of zero to one as they are percentages. 
+In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables. Similarly we decided to scale all of the percentage variables to be on the scale zero to one hundred rather than zero to one to make their coefficents more interpretable.  
+
+\subsection{Covariate Choice}
+
+In addition to our main variable of interest, \textit{urbanindex} we had many covariates to choose from, not all of which ended up being used in our final models. How we choose our final covariates was a combination of domain knowledge and initial testing. Our intial list of covariates included: 
+\begin{itemize}
+	\item 
+\end{itemize}
+Although we initalially thou
+
 
 \section{Models}
 
@@ -513,6 +522,7 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 \blue{Please keep track of the changes we make from the presentation}
 \begin{enumerate}
 	\item stuff probably for exmaple the priors 
+	\item changed the scales for percentages to be on the 100 
 \end{enumerate}
 
 \section{Conclusion}

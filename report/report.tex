@@ -368,7 +368,7 @@ The idea behind the differing effect strength of urban index values per region i
 
 Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept.
 \blue{ Murthy didn't you find something in initial testing? please write about that}
-Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{j}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
+Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{urb}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
 
 Equation \ref{eq:state_level_uncentered} describes our model conceptually.
 
@@ -431,7 +431,7 @@ Here the assumption is that the effect of urbanindex ($\beta_{urb, j:k}$) depend
 
 This is our most extensive model.
 Here we used urban index and 4 additional covariates plus an intercept to explain $\theta_{j,k}$.
-It can be seen as an extension of Model 1, as urban index is modeled hierarchical by state. The region level hierarchy is instead included only in the effect of percentage of bachelors degrees.
+It can be seen as an extension of Model 1, as urban index is modeled hierarchically by state. The region level hierarchy is instead included only in the effect of percentage of bachelors degrees.
 Median income effect is also considered to vary by state, and the intercept and the slopes of percentage of women and percentage of retirees were modeled non-hierarchically.
 
 Equation \ref{eq:big_centered} describes this model, in the brms adapted specification.
@@ -459,41 +459,40 @@ Equation \ref{eq:big_centered} describes this model, in the brms adapted specifi
 
 \section{Priors}
 
+Priors represent our initial beliefs about our model parameters' distributions.
+In each of our models, this means a prior for the intercept, one for the slope of each covariate that is modeled non-hierarchically (e.g., $\beta_{ret}$ in all four models) and, in the case of covariates with global and hierarchical effects, priors for the hyper-parameters as well.
 
+Table \ref{tab:priors} lists our selected priors for each model, by corresponding covariate.
 
 \begin{table}[h]
 	\resizebox{\textwidth}{!}{%
 		\begin{tabular}{l|llll}
 			\toprule
-			& \multicolumn{1}{c}{Model 3}              & \multicolumn{1}{c}{Model 4}              & \multicolumn{1}{c}{Model 2}                  & \multicolumn{1}{c}{Model 1}                  \\ 
-			\hline
+			              & \multicolumn{1}{c}{Model 1}              & \multicolumn{1}{c}{Model 2}              & \multicolumn{1}{c}{Model 3}                  & \multicolumn{1}{c}{Model 4}                  \\ \hline
 			Intercept     & $\beta_0 \sim N(0, 10)$                  & $\beta_0 \sim N(0, 10)$                  & $\beta_0 \sim N(0, 10)$                      & $\beta_0 \sim N(0, 10)$                      \\
 			Urban Index   & $\beta_{urb} \sim N(0,1)$                & $\beta_{urb} \sim N(0,1)$                & $\beta_{urb} \sim N(0,1)$                    & $\beta_{urb} \sim N(0,1)$                    \\
-			& $\beta_{urb, j} \sim N(0, \sigma_{j}), $ & $\beta_{urb, k} \sim N(0, \sigma_{k}), $ & $\beta_{urb, k} \sim N(0, \sigma_{k}), $     & $\beta_{urb, j} \sim N(0, \sigma_{urb,j}), $ \\
-			& $\sigma_{j} \sim Halfcauchy(10)$         & $\sigma_{k} \sim Halfcauchy(10)$         & $\sigma_{k} \sim Halfcauchy(10)$             & $\sigma_{urb,j} \sim Halfcauchy(10)$             \\
-			&                                          &                                          & $\beta_{urb, j:k} \sim N(0, \sigma_{j:k}), $ &                                          \\
-			&                                          &                                          & $\sigma_{j:k} \sim Halfcauchy(10)$           &                                          \\
+			              & $\beta_{urb, j} \sim N(0, \sigma_{urb}),$ & $\beta_{urb, k} \sim N(0, \sigma_{urb}), $ & $\beta_{urb, k} \sim N(0, \sigma_{urb,1}), $     & $\beta_{urb, j} \sim N(0, \sigma_{urb}), $ \\
+			              & $\sigma_{urb} \sim Halfcauchy(10)$         & $\sigma_{urb} \sim Halfcauchy(10)$     & $\sigma_{urb,1} \sim Halfcauchy(10)$             & $\sigma_{urb} \sim Halfcauchy(10)$         \\
+			              &                                          &                                          & $\beta_{urb, j:k} \sim N(0, \sigma_{urb,2}), $ &                                              \\
+			              &                                          &                                          & $\sigma_{urb,2} \sim Halfcauchy(10)$           &                                              \\
 			Pct.retirees  & $\beta_{ret} \sim t(1,-2,1)$             & $\beta_{ret} \sim t(1,-2,1)$             & $\beta_{ret} \sim t(1,-2,1)$                 & $\beta_{ret} \sim t(1,-2,1)$                 \\
-			pct.women     &                                          &                                          &                                              & $\beta_{women} \sim N(0,1)$                    \\
+			pct.women     &                                          &                                          &                                              & $\beta_{women} \sim N(0,1)$                  \\
 			pct bsc       &                                          &                                          &                                              & $\beta_{bsc} \sim t(1,0,1)$                  \\
-			&                                          &                                          &                                              & $\beta_{bsc, k} \sim N(0, \sigma_{bsc,k}), $ \\
-			&                                          &                                          &                                              & $\sigma_{bsc,k} \sim Halfnormal(0,1)$        \\
+			              &                                          &                                          &                                              & $\beta_{bsc, k} \sim N(0, \sigma_{bsc}), $ \\
+			              &                                          &                                          &                                              & $\sigma_{bsc} \sim Halfnormal(0,1)$        \\
 			median income &                                          &                                          &                                              & $\beta_{inc} \sim N(0,1)$                    \\
-			&                                          &                                          &                                              & $\beta_{inc, j} \sim N(0, \sigma_{inc,j}), $ \\
-			&                                          &                                          &                                              & $\sigma_{inc,j} \sim Halfnormal(0,1)$        \\ 
-			\bottomrule
+			              &                                          &                                          &                                              & $\beta_{inc, j} \sim N(0, \sigma_{inc}), $ \\
+			              &                                          &                                          &                                              & $\sigma_{inc} \sim Halfnormal(0,1)$        \\ \bottomrule
 		\end{tabular}%
 	}
-	\caption{Prior summary table}
+	\caption{Priors defined for each of our four models, for each parameter; parameters and distributions are listed by their corresponding covariate.}
 	\label{tab:priors}
 \end{table}
 
 
 
-
-We assumed the same priors for the same terms included in different models (intercept, percentage of retirees, urban index for the same levels)
-
-
+We define such distributions before seeing the data, based on existing literature and our own intuition about the effects of our covariates on the probability of a democrat win.
+We assumed the same priors for the same terms included in different models (intercept, percentage of retirees, urban index for the same levels).
 
 %For many of our parameters we picked Normal distributions [reasons]
 
@@ -565,11 +564,20 @@ For the first model, we see that all 4 chains are relatively horizontal, and eac
 
 
 Our four models were built based on somewhat different assumptions about the structure of our data, and all produced slightly different results. We need to know which of these is \textit{better}, that is, which results are more trustworthy and allow us to answer our original research question.
-To this end, we measured and compared our models' predictive performance first by looking at absolute predictive performance, then at relative and finally at the Leave-One-Out statistics to compare out-of-sample Predictive Performance.
+To this end, we measured and compared our models' predictive performance first by looking at absolute in-sample predictive performance, then at relative and finally at the Leave-One-Out statistics to compare out-of-sample Predictive Performance.
 
 
+Absolute predictive performance metrics directly tell us directly how well the model performs, without looking at other models.
 To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE)
-\textcolor{red}{(FORMULA???)}.
+
+\begin{equation} \label{eq:rmse}
+	RMSE^{(s)} = \sqrt{
+		\frac{1}{N} 
+		\sum_{n = 1}^{N}
+		\left( y_n - \hat{y_n}^{(s)} \right)^2
+		}
+\end{equation}
+
 This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable, meaning it has a direct interpretation in the context of our problem.
 It takes into account the uncertainty of the posterior distribution by...
 
@@ -592,10 +600,14 @@ This is a relative predictive performance measure in the sense that it does not 
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
 
-In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they tend to favor more complex models.
-(In our case, the bigger mmodel (Model 1) was indeed the preferred one using both RMSE and LL scores.?????????????????')
+Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they tend to favor more complex models.
+(In our case, the bigger mmodel (Model 4) was indeed the preferred one using both RMSE and LL scores.?????????????????')
+
 Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and assessing the likelihood (ELPD) of the observations in the latter, given the model estimates with the training set.
-\textcolor{red}{ELPD FORMULA??????????????}
+
+\begin{equation}
+	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y_n} | y)
+\end{equation}
 
 The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (PSIS).
 
@@ -624,7 +636,9 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 \blue{Please keep track of the changes we make from the presentation}
 \begin{enumerate}
 	\item stuff probably for exmaple the priors 
-	\item changed the scales for percentages to be on the 100 
+	\item changed the scales for percentages to be on the 100
+	\item priors: intercept from N(0,0.5) to N(0,10); sd for urban index in bigger model from Gamma(2,5) to halfcauchy(10) to match all other models; percentage retirees in bigger model center from -1 to -2, to match other models
+	\item model order (1-2-3-4 to 3-4-2-1) 
 \end{enumerate}
 
 \section{Conclusion}

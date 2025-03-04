@@ -174,68 +174,78 @@
 \textcolor{red}{notes to ourselves about things that should go in each section can be in red like this so we dont forget to delete them :)}
 
 
-\subsection{Background}
-The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and \textcolor{red}{other org} tend to analyze their polls by breaking respondants into smaller demographic groups. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. To put it more concreatly we want to investigate the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". 
+\subsection*{Background}
+The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondants into smaller demographic groups \red{cite}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. To put it more concretely we want to investigate the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". 
 
-To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state. When then use each one the districts as a single replicate since they are approximately equivalent in population size, but the characteristics of voters living in each district varies.
+To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state \red{cite}. We then use each of the districts as a single replicate. 
+
+The 2022 House Election takes places during a non-presidential year, and is the most recent election following the 2020 Census and redistricting, allowing us to use the most recently available district maps, and demographic data. Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. 
 
 % Previous attempts? 
 
-Inherent in our analysis is the assumption that voters for each are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, and assume that the districts are drawn fairly.
+\subsection*{comparative literature}
+Inherent in our analysis is the assumption that repuclican and democratic voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a distict has been gerrymandered is rather unclear and out of the scope of this project.
 
-As we are using a custom dataset it was difficult to find directly comparable research, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they show that Democrats tend to more often be located quite densly in the urban core or surrounding nearby suburbs of a city, whereas Republicans tend to live further from city centers. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on describing partisan spatial efficency. \red{They} define partisan spatial efficency to be 
-This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
+Since we are using a custom curated dataset, there exists no directly comparableresearch, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they discuss the phenomena of spatial inefficency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficency in order to understand the impact of gerrymandering \red{CITE}. 
+
+Although the authors in \red{cite title} look at election outcomes through the lense of spatial efficency and we are trying to look at election results of districts with respect to their urbanizaition, we can take the following insights from their analysis. First the distribution of Democrats and urbanization are inexplicably linked, they found that all over the country Democrats tend to be concentrated in urban areas which indicate that it will likely be a good predictor. We would like to investigate to what extent that is true. They also note that the effect of spatial efficency is highly dependent on state and the branch of goverment. When considering that urbanization can be considered a proxy for spatial inefficency, this further supports our decision to model urbanindex hierachically. 
+% points to something ... 
+
+\red{why this particular modeling approach? Also what was our modeling approach?}
+
+\subsection*{model approach/motivation}
+\subsubsection*{Two party system}
+
+\textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
+Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
+
+% This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
+
+% They call this phenomena partisan , which happens because the districts drawn in cities te that tend to more often be located quite densly in the urban core and  Republicans tend to live further from city centers .
 
 
-\textcolor{red}{conclusions of the introduction or somehing basically }
-The 2022 House Election takes places during a non-presidential year, and is the most recent election following the 2020 Census and redistricting, allowing us to use the most recently available district maps, and demographic data. Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. 
+
 
 \textcolor{red}{this is something like assumptions but im not really sure what to say}
 Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
 
-
+\blue{maybe put assumptions here? like the exchangability assumption?}
 
 
 \section{Dataset}
-Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. 
-% maybe add something about this analysis? 
+Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. The other variable we included in our curated dataset was urban grouping, which is a collapsing of the urban index into catagories ranging from urban to rural. We however did not end up including this in our model.
 
-The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. From this dataset we used the party, state, and winner variables. 
 
-The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we used the following variables for each House district; 
+The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. From this dataset we used the party, state, and winning party variables, it also included the variable incumbent party, which we considered also using, but the data from incumbent party is partially incomplete and would likely have very high correlation with the our target variable winning party, leading to a model that relies most heavily on incumbent party. Since we are more interested in the relationship between our model and our choose covariates we therefore decided not to include it.  
 
-\textcolor{red}{add variables that we used}
+The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district in our curated dataset; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
 
-The fourth dataset was the region dataset, which was put together manually by us following the region designations of \textcolor{red}{I forgot where we got this info tbh}
+From these covariates we hoped to capture education, income, and, demographic make-up  of the districts because we thought they might be influential in determining partisan voting outcomes. However not all of these covariates were included in our final models. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \blue{cite}, so while this does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Although we intially thought that percentage women may also be a poor predictor-since women should be evenly distributed throughout the United States-however a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which is why we then included it in our largest model. \blue{cite}. We also initially thought that median and mean income could be combined to as a measure of inequality, but found a study saying that inequality is not a good voting indicator on its own \blue{cite}. For that reason we choose to use only the median household income as it would be less skewed. Similarly unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\blue{cite}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
+\blue{ Why is pct retirees included in every single one of our models? }
 
-\subsection{Data Cleaning}
 
-Since we used four different data sources, this meant merging different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three dataset, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
+The fourth dataset was the region dataset, which was put together manually by us following the four statistical region designations of United States Census Bureau. \textcolor{red}{Cite: First link on wiki list of regions of us }
+
+% Our process in choosing which variables to choose then was matter of both process of elimination as well as positive testing. This process essentially worked in two ways, first we tried to determine the relationship between voting outcomes and a particular factors based on political science research. From the remain vaiables we then looked at different testing strategies for which covariates produced highly accurate prediction results.
+
+\subsection*{Data Cleaning}
+
+ \blue{how did we code our variables? }
+We then merged these four datasets to created our own curated dataset. We did this by merging the different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three datasets, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
+
+In the election results dataset, we encountered one instance of missing data. For all of the districts in Louisiana, the winning party was not recorded. There was however the incumbant party recorded  in the Election Results dataset and by cross referencing this with public record we found for the 2022 House Election only candidates from the incumbant party remained in each of the districts. Therefore as is reflected in our code base we used the data from the incumbant party in place of winning party for the state of Louisiana. For all other states and disticts we did not encounter this problem. 
 
 In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables. Similarly we decided to scale all of the percentage variables to be on the scale zero to one hundred rather than zero to one to make their coefficents more interpretable.  
 
-\subsection{Covariate Choice}
+% \subsection{Covariate Choice}
 
-In addition to our main variable of interest, \textit{urbanindex} we had many covariates to choose from, not all of which ended up being used in our final models. How we choose our final covariates was a combination of domain knowledge and initial testing. Our intial list of covariates included: 
-\begin{itemize}
-	\item state
-	\item urban index
-	\item urban grouping 
-	\item total population
-	\item percentage women
-	\item median household income
-	\item mean household income
-	\item percentage retirees
-	\item percentage bachelors degree holders above 25 years old
-	\item unemployment rate 
-	\item region
-\end{itemize}
-We picked these out of the many possible covariates available in the American Community Survey to give us a wide variety of covariates to work with. In our inital brainstorming, we thought that education, income, as well as demographic make-up might all be influential in partisan voting outcomes, all of our initial covariates were measuring at least one of these aspects. 
+% In addition to our main variable of interest, \textit{urbanindex} we had many covariates to choose from, not all of which ended up being used in our final models. There were also many more covariates that were present in our three datasets, however we decided to drop many of them as they were not relevant to our analysis. To create our initial list of covariates, we choose variables that we thought would capture education, income, or demographic make-up  of the districts because we thought they might be influential in determining partisan voting outcomes. How we choose our final covariates was a combination of domain knowledge and initial testing. Our intial list of covariates included:
 
-To then build some knowledge into our models, we looked into different qualitative studies about voting behavior, which helped guide our final choices of covariates. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same, so while this does help support our exchangability assumption, total population itself would be an unsuitable covariate. 
+% As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \blue{cite}, so while this does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. 
 
-However as we researched more deeply, we found that some association were stronger than others. 
-Although we initialally thou
+
+% To then build some knowledge into our models, we looked into different qualitative studies about voting behavior, which helped guide our final choices of covariates. 
+
 
 
 \section{Models}
@@ -249,13 +259,9 @@ Although we initialally thou
 %
 %We also 
 %
-%++++++++++++++++++++++++++++++++++++++++++++++
-\subsubsection*{Two party system}
+%++++++++++++++++++++++++++++++++++++++++++++
 
-\textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
-Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
-
-The Winning party in each congressional district race ($y_{i,j,k}$ for district $i$, state $j$, region $k$) can be modeled as the outcome of Bernoulli trial, since this is a binary variable: \textcolor{red}{NOTE ON HOW WE KNOW IT IS NOT A 2 PARTY SYSTEM EXCEPT THAT OOPS IT IS}
+The Winning party in each congressional district race ($y_{i,j,k}$ for district $i$, state $j$, region $k$) can be modeled as the outcome of Bernoulli trial, since this is a binary variable: 
 \begin{equation}
 	y_{i,j,k} \sim Ber \left( \pi_{j,k} = logit^{-1}(\theta_{j,k})  \right)
 \end{equation}
@@ -266,9 +272,15 @@ We tested four different models for $\theta_{j,k}$, which include different cova
 first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, interchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
-The logistic relationship is a common assumption in the literature (\textcolor{red}{cite}).
-We can assume interchangeability because for complicated historical reasons certain regiions of the united states are more similar to eachother than others. For example the Southern United states tends to be more religious and religous people tend to vote more conservatively, as a result the parameter associated with region would likely be smaller or more negative as compared to other regions. 
-The idea behind the differing effect strength of urban index values per region is that a city in a rural area will likely have stronger signal than an city among a bunch of other cities. \textcolor{red}{[rewrite some of this paragraph]}
+The logistic relationship is a common assumption in the literature \blue{what do you mean here? that its a suitable choice for binary data? Maybe rewrite to: Modeling a binary as a logistic regression is a common choice in the literature(?) } (\textcolor{red}{cite}).
+
+We assume interchangeability because  we assume are the districts draw in such a way that they are competative for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
+
+One example would be for complicated historical reasons certain regions of the United States are more similar to eachother than others. For example the Southern United states tends to be more religious and religous people tend to vote more conservatively, think about this then as a prior telling us about the mix of democratic and republican districts within a particular state. Although the religiousity may increase the number of potential republican districts in each state, whether one district votes repuclican does not influence the decision of another since each district outcome is determined by thousands of individual votes. 
+Since each district is part of a state and a region, translate structure the complex geographically determined mechanisms into our model by modeling some of parameters hierarchically.
+
+% as a result the parameter associated with region would likely be smaller or more negative as compared to other regions. However the conditions for any particular southern state are the same, and 
+% The idea behind the differing effect strength of urban index values per region is that a city in a rural area will likely have stronger signal than an city among a bunch of other cities. \textcolor{red}{[rewrite some of this paragraph]}
 
 
 
@@ -580,7 +592,7 @@ To measure absolute predictive performance we used the Root Mean of Squared Erro
 
 This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable, meaning it has a direct interpretation in the context of our problem.
 It takes into account the uncertainty of the posterior distribution by...
-
+\blue{leonor we should talk about this}
 
 [plots of RMSE draws, overlap for comparison]
 

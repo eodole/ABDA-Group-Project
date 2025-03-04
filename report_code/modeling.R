@@ -36,7 +36,7 @@ model4.priors <- c(
   
 )
 
-model4.final <- brm(model4, family = "bernoulli", prior = model1.priors, data = df, save_pars = save_pars(all = TRUE))
+model4.final <- brm(model4, family = "bernoulli", prior = model4.priors, data = df, save_pars = save_pars(all = TRUE))
 
 
 ## Model 3 ( Nested )
@@ -51,7 +51,7 @@ model3.priors <-c(
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees")
 )
 
-model3.final <- brm(model3, family = "bernoulli", prior = model2.priors, data = df, save_pars = save_pars(all = TRUE))
+model3.final <- brm(model3, family = "bernoulli", prior = model3.priors, data = df, save_pars = save_pars(all = TRUE))
 
 
 # Model 1 (State Level)
@@ -65,7 +65,7 @@ model1.priors <- c(
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees")
 )
 
-model1.final <- brm(model1, family = "bernoulli", prior = model3.priors, data = df, save_pars = save_pars(all = TRUE))
+model1.final <- brm(model1, family = "bernoulli", prior = model1.priors, data = df, save_pars = save_pars(all = TRUE))
 
 
 
@@ -80,7 +80,7 @@ model2.priors <- c(
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees")
 )
 
-model2.final <- brm(model2, family = "bernoulli", prior = model4.priors, data = df, save_pars = save_pars(all = TRUE))
+model2.final <- brm(model2, family = "bernoulli", prior = model2.priors, data = df, save_pars = save_pars(all = TRUE))
 
 
 

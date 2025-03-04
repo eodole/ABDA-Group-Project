@@ -183,6 +183,7 @@ The 2022 House Election takes places during a non-presidential year, and is the 
 
 % Previous attempts? 
 
+\subsection*{comparative literature}
 Inherent in our analysis is the assumption that repuclican and democratic voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a distict has been gerrymandered is rather unclear and out of the scope of this project.
 
 Since we are using a custom curated dataset, there exists no directly comparableresearch, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they discuss the phenomena of spatial inefficency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficency in order to understand the impact of gerrymandering \red{CITE}. 
@@ -191,6 +192,12 @@ Although the authors in \red{cite title} look at election outcomes through the l
 % points to something ... 
 
 \red{why this particular modeling approach? Also what was our modeling approach?}
+
+\subsection*{model approach/motivation}
+\subsubsection*{Two party system}
+
+\textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
+Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
 
 % This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
 
@@ -202,15 +209,11 @@ Although the authors in \red{cite title} look at election outcomes through the l
 \textcolor{red}{this is something like assumptions but im not really sure what to say}
 Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
 
-
+\blue{maybe put assumptions here? like the exchangability assumption?}
 
 
 \section{Dataset}
-Our dataset was made by combining four independent datasets related to the 2022 House election. 
-
-% Our process in choosing which variables to choose then was matter of both process of elimination as well as positive testing. This process essentially worked in two ways, first we tried to determine the relationship between voting outcomes and a particular factors based on political science research. From the remain vaiables we then looked at different testing strategies for which covariates produced highly accurate prediction results.
-
-The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. The other variable we included in our curated dataset was urban grouping, which is a collapsing of the urban index into catagories ranging from urban to rural. We however did not end up including this in our model.
+Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. The other variable we included in our curated dataset was urban grouping, which is a collapsing of the urban index into catagories ranging from urban to rural. We however did not end up including this in our model.
 
 
 The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. From this dataset we used the party, state, and winning party variables, it also included the variable incumbent party, which we considered also using, but the data from incumbent party is partially incomplete and would likely have very high correlation with the our target variable winning party, leading to a model that relies most heavily on incumbent party. Since we are more interested in the relationship between our model and our choose covariates we therefore decided not to include it.  
@@ -222,6 +225,8 @@ From these covariates we hoped to capture education, income, and, demographic ma
 
 
 The fourth dataset was the region dataset, which was put together manually by us following the four statistical region designations of United States Census Bureau. \textcolor{red}{Cite: First link on wiki list of regions of us }
+
+% Our process in choosing which variables to choose then was matter of both process of elimination as well as positive testing. This process essentially worked in two ways, first we tried to determine the relationship between voting outcomes and a particular factors based on political science research. From the remain vaiables we then looked at different testing strategies for which covariates produced highly accurate prediction results.
 
 \subsection*{Data Cleaning}
 
@@ -254,11 +259,7 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 %
 %We also 
 %
-%++++++++++++++++++++++++++++++++++++++++++++++
-\subsubsection*{Two party system}
-
-\textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
-Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
+%++++++++++++++++++++++++++++++++++++++++++++
 
 The Winning party in each congressional district race ($y_{i,j,k}$ for district $i$, state $j$, region $k$) can be modeled as the outcome of Bernoulli trial, since this is a binary variable: 
 \begin{equation}
@@ -583,7 +584,7 @@ To measure absolute predictive performance we used the Root Mean of Squared Erro
 \textcolor{red}{(FORMULA???)}.
 This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable, meaning it has a direct interpretation in the context of our problem.
 It takes into account the uncertainty of the posterior distribution by...
-
+\blue{leonor we should talk about this}
 
 [plots of RMSE draws, overlap for comparison]
 

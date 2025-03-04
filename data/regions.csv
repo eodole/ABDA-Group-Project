@@ -1,5 +1,5 @@
 ﻿State,Region
-Alabama ,South
+Alabama,South
 Alaska,West
 Arizona,South
 Arkansas ,South
@@ -7,9 +7,9 @@ California,West
 Colorado,West
 Connecticut,Northeast
 Delaware,South
-Florida ,South
+Florida,South
 Georgia,South
-Hawaii ,West
+Hawaii,West
 Idaho,West
 Illinois,Midwest
 Indiana,Midwest
@@ -29,7 +29,7 @@ Nebraska,Midwest
 Nevada,West
 New Hampshire,Northeast
 New Jersey,Northeast
-New Mexico ,South
+New Mexico,South
 New York,Northeast
 North Carolina,South
 North Dakota,Midwest
@@ -40,7 +40,7 @@ Pennsylvania,Northeast
 Rhode Island ,Northeast
 South Carolina,South
 South Dakota,Midwest
-Tennessee ,South
+Tennessee,South
 Texas,South
 Utah,West
 Vermont,Northeast

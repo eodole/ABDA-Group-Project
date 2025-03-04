@@ -48,6 +48,12 @@ df_all_vars <- df_urbanization_and_races %>%
   inner_join(df_demographics, by = c("State", "district")) 
 
 
+# Louisiana has no winning party noted for any district, but we know incumbent won in all
+
+df_all_vars <- df_all_vars %>%
+  mutate(Winning.party = ifelse(State == "Louisiana", incumbent_party, Winning.party))
+
+
 ### Refine Dataset to only columns of interest
 
 # Define the columns to keep
@@ -83,7 +89,7 @@ joined_final <- joined_final %>%
 # change columns to numeric 
 joined_final$Winning.party <- as.integer(joined_final$Winning.party)
 
-# rename columns for convience 
+# rename columns for convenience 
 joined_final = joined_final %>% 
   rename(
     urban.cat = grouping,

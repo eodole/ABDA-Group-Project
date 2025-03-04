@@ -218,9 +218,24 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 
 In addition to our main variable of interest, \textit{urbanindex} we had many covariates to choose from, not all of which ended up being used in our final models. How we choose our final covariates was a combination of domain knowledge and initial testing. Our intial list of covariates included: 
 \begin{itemize}
-	\item 
+	\item state
+	\item urban index
+	\item urban grouping 
+	\item total population
+	\item percentage women
+	\item median household income
+	\item mean household income
+	\item percentage retirees
+	\item percentage bachelors degree holders above 25 years old
+	\item unemployment rate 
+	\item region
 \end{itemize}
-Although we initalially thou
+We picked these out of the many possible covariates available in the American Community Survey to give us a wide variety of covariates to work with. In our inital brainstorming, we thought that education, income, as well as demographic make-up might all be influential in partisan voting outcomes, all of our initial covariates were measuring at least one of these aspects. 
+
+To then build some knowledge into our models, we looked into different qualitative studies about voting behavior, which helped guide our final choices of covariates. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same, so while this does help support our exchangability assumption, total population itself would be an unsuitable covariate. 
+
+However as we researched more deeply, we found that some association were stronger than others. 
+Although we initialally thou
 
 
 \section{Models}

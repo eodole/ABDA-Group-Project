@@ -20,38 +20,37 @@ df$Region <- as.factor(df$Region)
 ## Model 4  (Big Model) 
 set.seed(1234) # set seed for consistency across runs, devices, and models
 model4 <- as.formula( "Winning.party ~ urbanindex + (0 + urbanindex || State) + 
-                      Percentage.Women + pct.bach + ( 0 + pct.bach || Region)  + 
+                      pct.women + pct.bach + ( 0 + pct.bach || Region)  + 
                       Median.Household.Income + (0 + Median.Household.Income|| State) + pct.retirees")
 
 model4.priors <- c(
   set_prior("normal(0,10)", class = "Intercept"),  # here i updated from normal(0,0,5) to normal(0,10) as in the report 
   set_prior("normal(0,1)", class = "b", coef = "urbanindex"),
-  set_prior("gamma(2,5)", class = "sd", coef = "urbanindex", group = "State"),
+  set_prior("cauchy(0,10)", class = "sd", coef = "urbanindex", group = "State"),
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees"), # changed to -2 instead of -1 as in report 
-  set_prior("normal(0,1)", class = "b", coef = "Percentage.Women" ), 
-  set_prior("normal(0,1)", class = 'b', coef = "pct.bach"), # changed from cauchy to std normal
+  set_prior("normal(0,1)", class = "b", coef = "pct.women" ), 
+  set_prior("student_t(1,0,1)", class = 'b', coef = "pct.bach"),
   set_prior("normal(0,1)", class = "sd", coef = "pct.bach", group = "Region"),
   set_prior("normal(0,1)", class = "b", coef = "Median.Household.Income"),
   set_prior("normal(0,1)", class = "sd", coef = "Median.Household.Income", group = "State")
   
 )
 
-model4.final <- brm(model4, family = "bernoulli", prior = model4.priors, data = df, save_pars = save_pars(all = TRUE))
+model4.final <- brm(model4, family = "bernoulli", prior = model4.priors, data = df, chains = 4, iter = 4000, save_pars = save_pars(all = TRUE))
 
 
 ## Model 3 ( Nested )
 set.seed(1234)
-model3 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | State / Region)  +  pct.retirees")
+model3 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | Region / State)  +  pct.retirees")
 
 model3.priors <-c(
   set_prior("normal(0,10)", class = "Intercept"), 
   set_prior("normal(0,1)", class = "b", coef = "urbanindex"),
-  set_prior("normal(0,1)", class = "sd", coef = "urbanindex", group = "State"),
-  set_prior('cauchy(0,10)', class = 'sd'), # unsure about this to be honest? 
+  set_prior('cauchy(0,10)', class = 'sd'), 
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees")
 )
 
-model3.final <- brm(model3, family = "bernoulli", prior = model3.priors, data = df, save_pars = save_pars(all = TRUE))
+model3.final <- brm(model3, family = "bernoulli", prior = model3.priors, data = df, chains = 4, iter = 4000, save_pars = save_pars(all = TRUE))
 
 
 # Model 1 (State Level)
@@ -65,7 +64,7 @@ model1.priors <- c(
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees")
 )
 
-model1.final <- brm(model1, family = "bernoulli", prior = model1.priors, data = df, save_pars = save_pars(all = TRUE))
+model1.final <- brm(model1, family = "bernoulli", prior = model1.priors, data = df, chains = 4, iter = 4000, save_pars = save_pars(all = TRUE))
 
 
 
@@ -80,7 +79,7 @@ model2.priors <- c(
   set_prior("student_t(1,-2,1)", class = "b", coef = "pct.retirees")
 )
 
-model2.final <- brm(model2, family = "bernoulli", prior = model2.priors, data = df, save_pars = save_pars(all = TRUE))
+model2.final <- brm(model2, family = "bernoulli", prior = model2.priors, data = df, chains = 4, iter = 4000, save_pars = save_pars(all = TRUE))
 
 
 

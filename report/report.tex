@@ -594,7 +594,8 @@ To this end, we measured and compared our models' predictive performance first b
 
 
 Absolute predictive performance metrics directly tell us directly how well the model performs, without looking at other models.
-To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, as explained in Equation \ref{eq:rmse}. 
+To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, as explained in Equation \ref{eq:rmse}.
+Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty, making it a fully Bayesian measure.
 
 \begin{equation} \label{eq:rmse}
 	RMSE^{(s)} = \sqrt{
@@ -604,14 +605,22 @@ To measure absolute predictive performance we used the Root Mean of Squared Erro
 		}
 \end{equation}
 
-This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable, meaning it has a direct interpretation in the context of our problem.
-Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty, making it a fully Bayesian measure.
-\blue{leonor we should talk about this}
+
 Figure \red{IT WILL EXIST} shows the histograms of the RMSE with all (4000) draws for each of our models.
 
 [plots of RMSE draws, overlap for comparison]
 
 [interpretation]
+
+
+It should be noted that this measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
+Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
+A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
+
+
+\blue{leonor we should talk about this}
+
+
 
 
 Relative predictive performance measures, contrary to absolute ones, do not have any meaning 

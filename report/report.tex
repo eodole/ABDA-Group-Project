@@ -21,6 +21,7 @@
 
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{placeins}
 \usepackage[headings]{fullpage}
 \usepackage{xcolor}
 \usepackage{hyperref}
@@ -168,6 +169,15 @@
 
 % $\mathbb{ABCDE abcde 1234}$
 
+
+
+\thispagestyle{empty} % Prevents the header and footer from being displayed on the title page
+\newpage
+
+\tableofcontents
+\newpage
+
+
 \section{Introduction}
 
 
@@ -196,8 +206,9 @@ Although the authors in \red{cite title} look at election outcomes through the l
 \subsection*{model approach/motivation}
 \subsubsection*{Two party system}
 
+\red{why not shift this to the data section?}
 \textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
-Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling. 
+Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling.  \red{i would say led to modeling winner as a binary variable, this doesnt necessarily lead to logistic regression}
 
 % This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
 
@@ -210,6 +221,7 @@ Although technically a multiparty system, the U.S. is often called a two party s
 Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
 
 \blue{maybe put assumptions here? like the exchangability assumption?}
+\red{i think model assumptions belong in the model section, at least the explanation (we can just mention the name here is it is important to)}
 
 
 \section{Dataset}
@@ -233,6 +245,7 @@ The fourth dataset was the region dataset, which was put together manually by us
  \blue{how did we code our variables? }
 We then merged these four datasets to created our own curated dataset. We did this by merging the different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three datasets, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
 
+\red{maybe talk about the funny shit with alaska and preference voting (?)}
 In the election results dataset, we encountered one instance of missing data. For all of the districts in Louisiana, the winning party was not recorded. There was however the incumbant party recorded  in the Election Results dataset and by cross referencing this with public record we found for the 2022 House Election only candidates from the incumbant party remained in each of the districts. Therefore as is reflected in our code base we used the data from the incumbant party in place of winning party for the state of Louisiana. For all other states and disticts we did not encounter this problem. 
 
 In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables. Similarly we decided to scale all of the percentage variables to be on the scale zero to one hundred rather than zero to one to make their coefficents more interpretable.  
@@ -272,7 +285,8 @@ We tested four different models for $\theta_{j,k}$, which include different cova
 first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, interchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
-The logistic relationship is a common assumption in the literature \blue{what do you mean here? that its a suitable choice for binary data? Maybe rewrite to: Modeling a binary as a logistic regression is a common choice in the literature(?) } (\textcolor{red}{cite}).
+The logistic relationship is common choice for modeling binary outcomes. It allows us to model the probability of a Democrat win by a linear predictor which can take any real value, while still having an interpretation for the coefficient estimates (in terms of change of log-odds).
+\blue{what do you mean here? that its a suitable choice for binary data? Maybe rewrite to: Modeling a binary as a logistic regression is a common choice in the literature(?) } (\textcolor{red}{cite}).
 
 We assume interchangeability because  we assume are the districts draw in such a way that they are competative for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
 
@@ -580,26 +594,27 @@ To this end, we measured and compared our models' predictive performance first b
 
 
 Absolute predictive performance metrics directly tell us directly how well the model performs, without looking at other models.
-To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE)
+To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, as explained in Equation \ref{eq:rmse}. 
 
 \begin{equation} \label{eq:rmse}
 	RMSE^{(s)} = \sqrt{
 		\frac{1}{N} 
 		\sum_{n = 1}^{N}
-		\left( y_n - \hat{y_n}^{(s)} \right)^2
+		\left( y_n - \hat{y}_n^{(s)} \right)^2
 		}
 \end{equation}
 
 This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable, meaning it has a direct interpretation in the context of our problem.
-It takes into account the uncertainty of the posterior distribution by...
+Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty, making it a fully Bayesian measure.
 \blue{leonor we should talk about this}
+Figure \red{IT WILL EXIST} shows the histograms of the RMSE with all (4000) draws for each of our models.
 
 [plots of RMSE draws, overlap for comparison]
 
 [interpretation]
 
 
-
+Relative predictive performance measures, contrary to absolute ones, do not have any meaning 
 To assess relative predictive performance, we looked at log-likelihood scores, that is, the average of posterior draws' log-likelihoods for each observation
 \textcolor{red}{(FORMULA???)}. 
 This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, we need to compare it between different models to establish which is better.
@@ -658,6 +673,38 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 \subsection{Reflection on own learnings}
 
 \textcolor{red}{please lets call this subsection something else, this sounds so childish}
+
+
+
+
+
+\newpage
+\appendix
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\section*{Appendix}
+
+\FloatBarrier
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \printbibliography

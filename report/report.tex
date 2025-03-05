@@ -582,9 +582,20 @@ One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. T
 
 "Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'.
 
-HMC Convergence diagnostics in itself can be a rather extensive topic, so for this project we only consider graphical and summary output based diagnostics, namely: the MCMC trace plots as provided by BRMS, and the Effective Sample Size as provided by the summary output command.
+HMC Convergence diagnostics in itself can be a rather extensive topic, so for this project we mainly consider graphical diagnostics, namely: the MCMC trace plots as provided by BRMS.
 
-For the first model, we see that all 4 chains are relatively horizontal, and each chain appears to be 'centred' around a particular value. There are no divergent transitions for any coefficient for this model. 
+\includegraphics[scale = 1.2]{trace_plots/trace_model2.jpeg}
+
+\includegraphics[scale = 1.2]{trace_plots/trace_model4_part1.jpeg}
+
+The trace plots for model 2 and some coefficients of model 4 are plotted above. We see divergent transitions in both cases, but there are two key differences:
+
+Firstly, the bulk of the divergent transitions for Model 4 seem to occur at the end of the chains, while those of Model 2 occur regularly throughout the chains, albeit with no discernable pattern. Secondly, Model 2 has many more divergent transitions than Model 4. 
+
+The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 4, or in the case of Model 1, have no divergent transitions whatsoever.
+
+So our key takeaway is that the HMC chains behave strangely for Model 2, and reasonably for the rest. Luckily for us, there is one glaring difference between Model 2 and the rest which partially explains this behaviour: Namely, it is the only model which solely takes into account a regional hierarchy but not a statewise hierarchy. While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding (that the lack of a statewise hierarchy leads to convergence issues). 
+
 
 \section{Model Comparison}
 
@@ -670,10 +681,11 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 \section{Conclusion}
 
+
+
 \subsection{Reflection on own learnings}
 
 \textcolor{red}{please lets call this subsection something else, this sounds so childish}
-
 
 
 
@@ -686,6 +698,37 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 \renewcommand{\thefigure}{A\arabic{figure}}
 
 \section*{Appendix}
+
+Model 1:
+
+\includegraphics[scale = 1.25]{trace_plots/trace_model1.jpeg}
+
+Model 2:
+
+\includegraphics[scale = 1.4]{trace_plots/trace_model2.jpeg}
+
+Model 3 Pt 1:
+
+\includegraphics[scale = 1]{trace_plots/trace_model3_part1.jpeg}
+
+
+Model 3 Pt 2: 
+
+\includegraphics[scale = 1]{trace_plots/trace_model3_part2.jpeg}
+
+Model 4 Pt 1:
+
+\includegraphics[scale = 1]{trace_plots/trace_model4_part1.jpeg}
+
+
+Model 4 Pt 2: 
+
+\includegraphics[scale = 1]{trace_plots/trace_model4_part2.jpeg}
+
+Model 4 Pt 3: 
+
+\includegraphics[scale = 1]{trace_plots/trace_model4_part3.jpeg}
+
 
 \FloatBarrier
 

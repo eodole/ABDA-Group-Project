@@ -189,7 +189,6 @@ We then discuss briefly our modeling approach before looking at other literature
 Next we discuss our dataset, which is a combination of four different datasets. 
 We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Finally we use both graphical and numerical methods to compare our models before concluding with limitations, improvements and reflections. 
 
-\textcolor{red}{notes to ourselves about things that should go in each section can be in red like this so we dont forget to delete them :)}
 
 
 \subsection*{Background}
@@ -609,9 +608,10 @@ The standard deviation estimate for (the hierarchical effect of) urbanindex is a
 The estimated slope of pct.ret is also different between models, particularly in Model 4, where it is larger in absolute value, but always negative as we had assumed. Note that although this estimate is smaller in absolute terms than the slope of urbanindex, it does not mean that percentage of retirees has a weaker effect than urbanization in election outcome. These are different variables on a different scale: in model 3 for example, it is estimated that an increase of 1 percentage point in the percentage of retirees in a district correlates with a 0.16 decrease in the log-odds of a Democrat being elected.
 
 The other covariates included in model 4 also have slope estimates within our expected range.
-Median Income has a larger (absolute) estimated slope coefficient and standard deviation, but this is likely due to the scale of the variable: 1.43 is the estimated average decrease in log-odds of a Democrat win when the median income of a district increases by 100,000 dollars, which is a big jump.
+Median Income has a larger (absolute) estimated slope coefficient and standard deviation, but this is likely due to the scale of the variable: 1.43 is the estimated average decrease in log-odds of a Democrat win when the median income of a district increases by 100,000 dollars, which is a big jump. The inclusion of these covariates has some effect on the magnitude of the slope estimate for our variable of interest (urbanindex), but not on its sign, and not as much as including a State-specific hierarchical effect vs. Region-specific one.
 
 
+%for the conditional effects all parameters not part of the condition you investigate are set to their mean/reference category.
 
 \red{MARGINAL EFFECTS??????}
 
@@ -798,6 +798,38 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 \renewcommand{\thefigure}{A\arabic{figure}}
 
 \section*{Appendix}
+
+
+\subsection*{Descriptives}
+
+\begin{table}[ht]
+	\centering
+	\begin{adjustbox}{max width=\textwidth}
+	\begin{tabular}{rcccccc}
+		\hline
+		& Winning.party & urbanindex & pct.women & Median.Household.Income & pct.retirees & pct.bach \\ 
+		\hline
+		Winning.party & 1.00 & 0.60 & 0.20 & 0.24 & -0.30 & 0.29 \\ 
+		urbanindex & 0.60 & 1.00 & 0.30 & 0.39 & -0.39 & 0.46 \\ 
+		pct.women & 0.20 & 0.30 & 1.00 & -0.15 & 0.14 & 0.05 \\ 
+		Median.Household.Income & 0.24 & 0.39 & -0.15 & 1.00 & -0.10 & 0.76 \\ 
+		pct.retirees & -0.30 & -0.39 & 0.14 & -0.10 & 1.00 & -0.09 \\ 
+		pct.bach & 0.29 & 0.46 & 0.05 & 0.76 & -0.09 & 1.00 \\ 
+		\hline
+	\end{tabular}
+	\end{adjustbox}
+	\caption{Correlation matrix}
+	\label{}
+\end{table}
+
+
+
+
+
+
+
+
+
 
 
 \subsection*{Trace Plots}

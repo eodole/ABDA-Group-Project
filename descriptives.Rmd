@@ -35,52 +35,38 @@ library(scales)
 
 
 ```{r}
-df <- read.csv("./final_data_with_regions_and_winners.csv")
+df <- read.csv("./report_code/final_data_for_report.csv")
 
 colnames(df)
 
-# New colnames for better plotting
-df_plot <- df %>%
-  rename(
-    Winning.party = Winning.party,
-    urbanindex = urbanindex,
-    Pct.Women = Percentage.Women,
-    Median.Income = Median.Household.Income,
-    Pct.Retirees.65 = Percentage.Retirees..65.. ,
-    Unempl.16plus = Unemployment.Rate..16.and.over. ,
-    Median.Age = Median.Age,
-    Pct.Bsc.25plus = Percentage.Bachelors.Degree.in.Population.over.25 ,
-    Total.Pop = Total.Population ,
-    urban.cat = grouping
-  )
 
 vars_to_plot <- c("urbanindex", 
-                     "Pct.Women",
-                     "Median.Income",
-                     "Pct.Retirees.65",
-                     "Unempl.16plus",
+                     "pct.women",
+                     "Median.Household.Income",
+                     "pct.retirees",
+                     "pct.unemployed",
                      "Median.Age",
-                     "Pct.Bsc.25plus", 
-                     "Total.Pop")
+                     "pct.bach", 
+                     "Total.Population")
 
 
 
 # Densities
 
 # Define rainbow colors
-rainbow_colors <- rainbow(ncol(df_plot[,vars_to_plot]))
+rainbow_colors <- rainbow(ncol(df[,vars_to_plot]))
 
 # Loop to create and save density plots for each variable
-for (i in seq_along(df_plot[,vars_to_plot])) {
+for (i in seq_along(df[,vars_to_plot])) {
   variable_name <- vars_to_plot[i]
-  plot <- ggplot(df_plot, aes_string(x = variable_name)) +
+  plot <- ggplot(df, aes_string(x = variable_name)) +
     geom_density(fill = rainbow_colors[i], alpha = 0.5, color = "black") +
     labs(
       title = paste(variable_name),
       x = "Value",
       y = "Density"
     ) +
-    scale_x_continuous(labels = comma, breaks = pretty(df_plot$variable_name)) +
+    scale_x_continuous(labels = comma, breaks = pretty(df$variable_name)) +
     theme_minimal() +
     theme(
       plot.title = element_text(size = 30),  # Adjust title size and make it bold
@@ -92,31 +78,31 @@ for (i in seq_along(df_plot[,vars_to_plot])) {
   print(plot)
   
   # Optional: Save each plot as an image to plot data folder
-  ggsave(
-    filename = file.path("./data/plots/",paste0(variable_name, "_density_plot.pdf")),
-    plot = plot,
-    width = 6,
-    height = 4,
-    dpi = 300
-  )
+  # ggsave(
+  #   filename = file.path("./data/plots/",paste0(variable_name, "_density_plot.pdf")),
+  #   plot = plot,
+  #   width = 6,
+  #   height = 4,
+  #   dpi = 300
+  # )
   
   # Save to writing folder
-  ggsave(
-    filename = file.path("./writing0/plots/",paste0(variable_name, "_density_plot.pdf")),
-    plot = plot,
-    width = 6,
-    height = 4,
-    dpi = 300
-  )
+  # ggsave(
+  #   filename = file.path("./writing0/plots/",paste0(variable_name, "_density_plot.pdf")),
+  #   plot = plot,
+  #   width = 6,
+  #   height = 4,
+  #   dpi = 300
+  # )
 }
 
 
 
 # Create histograms 
 # Loop to create and save density plots for each variable
-for (i in seq_along(df_plot[,vars_to_plot])) {
+for (i in seq_along(df[,vars_to_plot])) {
   var <- vars_to_plot[i]
-  hist <- ggplot(df_plot, aes_string(x = var)) + 
+  hist <- ggplot(df, aes_string(x = var)) + 
     geom_histogram( fill = rainbow_colors[i], color = "black", alpha = 0.7) + 
     theme_minimal() + 
     labs(title = paste("Histogram of", var), x = var, y = "Frequency")
@@ -139,7 +125,7 @@ Mostly Rural: urbanization index below 9.5.
 # Winning Party
 
 # Create the bar chart with custom colors
-winner_barchart <- ggplot(df_plot, aes(x = factor(Winning.party))) +
+winner_barchart <- ggplot(df, aes(x = factor(Winning.party))) +
                     geom_bar(width = 0.2 ,fill = c("red", "blue"), alpha = 0.7, color = "black") +  # Custom colors
                     labs(title = "Winning.party", x = "", y = "Frequency") +
                     scale_x_discrete(labels = c("0" = "Republican", "1" = "Democratic")) +
@@ -175,19 +161,19 @@ ggsave(
 # Specify the desired order of categories
 categ_order <- c("Dense Urban", "Urban-Suburban", "Dense Suburban", "Suburban-Exurban", "Rural-Exurban", "Mostly Rural")
 
-# Reorder the urban.cat variable in df_plot
-df_plot$urban.cat <- factor(df_plot$urban.cat, levels = categ_order)
+# Reorder the urban.cat variable in df
+df$urban.cat <- factor(df$urban.cat, levels = categ_order)
   
   
 # Urban Category
 
 # Create the bar chart with a custom gradient based on order
-urbcat_barchart <- ggplot(df_plot, aes(x = factor(urban.cat), fill = factor(urban.cat))) +
+urbcat_barchart <- ggplot(df, aes(x = factor(urban.cat), fill = factor(urban.cat))) +
                     geom_bar(width = 0.2, alpha = 0.7, color = "black") +  # Custom fill colors
                     labs(title = "Urban Category", x = "", y = "Frequency") +
                     scale_x_discrete() +
                     scale_fill_manual(values = scales::gradient_n_pal(c("darkgreen", "white"))(
-                      seq(0, 1, length.out = length(unique(df_plot$urban.cat)))
+                      seq(0, 1, length.out = length(unique(df$urban.cat)))
                     )) +  # Gradient based on order
                     theme_minimal() +
                     theme(
@@ -246,8 +232,8 @@ state_fips <- tigris::fips_codes %>%
 
 # Urban index for districts
 urbanindex_data <- data.frame(
-  district = df_plot$stcd,  # State-District format
-  urbanindex = df_plot$urbanindex  # Urban index values
+  district = df$stcd,  # State-District format
+  urbanindex = df$urbanindex  # Urban index values
 )
 
 # Add state abbreviation and create a "state-district" column
@@ -368,8 +354,8 @@ state_fips <- tigris::fips_codes %>%
 
 # Winning party for districts (replace with Winning.party data)
 winning_party_data <- data.frame(
-  district = df_plot$stcd,  # State-District format
-  Winning.party = factor(df_plot$Winning.party, levels = c(0, 1), labels = c("Republican", "Democratic"))  # Convert to factor
+  district = df$stcd,  # State-District format
+  Winning.party = factor(df$Winning.party, levels = c(0, 1), labels = c("Republican", "Democratic"))  # Convert to factor
 )
 
 
@@ -461,21 +447,21 @@ ggsave(
 
 
 ```{r}
-
 vars_to_inspect <- c("Winning.party",
                      "urbanindex",
-                     "Pct.Women",
-                     "Median.Income",
-                     "Pct.Retirees.65",
-                     "Unempl.16plus",
-                     "Pct.Bsc.25plus")
+                     "pct.women",
+                     "Median.Household.Income",
+                     "pct.retirees",
+                     "pct.bach")
 
 
 # made the NAs zeros
 
-cor_matrix <- cor((df_plot[,vars_to_inspect]), method = "pearson")
+cor_matrix <- cor((df[,vars_to_inspect]), method = "pearson")
 
 as.data.frame(cor_matrix)
+
+xtable(cor_matrix)
 
 
 # Create the correlation plot
@@ -496,8 +482,10 @@ corr_plot <- ggcorrplot(cor_matrix,
 
 
 print(corr_plot)
+```
 
 
+```{r}
 # Save
 ggsave(
   filename = file.path("./data/plots/corrplot.pdf"),
@@ -525,7 +513,7 @@ ggsave(
 
 
 # Compute descriptive Statistics summaries
-summaries <- df_plot %>%
+summaries <- df %>%
   select(all_of(vars_to_inspect)) %>%
   summarise(across(
     everything(),

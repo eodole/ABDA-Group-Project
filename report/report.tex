@@ -179,21 +179,37 @@
 
 
 \section{Introduction}
-
+ 
+\subsection*{Outline}
+\blue{did I miss anything?}
+% In this report we aim to answer the question "How does urbanization of a US House District affect the resulting party that is elected?". 
+In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes. To put it more concretely we want to answer the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". First we provide background our motivation and important background information about the US election system. 
+We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
+Next we discuss our dataset, which is a combination of four different datasets. 
+We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Finally we use both graphical and numerical methods to compare our models before concluding with limitations, improvements and reflections. 
 
 \textcolor{red}{notes to ourselves about things that should go in each section can be in red like this so we dont forget to delete them :)}
 
 
 \subsection*{Background}
-The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondants into smaller demographic groups \red{cite}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. To put it more concretely we want to investigate the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". 
+The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondants into smaller demographic groups \red{cite}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. 
 
-To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state \red{cite}. We then use each of the districts as a single replicate. 
+To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state \red{cite}. 
 
 The 2022 House Election takes places during a non-presidential year, and is the most recent election following the 2020 Census and redistricting, allowing us to use the most recently available district maps, and demographic data. Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. 
 
+From this data we use each of the districts as a observation for our logistic regression model. We then choose to model the effect of urbanization hierarchically. Since urbanization is tied to geography we assume a hierarchy related to the location of the districts at the state and region levels of the United States. We then built four different models to test different aspects of the hierarchical structure. In the logistic regression  models we then combine urbanizaiton with various demographic covariates. By using a bayesian approach to this multilevel model, we were able to gain a more precise understanding of the relationship between urbanizaiton, geography and voting outcomes. 
+
+\red{why this particular modeling approach? Also what was our modeling approach?}
+
+\subsection*{model approach/motivation}
+
+\red{why do four models?}
+All of our modeling was done with the brms software package.
+
 % Previous attempts? 
 
-\subsection*{comparative literature}
+\subsection*{Comparative Literature}
 Inherent in our analysis is the assumption that repuclican and democratic voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a distict has been gerrymandered is rather unclear and out of the scope of this project.
 
 Since we are using a custom curated dataset, there exists no directly comparableresearch, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they discuss the phenomena of spatial inefficency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficency in order to understand the impact of gerrymandering \red{CITE}. 
@@ -201,14 +217,8 @@ Since we are using a custom curated dataset, there exists no directly comparable
 Although the authors in \red{cite title} look at election outcomes through the lense of spatial efficency and we are trying to look at election results of districts with respect to their urbanizaition, we can take the following insights from their analysis. First the distribution of Democrats and urbanization are inexplicably linked, they found that all over the country Democrats tend to be concentrated in urban areas which indicate that it will likely be a good predictor. We would like to investigate to what extent that is true. They also note that the effect of spatial efficency is highly dependent on state and the branch of goverment. When considering that urbanization can be considered a proxy for spatial inefficency, this further supports our decision to model urbanindex hierachically. 
 % points to something ... 
 
-\red{why this particular modeling approach? Also what was our modeling approach?}
 
-\subsection*{model approach/motivation}
-\subsubsection*{Two party system}
 
-\red{why not shift this to the data section?}
-\textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
-Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling.  \red{i would say led to modeling winner as a binary variable, this doesnt necessarily lead to logistic regression}
 
 % This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
 
@@ -217,11 +227,11 @@ Although technically a multiparty system, the U.S. is often called a two party s
 
 
 
-\textcolor{red}{this is something like assumptions but im not really sure what to say}
-Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
+% \textcolor{red}{this is something like assumptions but im not really sure what to say}
+% Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
 
-\blue{maybe put assumptions here? like the exchangability assumption?}
-\red{i think model assumptions belong in the model section, at least the explanation (we can just mention the name here is it is important to)}
+% \blue{maybe put assumptions here? like the exchangability assumption?}
+% \red{i think model assumptions belong in the model section, at least the explanation (we can just mention the name here is it is important to)}
 
 
 \section{Dataset}
@@ -229,6 +239,8 @@ Our dataset was made by combining four independent datasets related to the 2022 
 
 
 The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. From this dataset we used the party, state, and winning party variables, it also included the variable incumbent party, which we considered also using, but the data from incumbent party is partially incomplete and would likely have very high correlation with the our target variable winning party, leading to a model that relies most heavily on incumbent party. Since we are more interested in the relationship between our model and our choose covariates we therefore decided not to include it.  
+
+As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Similar this led to modeling winning party as a binary variable, with democrats encoded as (1) and republicans encoded as (0). 
 
 The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district in our curated dataset; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
 
@@ -747,7 +759,7 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 
 
-\subsection{Reflection on own learnings}
+\subsection{Reflection and Discussion}
 
 \textcolor{red}{please lets call this subsection something else, this sounds so childish}
 

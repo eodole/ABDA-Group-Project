@@ -21,6 +21,7 @@
 
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{adjustbox}
 \usepackage{placeins}
 \usepackage[headings]{fullpage}
 \usepackage{xcolor}
@@ -282,13 +283,13 @@ with probability of a Democrat win $\pi_{j,k}$ modeled as the inverse logit tran
 
 
 We tested four different models for $\theta_{j,k}$, which include different covariates in addition to our variable of interest (Urban index) and incorporate our data's hierarchical structure in different ways. Therefore, all four are Multilevel Bayesian (Logistic) Models, which require particular assumptions: \textcolor{red}{CITE} 
-first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, interchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
+first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, exchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
 The logistic relationship is common choice for modeling binary outcomes. It allows us to model the probability of a Democrat win by a linear predictor which can take any real value, while still having an interpretation for the coefficient estimates (in terms of change of log-odds).
 \blue{what do you mean here? that its a suitable choice for binary data? Maybe rewrite to: Modeling a binary as a logistic regression is a common choice in the literature(?) } (\textcolor{red}{cite}).
 
-We assume interchangeability because  we assume are the districts draw in such a way that they are competative for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
+We assume exchangeability because  we assume that the districts are drawn in such a way that they are competative for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
 
 One example would be for complicated historical reasons certain regions of the United States are more similar to eachother than others. For example the Southern United states tends to be more religious and religous people tend to vote more conservatively, think about this then as a prior telling us about the mix of democratic and republican districts within a particular state. Although the religiousity may increase the number of potential republican districts in each state, whether one district votes repuclican does not influence the decision of another since each district outcome is determined by thousands of individual votes. 
 Since each district is part of a state and a region, translate structure the complex geographically determined mechanisms into our model by modeling some of parameters hierarchically.
@@ -579,6 +580,30 @@ choices
 \textcolor{red}{This section is not on the instructions but is probably the easiest way to talk about the results we got }
 
 
+Each of our models has different estimates for the parameters, even when they are starting from the same prior.
+As the estimate is given by the mean of the posterior distribution for that parameter, this reflects the different posterior distributions between models, which is only natural given the different structures each model assumes for our data.
+
+The intercept for example, is very different between models, and is particularly large (in absolute terms) in Model 4. Although, as discussed before, the intercept does not have a practical interpretation in our model, it is interesting that this Model's estimate is so far away from the value we initially assumed it would take (between -19.6 and 19.6 with 95\% certainty, with a $N(0,10)$ prior). It can indicate ....
+
+Our variable of interest, urbanindex, has a more consistent slope estimate across models, between 1.22 (Model 2) and 1.66 (Model 1). The results indicate that the variable has, as expected, on average a positive effect on the log-odds of a Democrat Party win.
+Model 3, for example, estimates that on average a 1 unit increase in urbanindex (e.g., 10 to 11) translates into a 1.64 increase in the log-odds (or an $e^{1.64} = $ increase in the odds) of a Democrat being elected in the district.
+While the estimates are within the range we assumed with the prior for this parameter, the upper bounds of the credible intervals are already close to the boundary of that prior. 
+%The data has updated our beliefs about the effect of this variable a lot.
+A prior with more probability mass on the positive range, or a less informative prior, could push the estimates further up. \red{not sure about this though}
+
+\red{posterior and prior for b\_urbanindex}
+
+The standard deviation estimate for (the hierarchical effect of) urbanindex is approximately 0.2 in model 1, but half of that in Model 2. \red{why?}  In Model 3, the sd estimates for both levels are closer to model 1's, and in 4 they are closer to 2's. \red{again, why?}
+
+
+The estimated slope of pct.ret is also different between models, particularly in Model 4, where it is larger in absolute value, but always negative as we had assumed. Note that although this estimate is smaller in absolute terms than the slope of urbanindex, it does not mean that percentage of retirees has a weaker effect than urbanization in election outcome. These are different variables on a different scale: in model 3 for example, it is estimated that an increase of 1 percentage point in the percentage of retirees in a district correlates with a 0.16 decrease in the log-odds of a Democrat being elected.
+
+The other covariates included in model 4 also have slope estimates within our expected range.
+Median Income has a larger (absolute) estimated slope coefficient and standard deviation, but this is likely due to the scale of the variable: 1.43 is the estimated average decrease in log-odds of a Democrat win when the median income of a district increases by 100,000 dollars, which is a big jump.
+
+
+
+\red{MARGINAL EFFECTS??????}
 
 
 \section{Convergence Diagnostics}
@@ -650,23 +675,18 @@ A model with higher RMSE in this context is not necessarily better at estimating
 Relative predictive performance measures, contrary to absolute ones, do not have an interpretation in themselves, only as a comparison between models. 
 To assess relative predictive performance, we looked at log-likelihood scores, that is, the average of posterior draws' log-likelihoods for each observation.
 This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, we need to compare it between different models to establish which is better. So, we examine the differences in log-likelihood scores between models.
-Table \ref{tab:LPD_diff} shows the sum of these differences, i.e., the difference in Log-Pointwise Predictive Density (LPD) between models. 
+The sum of these differences corresponds to the difference in Log Predictive Density (LPD) between models, where LPD for a given model is the sum of Log-Likelihood scores of all observations in the model.
 
 %Figure \red{WILL BE HERE} shows the histograms of these differences for all 435 observations.
 
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_differences.jpeg}
-%	\caption{}
-%	\label{fig:ll_diff}
-%\end{figure}
+
 
 % latex table generated in R 4.3.2 by xtable 1.8-4 package
 % Thu Mar  6 00:46:46 2025
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lcc}
-		\toprule
+		\hline
 		       Comparison & LPD\_Diff & SE\_LPD\_Diff \\ 
 		       \midrule
 		Model 1 - Model 2 &     42.00 &          7.25 \\
@@ -674,13 +694,15 @@ Table \ref{tab:LPD_diff} shows the sum of these differences, i.e., the differenc
 		Model 1 - Model 4 &    -20.24 &          3.91 \\
 		Model 2 - Model 3 &    -44.32 &          7.31 \\
 		Model 2 - Model 4 &    -62.24 &          8.20 \\
-		Model 3 - Model 4 &    -17.92 &          3.66 \\ \bottomrule
+		Model 3 - Model 4 &    -17.92 &          3.66 \\ \hline
 	\end{tabular}
 	\caption{text}
 	\label{tab:LPD_diff}
 \end{table}
 
-[interpretation]
+Table \ref{tab:LPD_diff} shows the differences in LPD between all four of our models and corresponding standard errors.
+Model with higher LPD are preferred, as this reflects an overall higher (less negative) log-likelihood score across all observations, meaning the model more accurately predicted each result.
+The difference between Models 1 and 2 is positive, menaing Model 1 has higehr LPD, so it is preferred over 2 using this statistic. In fact, Model 2 is never preferred to any of the other models. Once again, Model 4 provides the best fit and Models 1 and 3 are very close, with 3 performing slightly better. This, together with the comparatively poorer fit of Model 2 points towards Region-level hierarchy possibly not being the correct choice for modeling urbanindex.
 
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
@@ -693,7 +715,7 @@ Because we are comparing models with different degrees of complexity, it is esse
 \begin{equation}
 	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y}_n | y)
 \end{equation}
-
+\red{replce by ELPD\_loo formula}
 The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out (LOO) cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (Pareto-Smoothed Importance Sampling in this case).
 
 \begin{table}[ht]
@@ -712,7 +734,8 @@ The way we choose to split the data into training/test sets naturally impacts th
 	\label{tab:loo}
 \end{table}
 
-According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is the preferred one, followed by Models 3, 1 and 2. This is the same ranking we had seen before, with the more complex models performing better.
+According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is the preferred one, followed by Models 3, 1 and 2. The first column of the table shows the difference between each model and the best performing one (in terms of ELPD\_loo score, shown in the third column), ranked by best to worst model.
+This is the same ranking we had seen before, with the more complex models performing better. There is a relatively sizable difference in LOO scores between Model 4 and 3, as well as between 1 and 2, but the difference between 3 and 1 is minimal. The extra level of hierarchy (Region) in the urbanindex slope estimate improves model predictions, although not by much.
 
 
 
@@ -804,7 +827,8 @@ Model 4 Pt 3:
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{rrrrrrrr}
+	 \begin{adjustbox}{max width=\textwidth}
+	\begin{tabular}{rccccccc}
 		\hline
 		& Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\ 
 		\hline
@@ -817,6 +841,7 @@ Model 4 Pt 3:
 		sd(urbanindex) & 0.19 & 0.05 & 0.11 & 0.30 & 1.00 & 1569.53 & 3108.00 \\ 
 		\hline
 	\end{tabular}
+		\end{adjustbox}
 	\caption{text}
 	\label{tab:model1}
 \end{table}
@@ -824,6 +849,7 @@ Model 4 Pt 3:
 
 \begin{table}[ht]
 	\centering
+		 \begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
 		\hline
 		               & Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\
@@ -836,6 +862,7 @@ Model 4 Pt 3:
 		  \multicolumn{8}{l}{Multilevel Hyperparameters: Region (Number of levels: 4)}                       \\
 		sd(urbanindex) &     0.09 &      0.06 &      0.02 &      0.27 & 1.00 &    892.96 &    465.15 \\ \hline
 	\end{tabular}
+	\end{adjustbox}
 	\caption{estimates model2}
 	\label{tab:model2}
 \end{table}
@@ -843,7 +870,8 @@ Model 4 Pt 3:
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{rrrrrrrr}
+	\begin{adjustbox}{max width=\textwidth}
+	\begin{tabular}{rccccccc}
 		\hline
 		& Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\ 
 		\hline
@@ -859,6 +887,7 @@ Model 4 Pt 3:
 		sd(urbanindex)1 & 0.19 & 0.05 & 0.11 & 0.29 & 1.00 & 1976.07 & 3875.21 \\ 
 		\hline
 	\end{tabular}
+	\end{adjustbox}
 	\caption{estimates model3}
 	\label{tab:model3}
 \end{table}
@@ -866,7 +895,8 @@ Model 4 Pt 3:
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{rrrrrrrr}
+	\begin{adjustbox}{max width=\textwidth}
+	\begin{tabular}{rccccccc}
 		\hline
 		& Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\ 
 		\hline
@@ -886,11 +916,56 @@ Model 4 Pt 3:
 		sd(Median.Household.Income) & 2.24 & 0.51 & 1.19 & 3.26 & 1.00 & 2627.23 & 2493.48 \\ 
 		\hline
 	\end{tabular}
+	\end{adjustbox}
 	\caption{estimates model4}
 	\label{tab:model4}
 \end{table}
 
 
+
+
+
+
+
+\FloatBarrier
+
+\subsection*{Model Comparison Statistics}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_differences.jpeg}
+	\caption{}
+	\label{fig:ll_diff}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_model1.jpeg}
+	\caption{}
+	\label{}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_model2.jpeg}
+	\caption{}
+	\label{}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_model3.jpeg}
+	\caption{}
+	\label{}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_model4.jpeg}
+	\caption{}
+	\label{}
+\end{figure}
 
 
 

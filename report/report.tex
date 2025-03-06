@@ -568,6 +568,11 @@ For the hyperparameters, we chose a half standard normal prior for both the stan
 
 \section{Code}
 
+choices
+\begin{enumerate}
+	\item number of chains and iterations
+	\item brms i guess
+\end{enumerate}
 
 \section{Results}
 
@@ -617,14 +622,22 @@ Since it is computed for each draw, as opposed to a single point estimate, it ta
 \end{equation}
 
 
-Figure \red{IT WILL EXIST} shows the histograms of the RMSE with all (4000) draws for each of our models.
+Figure \ref{fig:rmse} \red{TAKE OUT THAT TITLE} shows the histograms of the RMSE with all (4000) draws for each of our models.
+Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates it better. Unsurprisingly so, as this Model has many more covariates, and at least some have a significant (?) effect on the probability of a Democrat win.
+More important for our analysis is the comparison between models 1,2 and 3.
+Model 2 (the one with only the Region-level hierarchy) shows by far the largest average errors, which can mean this model's predictions are more often "wrong" (a small estimated probability when a Democrat has won or a large one when a Republican was elected) or that the predictions are in general closer to the center (0.5) rather than the extremes. In either case, it suggests that the Region-level hierarchy in urbanindex is not as powerful as the State-level one for estimating probabilities.
+Model 3 has on slightly smaller RMSE values than Model 1, but the histograms are very close, suggesting the inclusion of the Region hierarchy really does not have a large impact on posterior predictions.
 
-[plots of RMSE draws, overlap for comparison]
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/RMSE_all.jpeg}
+	\caption{}
+	\label{fig:rmse}
+\end{figure}
 
-[interpretation]
 
 
-It should be noted that this measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
+This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
 Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
 A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
 
@@ -635,34 +648,76 @@ A model with higher RMSE in this context is not necessarily better at estimating
 
 
 Relative predictive performance measures, contrary to absolute ones, do not have an interpretation in themselves, only as a comparison between models. 
-To assess relative predictive performance, we looked at log-likelihood scores, that is, the average of posterior draws' log-likelihoods for each observation
-\textcolor{red}{(FORMULA???)}. 
-This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, we need to compare it between different models to establish which is better.
- 
+To assess relative predictive performance, we looked at log-likelihood scores, that is, the average of posterior draws' log-likelihoods for each observation.
+This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, we need to compare it between different models to establish which is better. So, we examine the differences in log-likelihood scores between models.
+Table \ref{tab:LPD_diff} shows the sum of these differences, i.e., the difference in Log-Pointwise Predictive Density (LPD) between models. 
 
-[plot of ll scores or likelihood differences?, overlap]
+%Figure \red{WILL BE HERE} shows the histograms of these differences for all 435 observations.
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_differences.jpeg}
+%	\caption{}
+%	\label{fig:ll_diff}
+%\end{figure}
+
+% latex table generated in R 4.3.2 by xtable 1.8-4 package
+% Thu Mar  6 00:46:46 2025
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{lcc}
+		\toprule
+		       Comparison & LPD\_Diff & SE\_LPD\_Diff \\ 
+		       \midrule
+		Model 1 - Model 2 &     42.00 &          7.25 \\
+		Model 1 - Model 3 &     -2.32 &          1.29 \\
+		Model 1 - Model 4 &    -20.24 &          3.91 \\
+		Model 2 - Model 3 &    -44.32 &          7.31 \\
+		Model 2 - Model 4 &    -62.24 &          8.20 \\
+		Model 3 - Model 4 &    -17.92 &          3.66 \\ \bottomrule
+	\end{tabular}
+	\caption{text}
+	\label{tab:LPD_diff}
+\end{table}
 
 [interpretation]
 
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
 
-Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they tend to favor more complex models.
-(In our case, the bigger mmodel (Model 4) was indeed the preferred one using both RMSE and LL scores.?????????????????')
+Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, which would not generalize well to new dtaa, performing much better under these metrics.
+In our case, the bigger model (Model 4) was indeed the preferred one using both RMSE and LL scores.
 
-Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and assessing the likelihood (ELPD) of the observations in the latter, given the model estimates with the training set.
+Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and computing the expected LPD (ELPD) of the observations in the latter, given the model estimates with the training set. 
 
 \begin{equation}
-	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y_n} | y)
+	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y}_n | y)
 \end{equation}
 
-The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (PSIS).
+The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out (LOO) cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (Pareto-Smoothed Importance Sampling in this case).
 
-[LOO statistics table]
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rcccccccc}
+		\hline
+		& elpd\_diff & se\_diff & elpd\_loo & se\_elpd\_loo & p\_loo & se\_p\_loo & looic & se\_looic \\ 
+		\hline
+		Model 4 & 0.00 & 0.00 & -156.49 & 11.59 & 32.57 & 3.25 & 312.98 & 23.19 \\ 
+		Model 3 & -17.99 & 4.23 & -174.48 & 12.11 & 33.08 & 3.33 & 348.97 & 24.22 \\ 
+		Model 1 & -20.35 & 4.61 & -176.84 & 12.09 & 33.37 & 3.43 & 353.68 & 24.18 \\ 
+		Model 2 & -45.87 & 8.39 & -202.36 & 12.25 & 6.19 & 0.58 & 404.71 & 24.50 \\ 
+		\hline
+	\end{tabular}
+	\caption{text}
+	\label{tab:loo}
+\end{table}
 
-According to the LOO statistics, model 1 is the preferred one.
+According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is the preferred one, followed by Models 3, 1 and 2. This is the same ranking we had seen before, with the more complex models performing better.
 
-[pareto k estimates issue and momnet matching?]
+
+
+
+
 
 
 \section{Prior Sensitivity Analysis}
@@ -708,6 +763,9 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 \section*{Appendix}
 
+
+\subsection*{Trace Plots}
+
 Model 1:
 
 \includegraphics[scale = 1.25]{trace_plots/trace_model1.jpeg}
@@ -742,23 +800,102 @@ Model 4 Pt 3:
 \FloatBarrier
 
 
+\subsection*{Model Estimates}
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rrrrrrrr}
+		\hline
+		& Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\ 
+		\hline
+		\multicolumn{8}{l}{Regression Coefficients:} \\
+		Intercept & -15.75 & 2.63 & -20.96 & -10.73 & 1.00 & 7397.71 & 6010.33 \\ 
+		urbanindex & 1.66 & 0.21 & 1.28 & 2.10 & 1.00 & 5191.43 & 5331.31 \\ 
+		pct.retirees & -0.14 & 0.06 & -0.27 & -0.02 & 1.00 & 6086.48 & 5724.70 \\
+		\midrule
+		\multicolumn{8}{l}{Multilevel Hyperparameters: State (Number of levels: 50)}                       \\ 
+		sd(urbanindex) & 0.19 & 0.05 & 0.11 & 0.30 & 1.00 & 1569.53 & 3108.00 \\ 
+		\hline
+	\end{tabular}
+	\caption{text}
+	\label{tab:model1}
+\end{table}
+
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rccccccc}
+		\hline
+		               & Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\
+		               \hline
+ \multicolumn{8}{l}{Regression Coefficients:} \\
+		     Intercept &   -12.01 &      1.78 &    -15.58 &     -8.60 & 1.00 &   2892.71 &   3356.25 \\
+		    urbanindex &     1.22 &      0.15 &      0.95 &      1.53 & 1.00 &   1294.59 &    473.21 \\
+		  pct.retirees &    -0.09 &      0.04 &     -0.16 &     -0.01 & 1.00 &   4773.23 &   4217.12 \\
+		  \midrule
+		  \multicolumn{8}{l}{Multilevel Hyperparameters: Region (Number of levels: 4)}                       \\
+		sd(urbanindex) &     0.09 &      0.06 &      0.02 &      0.27 & 1.00 &    892.96 &    465.15 \\ \hline
+	\end{tabular}
+	\caption{estimates model2}
+	\label{tab:model2}
+\end{table}
+
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rrrrrrrr}
+		\hline
+		& Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\ 
+		\hline
+		 \multicolumn{8}{l}{Regression Coefficients:} \\
+		Intercept & -15.02 & 2.69 & -20.32 & -9.87 & 1.00 & 2837.78 & 5324.03 \\ 
+		urbanindex & 1.64 & 0.23 & 1.21 & 2.10 & 1.00 & 2787.63 & 2875.43 \\ 
+		pct.retirees & -0.16 & 0.06 & -0.29 & -0.04 & 1.00 & 5424.17 & 5097.97 \\
+		\midrule
+		\multicolumn{8}{l}{Multilevel Hyperparameters: Region (Number of levels: 4)} \\ 
+		sd(urbanindex) & 0.21 & 0.16 & 0.03 & 0.67 & 1.01 & 348.01 & 120.67 \\ 
+		\midrule
+		\multicolumn{8}{l}{Region:State (Number of levels: 50)}  \\
+		sd(urbanindex)1 & 0.19 & 0.05 & 0.11 & 0.29 & 1.00 & 1976.07 & 3875.21 \\ 
+		\hline
+	\end{tabular}
+	\caption{estimates model3}
+	\label{tab:model3}
+\end{table}
+
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{rrrrrrrr}
+		\hline
+		& Estimate & Est.Error & l-95\% CI & u-95\% CI & Rhat & Bulk\_ESS & Tail\_ESS \\ 
+		\hline
+				 \multicolumn{8}{l}{Regression Coefficients:} \\
+		Intercept & -45.84 & 12.13 & -70.40 & -22.99 & 1.00 & 6668.56 & 5729.57 \\ 
+		urbanindex & 1.41 & 0.24 & 0.95 & 1.90 & 1.00 & 7707.06 & 6016.13 \\ 
+		pct.women & 0.70 & 0.26 & 0.21 & 1.24 & 1.00 & 6155.31 & 4936.03 \\ 
+		pct.bach & 0.06 & 0.09 & -0.11 & 0.27 & 1.00 & 1593.83 & 662.43 \\ 
+		Median.Household.Income & -1.43 & 0.87 & -3.12 & 0.25 & 1.00 & 6817.58 & 3411.18 \\ 
+		pct.retirees & -0.26 & 0.08 & -0.42 & -0.12 & 1.00 & 6809.18 & 5806.15 \\
+		\midrule
+		\multicolumn{8}{l}{Multilevel Hyperparameters: Region (Number of levels: 4)} \\ 
+		sd(pct.bach) & 0.15 & 0.09 & 0.04 & 0.39 & 1.00 & 1855.37 & 1959.66 \\
+		\midrule
+		\multicolumn{8}{l}{Multilevel Hyperparameters: State (Number of levels: 50)}                       \\  
+		sd(urbanindex) & 0.08 & 0.06 & 0.00 & 0.21 & 1.00 & 866.41 & 1941.43 \\ 
+		sd(Median.Household.Income) & 2.24 & 0.51 & 1.19 & 3.26 & 1.00 & 2627.23 & 2493.48 \\ 
+		\hline
+	\end{tabular}
+	\caption{estimates model4}
+	\label{tab:model4}
+\end{table}
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+\FloatBarrier
+\newpage
 \printbibliography
 
 \end{document}

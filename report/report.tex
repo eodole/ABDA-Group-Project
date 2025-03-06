@@ -659,8 +659,14 @@ Since it is computed for each draw, as opposed to a single point estimate, it ta
 \end{equation}
 
 
-Figure \ref{fig:rmse} \red{TAKE OUT THAT TITLE} shows the histograms of the RMSE with all (4000)\blue{didn't we increase iterations?} draws for each of our models.
-Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates \blue{voting outcomes?} better. This is however unsurpising, as this model has many more covariates, and at least some have a significant (?) \red{did you mean a ? here? maybe say large instead of significant not to be confused with statistically signigicant} effect on the probability of a Democrat win.
+\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
+The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
+Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
+A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
+\blue{** to here }
+
+Figure \ref{fig:rmse} shows the histograms of the RMSE with all (4000)\blue{didn't we increase iterations?} draws for each of our models.
+Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates voting outcomes better. This is however unsurprising, as this model has many more covariates, and at least some have a large effect on the probability of a Democrat win.
 More important for our analysis is the comparison between models 1,2 and 3.
 Model 2 (the one with only the Region-level hierarchy) shows by far the largest average errors, which can mean this model's predictions are more often "wrong" (a small estimated probability when a Democrat has won or a large one when a Republican was elected) or that the predictions are in general closer to the center (0.5) rather than the extremes. In either case, it suggests that the Region-level hierarchy in urbanindex is not as powerful as the State-level one for estimating probabilities.
 Model 3 has on slightly smaller RMSE values than Model 1, but the histograms are very close, suggesting the inclusion of the Region hierarchy really does not have a large impact on posterior predictions.
@@ -672,13 +678,13 @@ Model 3 has on slightly smaller RMSE values than Model 1, but the histograms are
 	\label{fig:rmse}
 \end{figure}
 
-
-\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
-The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
-Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
-A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
-\blue{** to here }
-
+%
+%\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
+%The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
+%Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
+%A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
+%\blue{** to here }
+%
 
 
 
@@ -726,9 +732,10 @@ In our case, the bigger model (Model 4) was indeed the preferred one using both 
 Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and computing the expected LPD (ELPD) of the observations in the latter, given the model estimates with the training set. 
 
 \begin{equation}
-	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y}_n | y)
+	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y}_n | y) 
+%	\approx
+%	\sum_{n= 1}^{\tilde{N}} \frac{1}{S} \sum_{s = 1}^{S}  log p(\tilde{y}_n | \theta^{(s)}) 
 \end{equation}
-\red{replce by ELPD\_loo formula}
 The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out (LOO) cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (Pareto-Smoothed Importance Sampling in this case).
 
 \begin{table}[ht]
@@ -747,7 +754,7 @@ The way we choose to split the data into training/test sets naturally impacts th
 	\label{tab:loo}
 \end{table}
 
-According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is the preferred one, followed by Models 3, 1 and 2. The first column of the table shows the difference between each model and the best performing one (in terms of ELPD\_loo score, shown in the third column), ranked by best to worst model.
+According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is the preferred one, followed by Models 3, 1 and 2. The first column of the table shows the difference between each model and the best performing one (in terms of ELPD score, shown in the third column), ranked by best to worst model.
 This is the same ranking we had seen before, with the more complex models performing better. There is a relatively sizable difference in LOO scores between Model 4 and 3, as well as between 1 and 2, but the difference between 3 and 1 is minimal. The extra level of hierarchy (Region) in the urbanindex slope estimate improves model predictions, although not by much.
 
 

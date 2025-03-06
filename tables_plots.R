@@ -63,8 +63,8 @@ plot(me4_state, ncol = 7, points = TRUE)
 
 #######################################################################################
 #posterior vs prior
-prior_draws <- tibble(b_urbanindex = prior_draws(nested, variable = "b_urbanindex")$b)
-post_draws <- as_tibble(as_draws_df(nested))
+prior_draws <- tibble(b_urbanindex = prior_draws(model1.final, variable = "b_urbanindex")$b)
+post_draws <- as_tibble(as_draws_df(model1.final))
 draws <- bind_rows(prior = prior_draws, posterior = post_draws, .id = "dist")
 
 ggplot() +

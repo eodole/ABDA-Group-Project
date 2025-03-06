@@ -180,21 +180,33 @@
 
 
 \section{Introduction}
-
+ 
+\subsection*{Outline}
+\blue{did I miss anything?}
+% In this report we aim to answer the question "How does urbanization of a US House District affect the resulting party that is elected?". 
+In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes. To put it more concretely we want to answer the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". First we provide background our motivation and important background information about the US election system. 
+We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
+Next we discuss our dataset, which is a combination of four different datasets. 
+We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Finally we use both graphical and numerical methods to compare our models before concluding with limitations, improvements and reflections. 
 
 \textcolor{red}{notes to ourselves about things that should go in each section can be in red like this so we dont forget to delete them :)}
 
 
 \subsection*{Background}
-The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondants into smaller demographic groups \red{cite}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. To put it more concretely we want to investigate the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". 
+The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondants into smaller demographic groups \red{cite}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. 
 
-To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state \red{cite}. We then use each of the districts as a single replicate. 
+To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state \red{cite}. 
 
 The 2022 House Election takes places during a non-presidential year, and is the most recent election following the 2020 Census and redistricting, allowing us to use the most recently available district maps, and demographic data. Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. 
 
+\blue{did I miss something about the models?}
+From this data we use each of the districts as a observation for our logistic regression model. We then choose to model the effect of urbanization hierarchically. Since urbanization is tied to geography we assume a hierarchy related to the location of the districts at the state and region levels of the United States. We then built four different models to test different aspects of the hierarchical structure. In the logistic regression  models we then combine urbanizaiton with various demographic covariates. By using a bayesian approach to this multilevel model, we were able to gain a more precise understanding of the relationship between urbanizaiton, geography and voting outcomes. All of our models were fit using the \texttt{brms} R package \red{cite}. 
+
+
+
 % Previous attempts? 
 
-\subsection*{comparative literature}
+\subsection*{Comparative Literature}
 Inherent in our analysis is the assumption that repuclican and democratic voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a distict has been gerrymandered is rather unclear and out of the scope of this project.
 
 Since we are using a custom curated dataset, there exists no directly comparableresearch, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \textcolor{red}{CITE}. In their analysis they discuss the phenomena of spatial inefficency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficency in order to understand the impact of gerrymandering \red{CITE}. 
@@ -202,14 +214,8 @@ Since we are using a custom curated dataset, there exists no directly comparable
 Although the authors in \red{cite title} look at election outcomes through the lense of spatial efficency and we are trying to look at election results of districts with respect to their urbanizaition, we can take the following insights from their analysis. First the distribution of Democrats and urbanization are inexplicably linked, they found that all over the country Democrats tend to be concentrated in urban areas which indicate that it will likely be a good predictor. We would like to investigate to what extent that is true. They also note that the effect of spatial efficency is highly dependent on state and the branch of goverment. When considering that urbanization can be considered a proxy for spatial inefficency, this further supports our decision to model urbanindex hierachically. 
 % points to something ... 
 
-\red{why this particular modeling approach? Also what was our modeling approach?}
 
-\subsection*{model approach/motivation}
-\subsubsection*{Two party system}
 
-\red{why not shift this to the data section?}
-\textcolor{red}{Leonor: here is an explaination for it being two parties, kinda long but yeah}
-Although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system, which led to using logistic regression as a natural choice for modeling.  \red{i would say led to modeling winner as a binary variable, this doesnt necessarily lead to logistic regression}
 
 % This is related to our analysis because where these authors were trying to understand the outcomes as related to distribution of voters within a city we are tyring to do somehting similar but rather look to predicting the outcomes of particular districts with respect to their level of urbanization. Whereas the authors assume some sort of causal mechanism in the urbanization being a determinate variable for partisanship be assume rather that both partisanship and urbanization are independent given some other third latent variable. 
 
@@ -218,18 +224,22 @@ Although technically a multiparty system, the U.S. is often called a two party s
 
 
 
-\textcolor{red}{this is something like assumptions but im not really sure what to say}
-Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
+% \textcolor{red}{this is something like assumptions but im not really sure what to say}
+% Since the districts are allocated based on population, they are approximately the same size, which allows us the make the assumption the differences in voting behavior have something do with people within the districts rather than simply the size of each district. This also allows us the make exchangability assumptions with respect to state and region.
 
-\blue{maybe put assumptions here? like the exchangability assumption?}
-\red{i think model assumptions belong in the model section, at least the explanation (we can just mention the name here is it is important to)}
+% \blue{maybe put assumptions here? like the exchangability assumption?}
+% \red{i think model assumptions belong in the model section, at least the explanation (we can just mention the name here is it is important to)}
 
 
 \section{Dataset}
 Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. The other variable we included in our curated dataset was urban grouping, which is a collapsing of the urban index into catagories ranging from urban to rural. We however did not end up including this in our model.
 
 
-The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. From this dataset we used the party, state, and winning party variables, it also included the variable incumbent party, which we considered also using, but the data from incumbent party is partially incomplete and would likely have very high correlation with the our target variable winning party, leading to a model that relies most heavily on incumbent party. Since we are more interested in the relationship between our model and our choose covariates we therefore decided not to include it.  
+The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections.  \red{maybe talk about the funny shit with alaska and preference voting (?) DONE}
+As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. Since each state sets its own elections rules this led to additions quirks in the dataset. For example as of 2020 Alaska uses ranked choice voting, and each stage of the rank choice vote is present in this dataset, which made the ensure the proper filtration of the dataset that much more important \red{CITE - press release of alskan gov}. From this dataset we used the party, state, and winning party variables, it also included the variable incumbent party, which we considered also using, but the data from incumbent party is partially incomplete and would likely have very high correlation with the our target variable winning party, leading to a model that relies most heavily on incumbent party. Since we are more interested in the relationship between our model and our choose covariates we therefore decided not to include it.  
+
+As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therfore we modeled winning party as a binary variable, with democrats encoded as (1) and republicans encoded as (0). It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as 
+these terms are at times used interchangably throughout this report. 
 
 The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district in our curated dataset; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
 
@@ -243,10 +253,9 @@ The fourth dataset was the region dataset, which was put together manually by us
 
 \subsection*{Data Cleaning}
 
- \blue{how did we code our variables? }
 We then merged these four datasets to created our own curated dataset. We did this by merging the different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three datasets, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
 
-\red{maybe talk about the funny shit with alaska and preference voting (?)}
+
 In the election results dataset, we encountered one instance of missing data. For all of the districts in Louisiana, the winning party was not recorded. There was however the incumbant party recorded  in the Election Results dataset and by cross referencing this with public record we found for the 2022 House Election only candidates from the incumbant party remained in each of the districts. Therefore as is reflected in our code base we used the data from the incumbant party in place of winning party for the state of Louisiana. For all other states and disticts we did not encounter this problem. 
 
 In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables. Similarly we decided to scale all of the percentage variables to be on the scale zero to one hundred rather than zero to one to make their coefficents more interpretable.  
@@ -286,13 +295,14 @@ We tested four different models for $\theta_{j,k}$, which include different cova
 first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, exchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
-The logistic relationship is common choice for modeling binary outcomes. It allows us to model the probability of a Democrat win by a linear predictor which can take any real value, while still having an interpretation for the coefficient estimates (in terms of change of log-odds).
-\blue{what do you mean here? that its a suitable choice for binary data? Maybe rewrite to: Modeling a binary as a logistic regression is a common choice in the literature(?) } (\textcolor{red}{cite}).
+The logistic relationship is common choice for modeling binary outcomes. It allows us to model the probability of a Democrat win by a linear predictor which can take any real value, while still having an interpretation for the coefficient estimates (in terms of change of log-odds).(\textcolor{red}{cite}).
+
 
 We assume exchangeability because  we assume that the districts are drawn in such a way that they are competative for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
 
+
 One example would be for complicated historical reasons certain regions of the United States are more similar to eachother than others. For example the Southern United states tends to be more religious and religous people tend to vote more conservatively, think about this then as a prior telling us about the mix of democratic and republican districts within a particular state. Although the religiousity may increase the number of potential republican districts in each state, whether one district votes repuclican does not influence the decision of another since each district outcome is determined by thousands of individual votes. 
-Since each district is part of a state and a region, translate structure the complex geographically determined mechanisms into our model by modeling some of parameters hierarchically.
+Since each district is part of a state and a region, we can translate the complex geographically determined mechanisms into our model by modeling some of parameters hierarchically.
 
 % as a result the parameter associated with region would likely be smaller or more negative as compared to other regions. However the conditions for any particular southern state are the same, and 
 % The idea behind the differing effect strength of urban index values per region is that a city in a rural area will likely have stronger signal than an city among a bunch of other cities. \textcolor{red}{[rewrite some of this paragraph]}
@@ -540,17 +550,17 @@ We do not want to place strong constraints on the effect of our variable of inte
 
 
 %%%%%%%%%%%%%%%%%%% pct_ret %%%%%%%%%%%%%%%%%%%%%%%
-The Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
+As found in the literature older votes tend to vote more conservatively \red{CITE}, so it makes sense that a higher he Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%% women %%%%%%%%%%%%%%%%%%%%
 In Model 4, Pct.Women is not modeled hierarchically.
-The percentage of women is roughly the same in every district, so we do not expect this covariate to have a strong effect on the probability of either party winning, i.e, we expect $\beta_{women}$ to be close to zero. So, we set a prior for this slope which is centered around zero and has little variability: a standard normal prior. 
+Although women tend to vote more democratic and have higher voter turnout \red{CITE}, the percentage of women is roughly the same in every district, so we do not expect this covariate to have a strong effect on the probability of either party winning, i.e, we expect $\beta_{women}$ to be close to zero. So, we set a prior for this slope which is centered around zero and has little variability: a standard normal prior. 
 
 
 
-The effects of percentage of bachelor degrees and median income are parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior).
+The effects of percentage of bachelor degrees and median income are parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior). \blue{This was done to capture the idea of different costs of living and importance of education respectively, as what is considered rich, poor, or well educated for an individual is highly dependent on the environment. }\red{what do u think?}
 
  
 
@@ -616,15 +626,17 @@ HMC Convergence diagnostics in itself can be a rather extensive topic, so for th
 
 \includegraphics[scale = 1.2]{trace_plots/trace_model2.jpeg}
 
-\includegraphics[scale = 1.2]{trace_plots/trace_model4_part1.jpeg}
+\includegraphics[scale = 1.2]{trace_plots/trace_model3_part1.jpeg}
 
-The trace plots for model 2 and some coefficients of model 4 are plotted above. We see divergent transitions in both cases, but there are two key differences:
+The trace plots for model 2 (top) and most coefficients of model 3 (bottom) are plotted above. We see divergent transitions in both cases, but there are two key differences:
 
-Firstly, the bulk of the divergent transitions for Model 4 seem to occur at the end of the chains, while those of Model 2 occur regularly throughout the chains, albeit with no discernable pattern. Secondly, Model 2 has many more divergent transitions than Model 4. 
+Firstly, the number of divergent transitions: There are many more of these for Model 3 compared to Model 2. Secondly, the place of occurrence: Model 3's divergent transitions occur throughout the chains, while those in Model 2 seem to be concentrated around the 1000th iteration, while noticeably decreasing towards the 2000th iteration. This suggests that increasing iterations further might help with Model 2, but is unlikely to help with Model 3.
 
-The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 4, or in the case of Model 1, have no divergent transitions whatsoever.
+The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 2, or in the case of Model 1, have no divergent transitions whatsoever.
 
-So our key takeaway is that the HMC chains behave strangely for Model 2, and reasonably for the rest. Luckily for us, there is one glaring difference between Model 2 and the rest which partially explains this behaviour: Namely, it is the only model which solely takes into account a regional hierarchy but not a statewise hierarchy. While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding (that the lack of a statewise hierarchy leads to convergence issues). 
+So our key takeaway is that the HMC chains behave strangely for Model 3, and reasonably for the rest provided we increase the number of iterations from the default 1000 to 2000. Luckily for us, there is one glaring difference between Model 3 and the rest which partially explains this behaviour: Namely, it is the only model which takes into account both a regional hierarchy and a statewise hierarchy for the same coefficient, with the former being nested in the latter. The other models have at the most a single hierarchy per coefficient. 
+
+While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding (that the presence of an explicit nested hierarchy causes HMC chain convergence issues). 
 
 
 \section{Model Comparison}
@@ -636,7 +648,7 @@ To this end, we measured and compared our models' predictive performance first b
 
 Absolute predictive performance metrics directly tell us directly how well the model performs, without looking at other models.
 To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, as explained in Equation \ref{eq:rmse}.
-Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty, making it a fully Bayesian measure.
+Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty, making it a fully Bayesian measure \blue{citation needed?}.
 
 \begin{equation} \label{eq:rmse}
 	RMSE^{(s)} = \sqrt{
@@ -647,8 +659,8 @@ Since it is computed for each draw, as opposed to a single point estimate, it ta
 \end{equation}
 
 
-Figure \ref{fig:rmse} \red{TAKE OUT THAT TITLE} shows the histograms of the RMSE with all (4000) draws for each of our models.
-Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates it better. Unsurprisingly so, as this Model has many more covariates, and at least some have a significant (?) effect on the probability of a Democrat win.
+Figure \ref{fig:rmse} \red{TAKE OUT THAT TITLE} shows the histograms of the RMSE with all (4000)\blue{didn't we increase iterations?} draws for each of our models.
+Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates \blue{voting outcomes?} better. This is however unsurpising, as this model has many more covariates, and at least some have a significant (?) \red{did you mean a ? here? maybe say large instead of significant not to be confused with statistically signigicant} effect on the probability of a Democrat win.
 More important for our analysis is the comparison between models 1,2 and 3.
 Model 2 (the one with only the Region-level hierarchy) shows by far the largest average errors, which can mean this model's predictions are more often "wrong" (a small estimated probability when a Democrat has won or a large one when a Republican was elected) or that the predictions are in general closer to the center (0.5) rather than the extremes. In either case, it suggests that the Region-level hierarchy in urbanindex is not as powerful as the State-level one for estimating probabilities.
 Model 3 has on slightly smaller RMSE values than Model 1, but the histograms are very close, suggesting the inclusion of the Region hierarchy really does not have a large impact on posterior predictions.
@@ -661,13 +673,14 @@ Model 3 has on slightly smaller RMSE values than Model 1, but the histograms are
 \end{figure}
 
 
-
-This measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
+\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
+The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
 Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
 A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
+\blue{** to here }
 
 
-\blue{leonor we should talk about this}
+
 
 
 
@@ -707,7 +720,7 @@ The difference between Models 1 and 2 is positive, menaing Model 1 has higehr LP
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
 
-Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, which would not generalize well to new dtaa, performing much better under these metrics.
+Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, which would not generalize well to new data, performing much better under these metrics \blue{cite brms?}.
 In our case, the bigger model (Model 4) was indeed the preferred one using both RMSE and LL scores.
 
 Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and computing the expected LPD (ELPD) of the observations in the latter, given the model estimates with the training set. 
@@ -770,7 +783,7 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 
 
-\subsection{Reflection on own learnings}
+\subsection{Reflection and Discussion}
 
 \textcolor{red}{please lets call this subsection something else, this sounds so childish}
 
@@ -799,25 +812,25 @@ Model 2:
 
 Model 3 Pt 1:
 
-\includegraphics[scale = 1]{trace_plots/trace_model3_part1.jpeg}
+\includegraphics[scale = 1.25]{trace_plots/trace_model3_part1.jpeg}
 
 
 Model 3 Pt 2: 
 
-\includegraphics[scale = 1]{trace_plots/trace_model3_part2.jpeg}
+\includegraphics[scale = 1.25]{trace_plots/trace_model3_part2.jpeg}
 
 Model 4 Pt 1:
 
-\includegraphics[scale = 1]{trace_plots/trace_model4_part1.jpeg}
+\includegraphics[scale = 1.3]{trace_plots/trace_model4_part1.jpeg}
 
 
 Model 4 Pt 2: 
 
-\includegraphics[scale = 1]{trace_plots/trace_model4_part2.jpeg}
+\includegraphics[scale = 1.3]{trace_plots/trace_model4_part2.jpeg}
 
 Model 4 Pt 3: 
 
-\includegraphics[scale = 1]{trace_plots/trace_model4_part3.jpeg}
+\includegraphics[scale = 1.4]{trace_plots/trace_model4_part3.jpeg}
 
 
 \FloatBarrier

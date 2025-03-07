@@ -106,7 +106,7 @@ combined_rmse <- ggplot() +
   scale_fill_manual(name = "Models", values = c("Model 1" = "darkgreen", "Model 2" = "navy", "Model 3" = "brown", "Model 4" = "darkviolet")) +
   scale_color_manual(name = "Models", values = c("Model 1" = "darkgreen", "Model 2" = "navy", "Model 3" = "brown", "Model 4" = "darkviolet")) +
   theme_minimal() +  # Apply minimal theme
-  ggtitle("RMSE Distribution by Model") +  # Add title
+#  ggtitle("RMSE Distribution by Model") +  # Add title
   theme(
     text = element_text(size = 20),  # Increase font size for all text elements
     plot.title = element_text(size = 25)  # Customize title font size and style
@@ -223,14 +223,15 @@ post_ui4 <-model.comp(model4.final, 4, "darkviolet", 3)
 
 
 combined_post_ui <- ggplot() +
-  geom_histogram(data = post_ui1$data, aes(x = ui, fill = "Model 1", color = "Model 1"), alpha = 0.5) +
-  geom_histogram(data = post_ui2$data, aes(x = ui, fill = "Model 2", color = "Model 2"), alpha = 0.5) +
-  geom_histogram(data = post_ui3$data, aes(x = ui, fill = "Model 3", color = "Model 3"), alpha = 0.5) +
-  geom_histogram(data = post_ui4$data, aes(x = ui, fill = "Model 4", color = "Model 4"), alpha = 0.5) +
+  geom_histogram(data = post_ui1$data, aes(x = ui, fill = "Model 1", color = "Model 1"), alpha = 0.3) +
+  geom_histogram(data = post_ui2$data, aes(x = ui, fill = "Model 2", color = "Model 2"), alpha = 0.3) +
+  geom_histogram(data = post_ui3$data, aes(x = ui, fill = "Model 3", color = "Model 3"), alpha = 0.3) +
+  geom_histogram(data = post_ui4$data, aes(x = ui, fill = "Model 4", color = "Model 4"), alpha = 0.3) +
   scale_fill_manual(name = "Models", values = c("Model 1" = "darkgreen", "Model 2" = "navy", "Model 3" = "brown", "Model 4" = "darkviolet")) +
   scale_color_manual(name = "Models", values = c("Model 1" = "darkgreen", "Model 2" = "navy", "Model 3" = "brown", "Model 4" = "darkviolet")) +
+  labs(x = "urbanindex") +
   theme_minimal() +  # Apply minimal theme
-  ggtitle("Urban Index Coefficient Posterior Distribution by Model") +  # Add title
+ # ggtitle("Urban Index Coefficient Posterior Distribution by Model") +  # Add title
   theme(
     text = element_text(size = 20),  # Increase font size for all text elements
     plot.title = element_text(size = 25)  # Customize title font size and style
@@ -276,8 +277,14 @@ stargazer(loo_compare(loom1, loom2,loom3, loom4))
 
 
 
+### Bayes Factors
 
-
+bayes_factor(model1.final, model2.final, log = TRUE)
+bayes_factor(model1.final, model3.final, log = TRUE)
+bayes_factor(model1.final, model4.final, log = TRUE)
+bayes_factor(model2.final, model3.final, log = TRUE)
+bayes_factor(model2.final, model4.final, log = TRUE)
+bayes_factor(model3.final, model4.final, log = TRUE)
 
 
 

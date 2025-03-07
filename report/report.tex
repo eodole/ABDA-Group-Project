@@ -594,15 +594,22 @@ As the estimate is given by the mean of the posterior distribution for that para
 
 The intercept for example, is very different between models, and is particularly large (in absolute terms) in Model 4. Although, as discussed before, the intercept does not have a practical interpretation in our model, it is interesting that this Model's estimate is so far away from the value we initially assumed it would take (between -19.6 and 19.6 with 95\% certainty, with a $N(0,10)$ prior). It can indicate ....
 
-Our variable of interest, urbanindex, has a more consistent slope estimate across models, between 1.22 (Model 2) and 1.66 (Model 1). The results indicate that the variable has, as expected, on average a positive effect on the log-odds of a Democrat Party win.
-Model 3, for example, estimates that on average a 1 unit increase in urbanindex (e.g., 10 to 11) translates into a 1.64 increase in the log-odds (or an $e^{1.64} = $ increase in the odds) of a Democrat being elected in the district.
+Our variable of interest, urbanindex, has a more consistent slope estimate across models, between 1.22 (Model 2) and 1.66 (Model 1).
+Figure \ref{fig:urbanindex_estimates} shows the histograms of posterior draw for the urbanindex slope parameter, by Model.
+The results indicate that the variable has, as expected, on average a positive effect on the log-odds of a Democrat Party win.
+Model 3, for example, estimates that on average a 1 unit increase in urbanindex (e.g., 10 to 11) translates into a 1.64 increase in the log-odds (or an $e^{1.64} \approx 5.155 $ increase in the odds) of a Democrat being elected in the district.
 While the estimates are within the range we assumed with the prior for this parameter, the upper bounds of the credible intervals are already close to the boundary of that prior. 
 %The data has updated our beliefs about the effect of this variable a lot.
 A prior with more probability mass on the positive range, or a less informative prior, could push the estimates further up. \red{not sure about this though}
 
-\red{posterior and prior for b\_urbanindex}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{results/urb_post_all_models.jpeg}
+	\caption{}
+	\label{fig:urbanindex_estimates}
+\end{figure}
 
-The standard deviation estimate for (the hierarchical effect of) urbanindex is approximately 0.2 in model 1, but half of that in Model 2. \red{why?}  In Model 3, the sd estimates for both levels are closer to model 1's, and in 4 they are closer to 2's. \red{again, why?}
+The standard deviation estimates for the hierarchical effect of urbanindex  are all on the lower side of the prior, close to zero. This is true both for the cases when the hierarchy on urbanindex includes State or Region.
 
 
 The estimated slope of pct.ret is also different between models, particularly in Model 4, where it is larger in absolute value, but always negative as we had assumed. Note that although this estimate is smaller in absolute terms than the slope of urbanindex, it does not mean that percentage of retirees has a weaker effect than urbanization in election outcome. These are different variables on a different scale: in model 3 for example, it is estimated that an increase of 1 percentage point in the percentage of retirees in a district correlates with a 0.16 decrease in the log-odds of a Democrat being elected.
@@ -659,13 +666,13 @@ Since it is computed for each draw, as opposed to a single point estimate, it ta
 \end{equation}
 
 
-\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
+%\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
 The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
 Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
 A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
-\blue{** to here }
+%\blue{** to here }
 
-Figure \ref{fig:rmse} shows the histograms of the RMSE with all (4000)\blue{didn't we increase iterations?} draws for each of our models.
+Figure \ref{fig:rmse} shows the histograms of the RMSE with all draws for each of our models.
 Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates voting outcomes better. This is however unsurprising, as this model has many more covariates, and at least some have a large effect on the probability of a Democrat win.
 More important for our analysis is the comparison between models 1,2 and 3.
 Model 2 (the one with only the Region-level hierarchy) shows by far the largest average errors, which can mean this model's predictions are more often "wrong" (a small estimated probability when a Democrat has won or a large one when a Republican was elected) or that the predictions are in general closer to the center (0.5) rather than the extremes. In either case, it suggests that the Region-level hierarchy in urbanindex is not as powerful as the State-level one for estimating probabilities.
@@ -721,7 +728,7 @@ The sum of these differences corresponds to the difference in Log Predictive Den
 
 Table \ref{tab:LPD_diff} shows the differences in LPD between all four of our models and corresponding standard errors.
 Model with higher LPD are preferred, as this reflects an overall higher (less negative) log-likelihood score across all observations, meaning the model more accurately predicted each result.
-The difference between Models 1 and 2 is positive, menaing Model 1 has higehr LPD, so it is preferred over 2 using this statistic. In fact, Model 2 is never preferred to any of the other models. Once again, Model 4 provides the best fit and Models 1 and 3 are very close, with 3 performing slightly better. This, together with the comparatively poorer fit of Model 2 points towards Region-level hierarchy possibly not being the correct choice for modeling urbanindex.
+The difference between Models 1 and 2 is positive, meaning Model 1 has higher LPD, so it is preferred over 2 using this statistic. In fact, Model 2 is never preferred to any of the other models. Once again, Model 4 provides the best fit and Models 1 and 3 are very close, with 3 performing slightly better. This, together with the comparatively poorer fit of Model 2 points towards Region-level hierarchy possibly not being the correct choice for modeling urbanindex.
 
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
@@ -758,7 +765,7 @@ According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is 
 This is the same ranking we had seen before, with the more complex models performing better. There is a relatively sizable difference in LOO scores between Model 4 and 3, as well as between 1 and 2, but the difference between 3 and 1 is minimal. The extra level of hierarchy (Region) in the urbanindex slope estimate improves model predictions, although not by much.
 
 
-
+All in all, the ranking of our Models' posterior predictive ability is the same, whether we use in- or out-of-sample techniques: Model 4 is the better model for prediction, the second best is Model 3, closely followed by 1 and lastly 2. All seem to indicate that modeling urbanindex with a Region hierarchy is not the appropriate choice if the goal is to better predict the election outcome.
 
 
 
@@ -894,7 +901,7 @@ Model 4 Pt 3:
 		\hline
 	\end{tabular}
 		\end{adjustbox}
-	\caption{text}
+	\caption{Parameter estimates obtained by Model 1 with the 435 observations in our dataset}
 	\label{tab:model1}
 \end{table}
 
@@ -915,7 +922,7 @@ Model 4 Pt 3:
 		sd(urbanindex) &     0.09 &      0.06 &      0.02 &      0.27 & 1.00 &    892.96 &    465.15 \\ \hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{estimates model2}
+	\caption{Parameter estimates obtained by Model 2 with the 435 observations in our dataset}
 	\label{tab:model2}
 \end{table}
 
@@ -940,7 +947,7 @@ Model 4 Pt 3:
 		\hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{estimates model3}
+	\caption{Parameter estimates obtained by Model 3 with the 435 observations in our dataset}
 	\label{tab:model3}
 \end{table}
 
@@ -969,7 +976,7 @@ Model 4 Pt 3:
 		\hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{estimates model4}
+	\caption{Parameter estimates obtained by Model 4 with the 435 observations in our dataset}
 	\label{tab:model4}
 \end{table}
 
@@ -986,7 +993,7 @@ Model 4 Pt 3:
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_differences.jpeg}
-	\caption{}
+	\caption{Histograms of differences in Log-Likelihood Scores for each observation between all 4 models; black dotted line marks zero; red vertical line marks the mean of the difference between the corresponding models}
 	\label{fig:ll_diff}
 \end{figure}
 

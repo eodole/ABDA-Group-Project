@@ -584,6 +584,20 @@ choices
 	\item brms i guess
 \end{enumerate}
 
+
+As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
+
+
+We fit each model with the function \verb|brm()|, with the usual R formula syntax, writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept.
+The priors are set according to what was laid out in Table \ref{tab:priors}.
+We chose to run 4 chains, with 4000 iterations each ... \red{Murthy please explain}
+
+Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws from all variables defined in Stan's parameters block are saved. This has no effect on the model itself, and is only relevant in our case because we afterwards perform moment matching in computing the LOO-CV statistics for model comparison.
+
+\red{idk how much we're supposed to say here}
+
+
+
 \section{Results}
 
 \textcolor{red}{This section is not on the instructions but is probably the easiest way to talk about the results we got }

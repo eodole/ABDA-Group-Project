@@ -242,6 +242,25 @@ these terms are at times used interchangably throughout this report.
 
 The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district in our curated dataset; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
 
+\begin{table}[!htbp] \centering \renewcommand*{\arraystretch}{1.1}\caption{Covariate Summary Statistics}\resizebox{\textwidth}{!}{
+	\begin{tabular}{lrrrrrr}
+	\hline
+	\hline
+	Variable  & Mean & Std. Dev. & Min & Pctl. 25 & Pctl. 75 & Max \\ 
+	\hline
+	Urban Index & 11 & 1.4 & 8.1 & 10 & 12 & 15 \\ 
+	Total.Population  & 764634 & 44505 & 543189 & 744260 & 784528 & 1018396 \\ 
+	pct.women  & 50 & 0.93 & 47 & 50 & 51 & 53 \\ 
+	Median.Household.Income  & 77782 & 20652 & 40532 & 63352 & 87918 & 166489 \\ 
+	Mean.Household.Income  & 107219 & 29122 & 63317 & 87310 & 120316 & 252250 \\ 
+	pct.retirees  & 17 & 3.5 & 8.7 & 15 & 19 & 35 \\ 
+	pct.bach  & 22 & 5.8 & 7.3 & 17 & 25 & 40\\ 
+	\hline
+	\hline
+	\end{tabular}
+	}
+	\end{table}
+
 From these covariates we hoped to capture education, income, and, demographic make-up  of the districts because we thought they might be influential in determining partisan voting outcomes. However not all of these covariates were included in our final models. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \blue{cite}, so while this does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Although we intially thought that percentage women may also be a poor predictor-since women should be evenly distributed throughout the United States-however a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which is why we then included it in our largest model. \blue{cite}. We also initially thought that median and mean income could be combined to as a measure of inequality, but found a study saying that inequality is not a good voting indicator on its own \blue{cite}. For that reason we choose to use only the median household income as it would be less skewed. Similarly unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\blue{cite}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
 \blue{ Why is pct retirees included in every single one of our models? }
 

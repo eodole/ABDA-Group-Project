@@ -1,5 +1,7 @@
 library(xtable)
 
+
+### Model Summaries 
 sum1 <- summary(model1.final)
 sum_table1 <- rbind((sum1$fixed), (sum1$random$State))
 xtable(sum_table1, digits = 2)
@@ -75,4 +77,26 @@ ggplot() +
     text = element_text(size = 20),
     plot.title = element_text(size = 25)
   )
+
+##################################################################3
+## Data Summaries Table 
+
+library(dplyr)
+library(vtable)
+
+df <- read.csv("./report_code/final_data_for_report.csv")
+
+
+# # rescale total population and household income
+# joined_final$Total.Population <- joined_final$Total.Population/1000000
+# joined_final$Median.Household.Income <- joined_final$Median.Household.Income/100000
+
+df$Total.Population <- df$Total.Population*1000000
+df$Median.Household.Income <- df$Median.Household.Income*100000
+
+sumtable(df, 
+         vars = c("urbanindex", "Total.Population", "pct.women", "Median.Household.Income","Mean.Household.Income", "pct.retirees", "pct.bach"),
+         out = "latex")
+
+
 

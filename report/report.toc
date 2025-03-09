@@ -1,13 +1,13 @@
 \contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
 \contentsline {section}{\numberline {2}Dataset}{3}{section.2}%
-\contentsline {section}{\numberline {3}Models}{5}{section.3}%
+\contentsline {section}{\numberline {3}Models}{6}{section.3}%
 \contentsline {section}{\numberline {4}Priors}{8}{section.4}%
 \contentsline {section}{\numberline {5}Code}{9}{section.5}%
-\contentsline {section}{\numberline {6}Results}{9}{section.6}%
-\contentsline {section}{\numberline {7}Convergence Diagnostics}{10}{section.7}%
-\contentsline {section}{\numberline {8}Model Comparison}{12}{section.8}%
-\contentsline {section}{\numberline {9}Prior Sensitivity Analysis}{14}{section.9}%
-\contentsline {section}{\numberline {10}Limitations and Improvements}{15}{section.10}%
-\contentsline {section}{\numberline {11}Changes from Presentation}{15}{section.11}%
-\contentsline {section}{\numberline {12}Conclusion}{15}{section.12}%
-\contentsline {subsection}{\numberline {12.1}Reflection on own learnings}{15}{subsection.12.1}%
+\contentsline {section}{\numberline {6}Results}{10}{section.6}%
+\contentsline {section}{\numberline {7}Convergence Diagnostics}{11}{section.7}%
+\contentsline {section}{\numberline {8}Model Comparison}{13}{section.8}%
+\contentsline {section}{\numberline {9}Prior Sensitivity Analysis}{16}{section.9}%
+\contentsline {section}{\numberline {10}Limitations and Improvements}{16}{section.10}%
+\contentsline {section}{\numberline {11}Changes from Presentation}{16}{section.11}%
+\contentsline {section}{\numberline {12}Conclusion}{16}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Reflection and Discussion}{16}{subsection.12.1}%

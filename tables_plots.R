@@ -70,6 +70,7 @@ plot(me4_state, ncol = 7, points = TRUE)
 
 library(dplyr)
 library(vtable)
+library(stargazer)
 
 df <- read.csv("./report_code/final_data_for_report.csv")
 
@@ -87,3 +88,12 @@ sumtable(df,
 
 
 
+total.pop.info <- df%>% group_by(State) %>% summarise(n.districts = n(),
+                                                      tot.pop.mean = mean(Total.Population), 
+                                                      tit.pop.sd = sd(Total.Population), 
+                                                      tot.pop.min = min(Total.Population),
+                                                      tot.pop.max = max(Total.Population),
+                                                      pct.diff = (max(Total.Population) - min(Total.Population))/max(Total.Population)
+                                                      )
+
+xtable(total.pop.info, digits = c(1,1,0,0,0,0,0,3))

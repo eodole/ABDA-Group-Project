@@ -231,16 +231,17 @@ Although the authors in \red{cite title} look at election outcomes through the l
 
 
 \section{Dataset}
-Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. The other variable we included in our curated dataset was urban grouping, which is a collapsing of the urban index into catagories ranging from urban to rural. We however did not end up including this in our model.
+Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index  and (urban) grouping into our final dataset \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. Refering to Table \ref{covariate_table} we see that urbanization index ranges from 8.1 to 15, which are best interpretted in combination with the other variable we included in our curated dataset-urban grouping. Urban grouping is a collapsing of the urban index into six catagories ranging from "Dense Urban" for districts with an urban index above 13 and "Mostly Rural" for districts with an urbanization index below 9.5. We did not however include urban grouping directly in our modeling.
 
 
-The second dataset used in our analysis the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections.  \red{maybe talk about the funny shit with alaska and preference voting (?) DONE}
-As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. Since each state sets its own elections rules this led to additions quirks in the dataset. For example as of 2020 Alaska uses ranked choice voting, and each stage of the rank choice vote is present in this dataset, which made the ensure the proper filtration of the dataset that much more important \red{CITE - press release of alskan gov}. From this dataset we used the party, state, and winning party variables, it also included the variable incumbent party, which we considered also using, but the data from incumbent party is partially incomplete and would likely have very high correlation with the our target variable winning party, leading to a model that relies most heavily on incumbent party. Since we are more interested in the relationship between our model and our choose covariates we therefore decided not to include it.  
-
-As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therfore we modeled winning party as a binary variable, with democrats encoded as (1) and republicans encoded as (0). It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as 
+The second dataset used in our analysis is the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. 
+As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. Each state sets its own elections rules which led to additions quirks in the dataset. For example, as of 2020 Alaska uses ranked choice voting, and each stage of the ranked choice voting results is present in this dataset, which made it that much more important to ensure careful preprocessing of the data \red{CITE - press release of alskan gov}. From this dataset we used the party, state, and winning party variables. 
+We also considered using the variable incumbent party, however in addition to being incomplete, incumbent party is highly correlated with our target variable winning party. Inclusion of incumbent party would lead to a model that places heavy important on incumbent party and much lower importance on other covariates. Since we are more interested in the relationship between our model and our choosen covariates we therefore decided not to include it.  
+ 
+As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \textcolor{red}{(cite)}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \textcolor{red}{(cite)}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therefore we modeled winning party as a binary variable, with democrats encoded as (1) and republicans encoded as (0). It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as 
 these terms are at times used interchangably throughout this report. 
 
-The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district in our curated dataset; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
+The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
 
 \begin{table}[!htbp] \centering \renewcommand*{\arraystretch}{1.1}\caption{Covariate Summary Statistics}\resizebox{\textwidth}{!}{
 	\begin{tabular}{lrrrrrr}
@@ -259,10 +260,24 @@ The third data used in our analysis is a subset of the 2022 American Commuity Su
 	\hline
 	\end{tabular}
 	}
+	\label{covariate_table}
 	\end{table}
 
-From these covariates we hoped to capture education, income, and, demographic make-up  of the districts because we thought they might be influential in determining partisan voting outcomes. However not all of these covariates were included in our final models. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \blue{cite}, so while this does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Although we intially thought that percentage women may also be a poor predictor-since women should be evenly distributed throughout the United States-however a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which is why we then included it in our largest model. \blue{cite}. We also initially thought that median and mean income could be combined to as a measure of inequality, but found a study saying that inequality is not a good voting indicator on its own \blue{cite}. For that reason we choose to use only the median household income as it would be less skewed. Similarly unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\blue{cite}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
+From these covariates we hoped to capture education, income, and, demographic make-up of each district because we thought they might be influential in determining partisan voting outcomes. However not all of these covariates were included in our final models. 
+
+The majority of our models are relatively small with only urban index and one other covariate, percentage retirees. In our literature review we found that older voters tend to vote more conseratively, which helped inform our prior choice \red{cite}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
 \blue{ Why is pct retirees included in every single one of our models? }
+
+In our larger model we included further demographics such as, percentage women, median household income, and percentage bachelors. Initially we thought that percentage women would be a poor predictor. As can be seen in Table \ref{covariate_table} the difference in minimum and maximum percentage women is only six percentage points, with a mean of 50 percent. However a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which indicates thats even a small difference in the percentage women may have a large impact \red{cite}. 
+
+In our largest model we also wanted to capture the impact of income. One idea was to take the difference of mean and median income as a measure of inequality. However, \red{cite study} found no strong relationship between income inequality and partisan voting. Instead we included only median household income as a measure of income as it is a less skewed measure as in seen in Table \ref{covariate_table}.
+
+
+From our inital list of covariates, there are also some not included in our final dataset. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same\blue{cite}. Although we can see in Table \ref{covariate_table} that there is some variability in total population, the differences within states are relatively small which can be seen in Table \ref{total_pop_stats1} and \ref{total_pop_stats2} in the appendix. While a similar population in each district does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Initially we also thought that unemployment rate may be a good predictor of partisan voting outcomes, however \red{cite} found that unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\blue{cite}. 
+
+% \subsubsection{original verison}
+% As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \blue{cite}, so while this does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Although we intially thought that percentage women may also be a poor predictor-since women should be evenly distributed throughout the United States-however a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which is why we then included it in our largest model. \blue{cite}. We also initially thought that median and mean income could be combined to as a measure of inequality, but found a study saying that inequality is not a good voting indicator on its own \blue{cite}. For that reason we choose to use only the median household income as it would be less skewed. Similarly unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\blue{cite}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
+% \blue{ Why is pct retirees included in every single one of our models? }
 
 
 The fourth dataset was the region dataset, which was put together manually by us following the four statistical region designations of United States Census Bureau. \textcolor{red}{Cite: First link on wiki list of regions of us }
@@ -604,7 +619,12 @@ choices
 \end{enumerate}
 
 
+
 As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
+
+\blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...}
+
+In our zip folder there are \red{X number} R files. \textit{Data\_cleaning.R} is the file showing our process for combing our datasets.  
 
 
 We fit each model with the function \verb|brm()|, with the usual R formula syntax, writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept.
@@ -614,6 +634,8 @@ We chose to run 4 chains, with 4000 iterations each ... \red{Murthy please expla
 Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws from all variables defined in Stan's parameters block are saved. This has no effect on the model itself, and is only relevant in our case because we afterwards perform moment matching in computing the LOO-CV statistics for model comparison.
 
 \red{idk how much we're supposed to say here}
+
+
 
 
 
@@ -815,6 +837,7 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 
 \section{Limitations and Improvements}
+ % something interesting would be to look if theres a large change in percentage at the urbanizaiton catagory boundaries
 
 
 \section{Changes from Presentation}
@@ -849,7 +872,7 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 
 \subsection*{Descriptives}
 
-\begin{table}[ht]
+\begin{table}[h]
 	\centering
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rcccccc}
@@ -869,13 +892,83 @@ So, we conducted a prior sensitivity analysis, by refitting our model(s) using a
 	\label{}
 \end{table}
 
+% latex table generated in R 4.4.1 by xtable 1.8-4 package
+% Sun Mar  9 13:00:50 2025
+
+\begin{table}[ht!]
+	\begin{tabular}{lrrrrrr}
+	  \hline
+	 State & Districts & Average  & Standard Deviation & Minimum & Maximum & Difference \\ 
+	  \hline
+	 Alabama & 7 & 724899 & 10656 & 710137 & 743238 & 0.045 \\ 
+	   Alaska & 1 & 733583 &  & 733583 & 733583 & 0.000 \\ 
+	  Arizona & 9 & 817689 & 20000 & 790643 & 851459 & 0.071 \\ 
+	   Arkansas & 4 & 761409 & 16746 & 747672 & 784904 & 0.047 \\ 
+	   California & 52 & 750564 & 20271 & 705678 & 797316 & 0.115 \\ 
+	   Colorado & 8 & 729991 & 9977 & 718693 & 748891 & 0.040 \\ 
+	  Connecticut & 5 & 725241 & 10542 & 710465 & 735042 & 0.033 \\ 
+	  Delaware & 1 & 1018396 &  & 1018396 & 1018396 & 0.000 \\ 
+	  Florida & 28 & 794458 & 24364 & 740547 & 839779 & 0.118 \\ 
+	   Georgia & 14 & 779491 & 14149 & 755007 & 806637 & 0.064 \\ 
+	   Hawaii & 2 & 720098 & 3338 & 717738 & 722458 & 0.007 \\ 
+	   Idaho & 2 & 969516 & 21826 & 954083 & 984950 & 0.031 \\ 
+	   Illinois & 17 & 740120 & 14495 & 708538 & 766225 & 0.075 \\ 
+	  Indiana & 9 & 759226 & 7898 & 747577 & 772783 & 0.033 \\ 
+	   Iowa & 4 & 800129 & 9538 & 793421 & 814070 & 0.025 \\ 
+	   Kansas & 4 & 734288 & 6396 & 727503 & 741829 & 0.019 \\ 
+	   Kentucky & 6 & 752052 & 9005 & 739149 & 762092 & 0.030 \\ 
+	  Louisiana & 6 & 765040 & 22786 & 727277 & 796937 & 0.087 \\ 
+	   Maine & 2 & 692670 & 7111 & 687642 & 697698 & 0.014 \\ 
+	 Maryland & 8 & 770582 & 18278 & 744504 & 792577 & 0.061 \\ 
+	   Massachusetts & 9 & 775775 & 9711 & 754113 & 785636 & 0.040 \\ 
+	   Michigan & 13 & 771855 & 8727 & 757463 & 782743 & 0.032 \\ 
+	 Minnesota & 8 & 714648 & 11648 & 700555 & 731533 & 0.042 \\ 
+	 Mississippi & 4 & 735014 & 21190 & 704754 & 750414 & 0.061 \\ 
+	 Missouri & 8 & 772245 & 13199 & 742101 & 785669 & 0.055 \\ 
+	   
+	   \hline
+	\end{tabular}
+	\label{total_pop_stats1}
+	\caption{Total Population Summary Statistics (1)}
+	\end{table}
 
 
-
-
-
-
-
+	\begin{table}[ht]
+		\begin{tabular}{lrrrrrr}
+		  \hline
+		  State & Districts & Average  & Standard Deviation & Minimum & Maximum & Difference \\ 
+	  \hline
+		  Montana & 2 & 561434 & 11169 & 553536 & 569331 & 0.028 \\ 
+	   Nebraska & 3 & 655974 & 5332 & 649904 & 659903 & 0.015 \\ 
+	   Nevada & 4 & 794443 & 22073 & 767891 & 821679 & 0.065 \\ 
+	   New Hampshire & 2 & 697616 & 8920 & 691308 & 703923 & 0.018 \\ 
+	  New Jersey & 12 & 771808 & 13444 & 746241 & 791164 & 0.057 \\ 
+	  New Mexico & 3 & 704448 & 8468 & 696764 & 713527 & 0.023 \\ 
+	   New York & 26 & 756814 & 24281 & 699930 & 786432 & 0.110 \\ 
+	  North Carolina & 14 & 764212 & 9051 & 751852 & 779106 & 0.035 \\ 
+	 North Dakota & 1 & 779261 &  & 779261 & 779261 & 0.000 \\ 
+	   Ohio & 15 & 783737 & 7429 & 769169 & 799350 & 0.038 \\ 
+	   Oklahoma & 5 & 803960 & 4826 & 796469 & 807958 & 0.014 \\ 
+	   Oregon & 6 & 706690 & 12034 & 687278 & 719249 & 0.044 \\ 
+	  Pennsylvania & 17 & 763059 & 14122 & 717771 & 780519 & 0.080 \\ 
+	  Rhode Island & 2 & 546867 & 5201 & 543189 & 550545 & 0.013 \\ 
+	 South Carolina & 7 & 754662 & 7586 & 741110 & 762713 & 0.028 \\ 
+	  South Dakota & 1 & 909824 &  & 909824 & 909824 & 0.000 \\ 
+	   Tennessee & 9 & 783482 & 13836 & 756975 & 801730 & 0.056 \\ 
+	   Texas & 38 & 790252 & 25455 & 732116 & 846385 & 0.135 \\ 
+	  Utah & 4 & 845200 & 28097 & 806633 & 874074 & 0.077 \\ 
+	   Vermont & 1 & 647064 &  & 647064 & 647064 & 0.000 \\ 
+	   Virginia & 11 & 789420 & 13074 & 764684 & 810541 & 0.057 \\ 
+	   Washington & 10 & 778579 & 11771 & 751668 & 789222 & 0.048 \\ 
+	   West Virginia & 2 & 887578 & 15224 & 876813 & 898343 & 0.024 \\ 
+	  Wisconsin & 8 & 736567 & 8455 & 719451 & 743974 & 0.033 \\ 
+	   Wyoming & 1 & 581381 &  & 581381 & 581381 & 0.000 \\ 
+		  \hline
+		  
+		\end{tabular}
+		\label{total_pop_stats2}
+		\caption{Total Population Summary Statistics (2)}
+	\end{table}
 
 
 

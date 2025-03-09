@@ -63,20 +63,7 @@ me4_state <- conditional_effects(model4.final, conditions = conditions1, effects
 plot(me4_state, ncol = 7, points = TRUE)
 
 
-#######################################################################################
-#posterior vs prior
-prior_draws <- tibble(b_urbanindex = prior_draws(model1.final, variable = "b_urbanindex")$b)
-post_draws <- as_tibble(as_draws_df(model1.final))
-draws <- bind_rows(prior = prior_draws, posterior = post_draws, .id = "dist")
 
-ggplot() +
-  geom_density(data = draws, aes(x = b_urbanindex, fill = dist), alpha = 0.5) +
-  theme_minimal() +
-  ggtitle("Prior vs Posterior draws of b_urbanindex") +
-  theme(
-    text = element_text(size = 20),
-    plot.title = element_text(size = 25)
-  )
 
 ##################################################################3
 ## Data Summaries Table 

@@ -830,7 +830,45 @@ All in all, the ranking of our Models' posterior predictive ability is the same,
 \textcolor{red}{another table with priors here, maybe not all because thats a lot}
 
 One of the most important parts of Bayesian Data Analysis is setting the prior distributions. The choice of priors could greatly affect the final results in a model..  \textcolor{red}{(cite prior sensitivity guys)}
-So, we conducted a prior sensitivity analysis, by refitting our model(s) using alternative priors (which also fit our model assumptions) and assessing the impact in our results.
+So, we conducted a prior sensitivity analysis, by refitting our model(s) using alternative priors (which also fit our model assumptions) and assessing the impact on the estimated coefficients.
+
+For easy comparability and scope, we restrict this section to the analysis of Models 1 to 3. The various prior sets represent the following changes:
+
+\begin{enumerate}
+    \item Original priors as per Table 1
+    \item Change the prior on \(\sigma_\text{urb}\) from \(\sim Halfcauchy(10)\) to \(\sim Halfnormal(0, 1)\)
+    \item Change  the prior on \(\beta_\text{urb}\) from \(\sim N(0, 1)\) to \(\sim N(0, 10)\)
+    \item Change  the prior on the intercept from \(\sim N(0, 10)\) to \(\sim N(0, 100)\)
+    \item Change the prior on \(\sigma_\text{urb}\) from \(\sim Halfcauchy(10)\) to \(\sim Halfnormal(0, 1)\) and the prior on \(\beta_\text{urb}\) from \(\sim N(0, 1)\) to \(\sim N(0, 10)\)
+\end{enumerate}
+
+Prior Set 2 is motivated by the Half-Normal distribution being less informative, having thinner tails which does not allow for as large values. Prior Set 3 and 4 are motivated again by informativeness, our prior beliefs allowing for theoretically larger values of the coefficient.
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|ccccc}
+        \hline
+        Coefficient & Prior Set 1 & Prior Set 2 & Prior Set 3 & Prior Set 4 & Prior Set 5 \\
+        \hline
+        Intercept      & -15.7499 & -15.7229 & -16.4911 & -15.6280 & -16.4657 \\
+        Urban Index    & 1.6647 & 1.6579 & 1.7263 & 1.6502 & 1.7237 \\
+        Pct. Retirees  & -0.1370 & -0.1357 & -0.1315 & -0.1361 & -0.1320 \\
+        \hline
+    \end{tabular}
+    \caption{Prior Sensitivity Results for Model 2}
+    \label{tab:Prior Sensitivity Results for Model 1}
+\end{table}
+
+
+
+Table 4 displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the urban index, our main variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the urban index prior than to changes in its own prior.
+
+The changes for the other two models look rather similar, although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
+
+
+
+
 
 [BRIEFLY explain new priors, graphs comparing them]
 
@@ -1151,6 +1189,39 @@ Model 4 Pt 3:
 	\caption{}
 	\label{}
 \end{figure}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|ccccc}
+        \hline
+        Coefficient    & Prior Set 1 & Prior Set 2 & Prior Set 3 & Prior Set 4 & Prior Set 5 \\
+        \hline
+        Intercept      & -12.0110 & -11.8230 & -12.1806 & -11.9011 & -12.1806 \\
+        Urban Index    & 1.2167 & 1.2005 & 1.2311 & 1.2047 & 1.2311 \\
+        Pct. Retirees  & -0.0861 & -0.0882 & -0.0843 & -0.0873 & -0.0843 \\
+        \hline
+    \end{tabular}
+    \caption{Prior Sensitivity Results for Model 2}
+    \label{tab:Prior Sensitivity Results for Model 2}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l|ccccc}
+        \hline
+        Coefficient    & Prior Set 1 & Prior Set 2 & Prior Set 3 & Prior Set 4 & Prior Set 5 \\
+        \hline
+        Intercept      & -15.0192 & -14.9687 & -15.7396 & -14.9113 & -15.7476 \\
+        Urban Index    & 1.6368 & 1.6327 & 1.7139 & 1.6312 & 1.7189 \\
+        Pct. Retirees  & -0.1599 & -0.1596 & -0.1577 & -0.1606 & -0.1568 \\
+        \hline
+    \end{tabular}
+    \caption{Prior Sensitivity Results for Model 3}
+    \label{tab:Prior Sensitivity Results for Model 3}
+\end{table}
+
+
+
 
 
 

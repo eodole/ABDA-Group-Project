@@ -615,14 +615,27 @@ For the hyperparameters, we chose a half standard normal prior for both the stan
 
 \section{Code}
 
+
+%Old 
+
 %choices
 %\begin{enumerate}
 %	\item number of chains and iterations
 %	\item brms i guess
-%	\item seed?
 %\end{enumerate}
 
 
+%As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
+
+
+%We fit each model with the function \verb|brm()|, with the usual R formula syntax, writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept.
+%The priors are set according to what was laid out in Table \ref{tab:priors}.
+%We chose to run 4 chains, with 4000 iterations each ... \red{Murthy please explain}%
+
+
+% Leonor -
+
+\red{LEONOR BEGIN}
 
 As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
 
@@ -642,11 +655,42 @@ Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws 
 
 %\red{idk how much we're supposed to say here}
 
-The file \textit{model\_comparison.R} is where we compute and plot the model comparison metrics described in Section \ref{sec:comparison}. The RMSE and LPD are obtained with the method described in \red{cite brms book, posterior model comparison}, and the LOO cross-validation is performed using the \verb|loo()| and \verb|loo_compare()|, also from the \verb|brms| package.
+The file \textit{model\_comparison.R} is where we compute and plot the model comparison metrics described in Section \ref{sec:comparison}. The RMSE and LPD are obtained with the method described in \cite{brmsbook}
+
+\red{cite brms book, posterior model comparison}, and the LOO cross-validation is performed using the \verb|loo()| and \verb|loo_compare()|, also from the \verb|brms| package.
 
 \red{INSERT PRIOR FILE NAME PLEASE} contains the code used to run the prior sensitivity analysis, using the alternative priors described in the corresponding section.
 
 \textit{tables\_plots.R} contains code for generating tables used in the report (dataset descriptives, model estimates) as well as plots, namely marginal effects plots, obtained with the \verb|conditional_effects()| function (setting the option \texttt{re\_formula = NULL}, so we could see the group-level effects).
+
+
+\red{LEONOR'S SECTION ENDS}
+
+
+\red{MURTHY'S SECTION BEGINS}
+%%%Copy this part
+
+To fit Bayesian Multilevel Models, one typically needs to use a probabilistic programming language. A very popular language for Bayesian modelling in general is STAN. STAN is powerful and allows the user to code a large variety of models with minimal restrictions.  
+
+We did not use STAN directly but instead used the R package \verb|brms| \red{cite}, which runs STAN in the backend but otherwise allows the user to code entirely in R. BRMS again allows us to fit many models, but it makes the process especially efficient for hierarchical modelling, in that the user merely has to specify the model as a one- or two-line R formula. 
+
+This means that hierarchical coefficients are usually modelled as a centred Normal with a varying standard deviation, which itself follows a prior distribution given by the user. This might seem like a lack of flexibility, but the BRMS documentation suggests this approach fits the majority of use cases, including ours.
+
+The priors we set according to the BRMS framework can be found in Table \ref{tab:priors}. We chose to run 4 chains with 4000 iterations each, which is double the default so as to get more convergence related information from the trace plots.
+
+
+%%%
+\red{MURTHY'S SECTION ENDS}
+
+
+
+
+
+Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws from all variables defined in Stan's parameters block are saved. This has no effect on the model itself, and is only relevant in our case because we afterwards perform moment matching in computing the LOO-CV statistics for model comparison.
+
+\red{idk how much we're supposed to say here}
+
+
 
 \section{Results}
 

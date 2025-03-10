@@ -266,14 +266,7 @@ xtable(loo_compare(loo1, loo2,loo3, loo4))
 ## Leave one out, moment matching
 loom1 <-loo(model1.final, moment_match = TRUE)
 
-loom2 <- loo(model2.final, moment_match = TRUE)
-
-loom3 <- loo(model3.final, moment_match = TRUE)
-
-loom4 <- loo(model4.final, moment_match = TRUE)
-
-
-stargazer(loo_compare(loom1, loom2,loom3, loom4))
+xtable(loo_compare(loom1, loo2,loo3, loo4))
 
 
 

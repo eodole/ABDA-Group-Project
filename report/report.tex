@@ -440,7 +440,9 @@ We chose, however, not to include a varying Intercept in the linear predictor in
 
 
 Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept.
-\blue{ Murthy didn't you find something in initial testing? please write about that}
+\blue{ Murthy didn't you find something in initial testing? please write about that.
+M: In the very initial fits with all default settings and no hierarchies, percentage retirees consistently had less convergence issues. But I don't want to write new code for this now...plus we've made a lot of changes since the initial stage, idk how things will behave now. Maybe I can come up with a logical rather than technical reason??}
+
 Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{urb}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
 
 Equation \ref{eq:state_level_uncentered} describes our model conceptually.
@@ -578,7 +580,7 @@ This represents a weakly informative prior, as we had no strong beliefs about th
 For the population-level component of the urbanindex slope we opted for a standard normal prior in all models. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying, although we are assuming that its absolute value will be below 1.96 with 95\% certainty. 
 %So, we set comparatively less-informative priors on the parameters representing the effect of the index.
 
-All group-level (zero-centered) priors are Normal, by brms specification \textcolor{red}{is there a reason???}
+All group-level (zero-centered) priors are Normal, by brms specification \textcolor{red}{is there a reason??? M: Yes, but we'll have to dig deep into the MC Stan Forums and see what Paul wrote. Explaining this is out of the scope tbh. Refer to one of my paras where I mention BRMS is simply less flexible than STAN, I could add a couple lines there}
 
 For the standard deviation of the hierarchical effects we opted for a relatively weakly informative prior, a $(half)Cauchy(0,10)$.
 We do not want to place strong constraints on the effect of our variable of interest, hence we 'allow the estimates to fluctuate'.

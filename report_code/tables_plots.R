@@ -97,3 +97,32 @@ total.pop.info <- df%>% group_by(State) %>% summarise(n.districts = n(),
                                                       )
 
 xtable(total.pop.info, digits = c(1,1,0,0,0,0,0,3))
+
+
+##### Map Figure 
+library(ggplot2)
+library(tigris)
+
+map_data <- read.csv("./data/regions.csv")
+
+
+coefs <- coef(model4.final)
+
+urbanindex_eff <- coefs$State[ , 1,1]
+
+map_data$urbanindex <- urbanindex_eff
+
+
+us_map <- tigris::states(cb=TRUE)
+
+
+map_data2<- left_join(map_data, us_map, by = join_by(State == NAME))
+
+map_data2 %>%filter(!(State %in% c("Alaska", "Hawaii"))) %>%
+ggplot() +
+  geom_sf(aes(geometry = geometry, fill = urbanindex),color="black") +
+  theme_minimal() +
+  scale_fill_continuous(name = "Urban Index", low = "thistle1", high = "blueviolet")+
+  labs(title = "Strength of Estimated Urban Index Coefficent") + 
+  theme(axis.text = element_blank())
+  

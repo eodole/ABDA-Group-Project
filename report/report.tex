@@ -243,7 +243,7 @@ We also considered using the variable incumbent party, however in addition to be
 As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \parencite{us_elections}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \parencite{us_elections}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therefore we modeled winning party as a binary variable, with democrats encoded as (1) and republicans encoded as (0). It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as 
 these terms are at times used interchangably throughout this report. 
 
-The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district; total population, percentage women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
+The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district; total population, percentage of women, median household income, mean household income, percentage retirees, percentage bachelors degree holders above the age of 25 years old and unemployment rate among those above the age of sixteen. 
 
 \begin{table}[!htbp] \centering \renewcommand*{\arraystretch}{1.1}\caption{Covariate Summary Statistics}\resizebox{\textwidth}{!}{
 	\begin{tabular}{lrrrrrr}
@@ -323,10 +323,10 @@ The Winning party in each congressional district race ($y_{i,j,k}$ for district 
 \begin{equation}
 	y_{i,j,k} \sim Ber \left( \pi_{j,k} = logit^{-1}(\theta_{j,k})  \right)
 \end{equation}
-with probability of a Democrat win $\pi_{j,k}$ modeled as the inverse logit transform of $\theta_{j,k}$, a linear combination of our covariates. The inverse logit function converts real numbers into quantities between 0 and 1, and is therefore a standard way to model probabilities \parencite{logitlink} \textcolor{red}{cite}.
+with probability of a Democrat win $\pi_{j,k}$ modeled as the inverse logit transform of $\theta_{j,k}$, a linear combination of our covariates. The inverse logit function converts real numbers into quantities between 0 and 1, and is therefore a standard way to model probabilities \parencite{logitlink}.
 
 
-We tested four different models for $\theta_{j,k}$, which include different covariates in addition to our variable of interest (Urban index) and incorporate our data's hierarchical structure in different ways. Therefore, all four are Multilevel Bayesian (Logistic) Models, which require particular assumptions: \textcolor{red}{CITE} 
+We tested four different models for $\theta_{j,k}$, which include different covariates in addition to our variable of interest (Urban index) and incorporate our data's hierarchical structure in different ways. Therefore, all four are Multilevel Bayesian (Logistic) Models, which require particular assumptions (\cite{BDA}): 
 first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, exchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
@@ -456,7 +456,7 @@ Equation \ref{eq:state_level_uncentered} describes our model conceptually.
 
 To better understand what happens in the backend when we want to fit this model with BRMS, it is helpful to rewrite the equation \ref{eq:state_level_centered} in terms of 'global' and 'hierarchical' effects. The previously considered coefficient is then decomposed into these effects, i.e.
 $\beta_{urb,j}^{uncent} = \beta_{urb} + \beta_{urb,j}$
-with $\beta_{urb,j}$ centered around zero, which does not alter the meaning of the model. \textcolor{red}{cite brms book}
+with $\beta_{urb,j}$ centered around zero, which does not alter the meaning of the model (\cite{brmsbook}).
 
 \begin{equation} \label{eq:state_level_centered}
 	\begin{aligned}
@@ -588,7 +588,7 @@ We do not want to place strong constraints on the effect of our variable of inte
 
 
 %%%%%%%%%%%%%%%%%%% pct_ret %%%%%%%%%%%%%%%%%%%%%%%
-As found in the literature older votes tend to vote more conservatively \red{CITE}, so it makes sense that a higher he Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
+As found in the literature older votes tend to vote more conservatively, so it makes sense that a higher he Percentage of retirees in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
 
 
 
@@ -598,7 +598,8 @@ Although women tend to vote more democratic and have higher voter turnout \red{C
 
 
 
-The effects of percentage of bachelor degrees and median income are parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior). \blue{This was done to capture the idea of different costs of living and importance of education respectively, as what is considered rich, poor, or well educated for an individual is highly dependent on the environment. }\red{what do u think?}
+The effects of percentage of bachelor degrees and median income are parameterized in 2 hierarchical levels: an average slope across all districts, and a varying slope by group (State or Region), $\beta_{covariate,j}$ or $\beta_{covariate,k}$, which follows a Normal distribution centered at zero with standard deviation modeled at group level (by a hyperprior). This was done to capture the idea of different costs of living and importance of education respectively, as what is considered rich, poor, or well educated for an individual is highly dependent on the environment. 
+%\red{what do u think?}
 
  
 
@@ -696,7 +697,7 @@ Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws 
 
 \section{Results}
 
-\textcolor{red}{This section is not on the instructions but is probably the easiest way to talk about the results we got }
+%\textcolor{red}{This section is not on the instructions but is probably the easiest way to talk about the results we got }
 
 
 Each of our models has different estimates for the parameters, even when they are starting from the same prior.
@@ -704,10 +705,10 @@ As the estimate is given by the mean of the posterior distribution for that para
 
 The intercept for example, is very different between models, and is particularly large (in absolute terms) in Model 4. Although, as discussed before, the intercept does not have a practical interpretation in our model, it is interesting that this Model's estimate is so far away from the value we initially assumed it would take (between -19.6 and 19.6 with 95\% certainty, with a $N(0,10)$ prior). It can indicate ....
 
-Our variable of interest, urbanindex, has a more consistent slope estimate across models, between 1.22 (Model 2) and 1.66 (Model 1).
-Figure \ref{fig:urbanindex_estimates} shows the histograms of posterior draw for the urbanindex slope parameter, by Model.
+Our variable of interest, \textit{Urban Index}, has a more consistent slope estimate across models, between 1.22 (Model 2) and 1.66 (Model 1).
+Figure \ref{fig:urbanindex_estimates} shows the histograms of posterior draw for the \textit{Urban Index} slope parameter, by Model.
 The results indicate that the variable has, as expected, on average a positive effect on the log-odds of a Democrat Party win.
-Model 3, for example, estimates that on average a 1 unit increase in urbanindex (e.g., 10 to 11) translates into a 1.64 increase in the log-odds (or an $e^{1.64} \approx 5.155 $ increase in the odds) of a Democrat being elected in the district.
+Model 3, for example, estimates that on average a 1 unit increase in \textit{Urban Index} (e.g., 10 to 11) translates into a 1.64 increase in the log-odds (or an $e^{1.64} \approx 5.155 $ increase in the odds) of a Democrat being elected in the district.
 While the estimates are within the range we assumed with the prior for this parameter, the upper bounds of the credible intervals are already close to the boundary of that prior. 
 %The data has updated our beliefs about the effect of this variable a lot.
 A prior with more probability mass on the positive range, or a less informative prior, could push the estimates further up. \red{not sure about this though}
@@ -719,19 +720,20 @@ A prior with more probability mass on the positive range, or a less informative 
 	\label{fig:urbanindex_estimates}
 \end{figure}
 
-The standard deviation estimates for the hierarchical effect of urbanindex  are all on the lower side of the prior, close to zero. This is true both for the cases when the hierarchy on urbanindex includes State or Region.
+The standard deviation estimates for the hierarchical effect of \textit{Urban Index}  are all on the lower side of the prior, close to zero. This is true both for the cases when the hierarchy on \textit{Urban Index} includes State or Region.
 
 
-The estimated slope of pct.ret is also different between models, particularly in Model 4, where it is larger in absolute value, but always negative as we had assumed. Note that although this estimate is smaller in absolute terms than the slope of urbanindex, it does not mean that percentage of retirees has a weaker effect than urbanization in election outcome. These are different variables on a different scale: in model 3 for example, it is estimated that an increase of 1 percentage point in the percentage of retirees in a district correlates with a 0.16 decrease in the log-odds of a Democrat being elected.
+The estimated slope of pct.ret is also different between models, particularly in Model 4, where it is larger in absolute value, but always negative as we had assumed. Note that although this estimate is smaller in absolute terms than the slope of \textit{Urban Index}, it does not mean that percentage of retirees has a weaker effect than urbanization in election outcome. These are different variables on a different scale: in model 3 for example, it is estimated that an increase of 1 percentage point in the percentage of retirees in a district correlates with a 0.16 decrease in the log-odds of a Democrat being elected.
 
 The other covariates included in model 4 also have slope estimates within our expected range.
-Median Income has a larger (absolute) estimated slope coefficient and standard deviation, but this is likely due to the scale of the variable: 1.43 is the estimated average decrease in log-odds of a Democrat win when the median income of a district increases by 100,000 dollars, which is a big jump. The inclusion of these covariates has some effect on the magnitude of the slope estimate for our variable of interest (urbanindex), but not on its sign, and not as much as including a State-specific hierarchical effect vs. Region-specific one.
+Median Income has a larger (absolute) estimated slope coefficient and standard deviation, but this is likely due to the scale of the variable: 1.43 is the estimated average decrease in log-odds of a Democrat win when the median income of a district increases by 100,000 dollars, which is a big jump. The inclusion of these covariates has some effect on the magnitude of the slope estimate for our variable of interest (\textit{Urban Index}), but not on its sign, and not as much as including a State-specific hierarchical effect vs. Region-specific one.
 
 
 %for the conditional effects all parameters not part of the condition you investigate are set to their mean/reference category.
 
 
-While the estimated effect is not so different between models, the credible bands are another story. Figure \ref{fig:cond_effects} shows the plotted estimated marginal effect of Urban Index on the probability of a Democrat winning according to models 1 and 2, accounting for group-level effects. Model 1 estimates much wider credible bands than 2. This is due to the number of levels in each model, and (possibly) to the fact that in model 1 there are several levels with a very small number of observations.
+While the estimated effect is not so different between models, the credible intervals are another story. Figure \ref{fig:cond_effects} shows the plotted estimated marginal effect of \textit{Urban Index} on the probability of a Democrat winning according to models 1 and 2, accounting for group-level effects. Model 1 estimates much wider credible intervals than 2. This is due to the number of levels in each model: more levels result in higher uncertainty.
+and (possibly) to the fact that in model 1 there are several levels with a very small number of observations.
 
 \begin{figure}[h] 
 	\centering
@@ -748,7 +750,7 @@ While the estimated effect is not so different between models, the credible band
 		\subcaption{Model 2}
 		\label{fig:subfig2}
 	\end{subfigure}
-	\caption{Cond effects urb index, group level effects included}
+	\caption{Conditional effects of \textit{Urban Index}, for Models 1 and 2; mean in blue, with 95\% credible intervals in gray, observations in black;  group level effects included}
 	\label{fig:cond_effects}
 \end{figure}
 
@@ -781,41 +783,47 @@ While this in itself is not enough to conclude that the specifications of the ot
 \section{Model Comparison} \label{sec:comparison}
 
 
-Our four models were built based on somewhat different assumptions about the structure of our data, and all produced slightly different results. We need to know which of these is \textit{better}, that is, which results are more trustworthy and allow us to answer our original research question.
-To this end, we measured and compared our models' predictive performance first by looking at absolute in-sample predictive performance, then at relative and finally at the Leave-One-Out statistics to compare out-of-sample Predictive Performance.
+Our four models were built based on somewhat different assumptions about the structure of our data, and all produced slightly different results. We need to know which of these is \textit{better} prediction-wise.
+%, that is, which results are more trustworthy and allow us to answer our original research question.
+To this end, we measured and compared our models' predictive performance using different metrics. %first by looking at absolute in-sample predictive performance, then at relative and finally at the Leave-One-Out statistics to compare out-of-sample Predictive Performance.
 
 
-Absolute predictive performance metrics directly tell us directly how well the model performs, without looking at other models.
-To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, as explained in Equation \ref{eq:rmse}.
-Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty, making it a fully Bayesian measure \blue{citation needed?}.
+Absolute predictive performance metrics directly tell us how well the model performs, without looking at other models.
+To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, i.e.,
+$
+RMSE^{(s)} = \sqrt{
+	\frac{1}{N} 
+	\sum_{n = 1}^{N}
+	\left( y_n - \hat{y}_n^{(s)} \right)^2
+}
+$.
+Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty.
+%making it a fully Bayesian measure \blue{citation needed?}.
 
-\begin{equation} \label{eq:rmse}
-	RMSE^{(s)} = \sqrt{
-		\frac{1}{N} 
-		\sum_{n = 1}^{N}
-		\left( y_n - \hat{y}_n^{(s)} \right)^2
-		}
-\end{equation}
+%\begin{equation} \label{eq:rmse}
+%	RMSE^{(s)} = \sqrt{
+%		\frac{1}{N} 
+%		\sum_{n = 1}^{N}
+%		\left( y_n - \hat{y}_n^{(s)} \right)^2
+%		}
+%\end{equation}
 
 
 %\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
-The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
-Usually this would mean it has a direct interpretation in the context of the problem (e.g., by how many units is our prediction off), but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
+%The RMSE measure works in a similar way to the R squared statistic that is commonly used to assess the fit of linear models, by evaluating differences between observations and model predictions, but RMSE retains the scale of the response variable.
+The RMSE retains the scale of the response variable.
+Usually this would mean it has a direct interpretation in the context of the problem, but here we are dealing with a binary response variable, so what the RMSE actually represents is the average distance between the predicted value and 0 or 1, not the true probability of a Democrat win.
 A model with higher RMSE in this context is not necessarily better at estimating this true value, just on average estimates probability values that are larger for districts where a Democrat won and smaller where a Republican won instead. 
 %\blue{** to here }
 
-Figure \ref{fig:rmse} shows the histograms of the RMSE with all draws for each of our models.
-Model 4 estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates voting outcomes better. This is however unsurprising, as this model has many more covariates, and at least some have a large effect on the probability of a Democrat win.
-More important for our analysis is the comparison between models 1,2 and 3.
-Model 2 (the one with only the Region-level hierarchy) shows by far the largest average errors, which can mean this model's predictions are more often "wrong" (a small estimated probability when a Democrat has won or a large one when a Republican was elected) or that the predictions are in general closer to the center (0.5) rather than the extremes. In either case, it suggests that the Region-level hierarchy in urbanindex is not as powerful as the State-level one for estimating probabilities.
-Model 3 has on slightly smaller RMSE values than Model 1, but the histograms are very close, suggesting the inclusion of the Region hierarchy really does not have a large impact on posterior predictions.
+%Figure \ref{fig:rmse} shows the histograms of the RMSE with all draws for each of our models.
+Model 4, with higher RMSE, estimates on average closer percentages to the actual outcome which, in a certain sense, can mean it estimates voting outcomes better. This is unsurprising, as this model has many more covariates, and at least some have a large effect on the probability of a Democrat win.
+%More important for our analysis is the comparison between models 1,2 and 3.
+Model 2 has the largest average errors, which can mean this model's predictions are more often "wrong" (estimates small probability when a Democrat has won or large otherwise) or that the predictions are in general closer to the center (0.5) rather than the extremes. 
+%In either case, it suggests that the Region-level hierarchy in urbanindex is not as powerful as the State-level one for estimating probabilities.
+Model 3 has on slightly smaller RMSE values than Model 1, suggesting the inclusion of the Region hierarchy really does not have a large impact on posterior predictions.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\textwidth]{model_comp_figures/RMSE_all.jpeg}
-	\caption{}
-	\label{fig:rmse}
-\end{figure}
+
 
 %
 %\blue{this section should go before the previous few paragraphs of the model comparison but after the equation explaination. from here **}
@@ -854,28 +862,27 @@ The sum of these differences corresponds to the difference in Log Predictive Den
 		Model 2 - Model 4 &    -62.24 &          8.20 \\
 		Model 3 - Model 4 &    -17.92 &          3.66 \\ \hline
 	\end{tabular}
-	\caption{text}
+	\caption{LPD differences between models, with respective standard errors}
 	\label{tab:LPD_diff}
 \end{table}
 
 Table \ref{tab:LPD_diff} shows the differences in LPD between all four of our models and corresponding standard errors.
 Model with higher LPD are preferred, as this reflects an overall higher (less negative) log-likelihood score across all observations, meaning the model more accurately predicted each result.
-The difference between Models 1 and 2 is positive, meaning Model 1 has higher LPD, so it is preferred over 2 using this statistic. In fact, Model 2 is never preferred to any of the other models. Once again, Model 4 provides the best fit and Models 1 and 3 are very close, with 3 performing slightly better. This, together with the comparatively poorer fit of Model 2 points towards Region-level hierarchy possibly not being the correct choice for modeling urbanindex.
+The difference between Models 1 and 2 is positive, meaning Model 1 has higher LPD, so it is preferred over 2 using this statistic. In fact, Model 2 is never preferred to any of the other models. Once again, Model 4 provides the best fit and Models 1 and 3 are very close, with 3 performing slightly better. This, together with the comparatively poorer fit of Model 2 points towards Region-level hierarchy possibly not being the correct choice for modeling \textit{Urban Index}.
 
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
 
-Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, which would not generalize well to new data, performing much better under these metrics \blue{cite brms?}.
-In our case, the bigger model (Model 4) was indeed the preferred one using both RMSE and LL scores.
+Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, which would not generalize well to new data, performing much better under these metrics (\cite{brmsbook}).
+%In our case, the bigger model (Model 4) was indeed the preferred one using both RMSE and LL scores.
+It is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and computing the expected LPD (ELPD) of the observations in the latter, given the model estimates with the training set. 
 
-Because we are comparing models with different degrees of complexity, it is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and computing the expected LPD (ELPD) of the observations in the latter, given the model estimates with the training set. 
-
-\begin{equation}
-	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y}_n | y) 
-%	\approx
-%	\sum_{n= 1}^{\tilde{N}} \frac{1}{S} \sum_{s = 1}^{S}  log p(\tilde{y}_n | \theta^{(s)}) 
-\end{equation}
-The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out (LOO) cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one "out" as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (Pareto-Smoothed Importance Sampling in this case).
+%\begin{equation}
+%	ELPD = \sum_{n= 1}^{\tilde{N}} p(\hat{y}_n | y) 
+%%	\approx
+%%	\sum_{n= 1}^{\tilde{N}} \frac{1}{S} \sum_{s = 1}^{S}  log p(\tilde{y}_n | \theta^{(s)}) 
+%\end{equation}
+The way we choose to split the data into training/test sets naturally impacts the ELPD. So, we rely on cross-validation: we do multiple different splits and average over the results. Our chosen method was Leave-One-Out (LOO) cross-validation, which in theory performs as many splits as observations in the dataset, each time leaving one 'out' as the test data. In practice, a different posterior is not actually computed this many times, but rather an estimate from the full model posterior using importance sampling (Pareto-Smoothed Importance Sampling in this case).
 
 \begin{table}[ht]
 	\centering
@@ -889,28 +896,28 @@ The way we choose to split the data into training/test sets naturally impacts th
 		Model 2 & -45.87 & 8.39 & -202.36 & 12.25 & 6.19 & 0.58 & 404.71 & 24.50 \\ 
 		\hline
 	\end{tabular}
-	\caption{text}
+	\caption{LOO statistics for all models}
 	\label{tab:loo}
 \end{table}
 
 According to the LOO statistics (Table \ref{tab:loo}), Model 4 (the largest) is the preferred one, followed by Models 3, 1 and 2. The first column of the table shows the difference between each model and the best performing one (in terms of ELPD score, shown in the third column), ranked by best to worst model.
-This is the same ranking we had seen before, with the more complex models performing better. There is a relatively sizable difference in LOO scores between Model 4 and 3, as well as between 1 and 2, but the difference between 3 and 1 is minimal. The extra level of hierarchy (Region) in the urbanindex slope estimate improves model predictions, although not by much.
+This is the same ranking we had seen before, with the more complex models performing better. There is a relatively sizable difference in LOO scores between Model 4 and 3, as well as between 1 and 2, but the difference between 3 and 1 is minimal. The extra level of hierarchy (Region) in the \textit{Urban Index} slope estimate improves model predictions, although not by much.
 As a small note, when performing the LOO-CV analysis for Model 1, one Pareto-k-estimate was in the 0.7-1 range, which in theory could indicate that the results were not trustworthy, although 1 out of 435 observations is such a small percentage that it is unlikely that it would affect this model's placement in the ranking. In any case, since Model 1 and 3 are very close in ELPD as estimated with LOO, we decided to perform a moment matching correction to the importance sampling for the problematic observation. As expected, the ranking was the same.
 
 
-All in all, the ranking of our Models' posterior predictive ability is the same, whether we use in- or out-of-sample techniques: Model 4 is the better model for prediction, the second best is Model 3, closely followed by 1 and lastly 2. All seem to indicate that modeling urbanindex with a Region hierarchy is not the appropriate choice if the goal is to better predict the election outcome.
+%All in all, the ranking of our Models' posterior predictive ability is the same, whether we use in- or out-of-sample techniques: Model 4 is the better model for prediction, the second best is Model 3, closely followed by 1 and lastly 2. All seem to indicate that modeling urbanindex with a Region hierarchy is not the appropriate choice if the goal is to better predict the election outcome.
 
 
 
 
 \section{Prior Sensitivity Analysis}
 
-\textcolor{red}{another table with priors here, maybe not all because thats a lot}
+%\textcolor{red}{another table with priors here, maybe not all because thats a lot}
 
-One of the most important parts of Bayesian Data Analysis is setting the prior distributions. The choice of priors could greatly affect the final results in a model..  \textcolor{red}{(cite prior sensitivity guys)}
-So, we conducted a prior sensitivity analysis, by refitting our model(s) using alternative priors (which also fit our model assumptions) and assessing the impact on the estimated coefficients.
+One of the most important parts of Bayesian Data Analysis is setting the prior distributions. The choice of priors could greatly affect the final results in a model, so it is important to test their robustness to different priors (\cite{PriorSensAnalysis}).
+So, we conducted a prior sensitivity analysis, by refitting our models using alternative priors (which also fit our model assumptions) and assessing the impact on the estimated coefficients.
 
-For easy comparability and scope, we restrict this section to the analysis of Models 1 to 3. The various prior sets represent the following changes:
+For easy comparability and scope, we restrict this section to the analysis of Models 1 to 3. The various prior sets represent the following changes \red{relative to our original priors}:
 
 \begin{enumerate}
     \item Original priors as per Table 1
@@ -921,6 +928,7 @@ For easy comparability and scope, we restrict this section to the analysis of Mo
 \end{enumerate}
 
 Prior Set 2 is motivated by the Half-Normal distribution being less informative, having thinner tails which does not allow for as large values. Prior Set 3 and 4 are motivated again by informativeness, our prior beliefs allowing for theoretically larger values of the coefficient.
+\red{it is not very correct to say it is motivated by informativeness, all priors are also motivated by this; the new prior in set 2 was picked becuase we tried a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the sd; the one in set 3 is less informative than the original, but still symmetric around zero to relax the assumption of being 'small' (between -2 and 2); the one in 4 is to be as weakly informative as possible without going flat, to see what happens if we let the intercept go wherever; 5 is joining 2 and 3; ... i thought we were doing all 3 together too but i guess that died out, probably wouldnt be much differnet}
 
 
 \begin{table}[h]
@@ -941,15 +949,15 @@ Prior Set 2 is motivated by the Half-Normal distribution being less informative,
 
 
 
-Table 4 displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the urban index, our main variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the urban index prior than to changes in its own prior.
+Table 4 displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the \textit{Urban Index} prior than to changes in its own prior.
 
 The changes for the other two models look rather similar, although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
 
+\red{do they remain unreliable with the new priors? either way we should mention it}
 
 
 
-
-[BRIEFLY explain new priors, graphs comparing them]
+%[BRIEFLY explain new priors, graphs comparing them]
 
 
 
@@ -964,13 +972,13 @@ We now address these limitations, as well as possible ways our analysis could be
 
 In terms of exploring our research question itself, we assume a linear (in the log-odds) relationship. While our present analysis focuses on the hierarchical modeling of the effect, it would be a natural extension to look at other functional forms of the relationship. It would also be interesting to incorporate the Urban category variable information, by examining the category boundaries for example to see if there is a large change there.
 
-Regarding our specific modeling choices, more models could be fitted using different covariates than the ones we specified. Furthermore, we could fit a model which includes a hierarchically varying Intercept in addition to the random slopes. While modeling the intercept is not the goal of our project, by letting it inform the hierarchical effect of Urban Index through a correlation term we could achieve a better fit for our variable of interest effect.
+Regarding our specific modeling choices, more models could be fitted using different covariates than the ones we specified. Furthermore, we could fit a model which includes a hierarchically varying Intercept in addition to the random slopes. While modeling the intercept is not the goal of our project, by letting it inform the hierarchical effect of \textit{Urban Index} through a correlation term we could achieve a better fit for our variable of interest effect.
 
 
 With respect to the priors, although our choices were informed by our knowledge of the data and intuition, there are other distributions that would also meet our beliefs, or make a series of equally valid assumptions. While our Prior Sensitivity Analysis explores this already, more can always be done: different distributions could result in very different estimates or change the convergence of the MCMC chains. 
 
 
-
+We have also chosen not to do our modeling with STAN directly, but rather to use \verb|brms|. While this package provides a very comprehensive set of instruments for Bayesian Hierarchical Modeling, it is still less flexible than using STAN. For example,with \verb|brm()| all the group-level zero-centered priors are Gaussian. This cannot be changed, we can only affect these parameters' distributions through the prior on the standard deviations. Although a Normal prior is the 'conventional' or 'pragmatic' choice according to \cite{mcelreath2016statistical}, it would be interesting to experiment with other distributions in our case.
 
 
 %\section{Changes from Presentation}
@@ -991,13 +999,13 @@ We modeled the probability of each party (Democrat or Republican) winning in eac
 
 We used the R package \verb*|brms| to fit the models, as well as for the analysis and comparison.
 
-In all models, we found a small positive effect of the Urban Index on the log-odds of a Democrat winning the district. The estimated effect was smaller when the hierarchical effect or the Index was modeled by Region, and larger when this was done by State, with not much difference between including State-only or a nested hierarchy or Region and State.
+In all models, we found a small positive effect of \textit{Urban Index} on the log-odds of a Democrat winning the district. The estimated effect was smaller when the hierarchical effect or the Index was modeled by Region, and larger when this was done by State, with not much difference between including State-only or a nested hierarchy or Region and State.
 
 All models converged well, except for the nested hierarchy one, which resulted visible convergence problems and should therefore be considered with caution.
 
-Comparing all our models with bayesian comparison metrics, we found that Model 4 (the one with the most covariates) performed better, and the Model 2, which included only Region-level hierarchy for Urban Index, worse. 
+Comparing all our models with bayesian comparison metrics, we found that Model 4 (the one with the most covariates) performed better, and the Model 2, which included only Region-level hierarchy for \textit{Urban Index}, worse. 
 
-The Prior Sensitivity Analysis indicated that our results \red{are/are not} robust to different prior choices. \red{(and convergence??)}
+The Prior Sensitivity Analysis indicated that our results are robust to different prior choices.
 
 We conclude therefore that the effect of Urbanization on the probability of a Democrat being elected is positive, and modeling this effect by State rather than Region leads to better predictions.
 
@@ -1055,6 +1063,8 @@ Besides, as we were estimating the effects of very large or very small changes i
 % Sun Mar  9 13:00:50 2025
 
 \begin{table}[ht!]
+	\centering
+	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{lrrrrrr}
 	  \hline
 	 State & Districts & Average  & Standard Deviation & Minimum & Maximum & Difference \\ 
@@ -1087,12 +1097,15 @@ Besides, as we were estimating the effects of very large or very small changes i
 	   
 	   \hline
 	\end{tabular}
+	\end{adjustbox}
 	\label{total_pop_stats1}
 	\caption{Total Population Summary Statistics (1)}
 	\end{table}
 
 
 	\begin{table}[ht]
+		\centering
+		\begin{adjustbox}{max width=\textwidth}
 		\begin{tabular}{lrrrrrr}
 		  \hline
 		  State & Districts & Average  & Standard Deviation & Minimum & Maximum & Difference \\ 
@@ -1125,12 +1138,14 @@ Besides, as we were estimating the effects of very large or very small changes i
 		  \hline
 		  
 		\end{tabular}
+	\end{adjustbox}
 		\label{total_pop_stats2}
 		\caption{Total Population Summary Statistics (2)}
 	\end{table}
 
 
-
+\clearpage
+\FloatBarrier
 \subsection*{Trace Plots}
 
 Model 1:
@@ -1164,9 +1179,11 @@ Model 4 Pt 3:
 \includegraphics[scale = 1.4]{trace_plots/trace_model4_part3.jpeg}
 
 
+
+
+
+\clearpage
 \FloatBarrier
-
-
 \subsection*{Model Estimates}
 
 \begin{table}[ht]
@@ -1191,7 +1208,7 @@ Model 4 Pt 3:
 \end{table}
 
 
-\begin{table}[ht]
+\begin{table}[h]
 	\centering
 		 \begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
@@ -1212,7 +1229,7 @@ Model 4 Pt 3:
 \end{table}
 
 
-\begin{table}[ht]
+\begin{table}[h]
 	\centering
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
@@ -1237,7 +1254,7 @@ Model 4 Pt 3:
 \end{table}
 
 
-\begin{table}[ht]
+\begin{table}[h]
 	\centering
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
@@ -1272,8 +1289,16 @@ Model 4 Pt 3:
 
 
 \FloatBarrier
-
+\clearpage
 \subsection*{Model Comparison Statistics}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{model_comp_figures/RMSE_all.jpeg}
+	\caption{Histograms of RMSE draws for all models}
+	\label{fig:rmse}
+\end{figure}
 
 \begin{figure}[h]
 	\centering
@@ -1332,7 +1357,7 @@ Model 4 Pt 3:
 
 
 
-
+\clearpage
 \FloatBarrier
 \subsection*{Prior Sensitivity Analysis}
 \begin{table}[h]
@@ -1374,6 +1399,8 @@ Model 4 Pt 3:
 
 
 \FloatBarrier
+
+\clearpage
 \newpage
 \printbibliography
 

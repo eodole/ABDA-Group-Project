@@ -185,10 +185,10 @@
 
 % In this report we aim to answer the question "How does urbanization of a US House District affect the resulting party that is elected?". 
 
-In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes. Put more concretely we want to answer the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". First we our motivation and important background information about the US election system. 
+In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes \red{in the US, using Bayesian Multilevel modeling}. Put more concretely we want to answer the question; "How does urbanization of a particular US House district affect the party that is elected?". First we explain our motivation and important background information about the US election system. 
 We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
-Next we discuss our dataset, which is a combination of four different datasets, followed by a brief explaination of our codebase. 
-We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use both graphical and numerical methods to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
+Next we discuss our dataset, which is a combination of four different datasets, followed by a brief explanation of our codebase. 
+We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use both graphical and numerical methods \red{not graphical, we can just say bayesian methods} to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
 
 
 \begin{figure}[!ht]
@@ -199,25 +199,29 @@ We then discuss the set up of our four models in detail, followed by a discussio
 \end{figure}
 
 \subsection*{Background}
-The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democratic or republican candidates is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondants into smaller demographic groups \parencite{pew2020}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive. 
+The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democrat or republican candidate is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondents into smaller demographic groups \parencite{pew2020}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive.
+\red{the bit about which is the progressive party should go here} 
 
-To answer our question about the nature of the relationship between urbanizaiton and partisan voting outcomes, we choose to investigate the 2022 House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state. 
+To answer our question about the nature of the relationship between urbanization and partisan voting outcomes, we choose to investigate the 2022 US House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state. 
 
 The 2022 House Election takes places during a non-presidential year, and is the most recent election following the 2020 Census and redistricting, allowing us to use the most recently available district maps, and demographic data. Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. 
 
-\blue{did I miss something about the models?} \red{Nope looks good}
-From this data we use each of the districts as a observation for our logistic regression model. We then choose to model the effect of urbanization hierarchically. Since urbanization is tied to geography we assume a hierarchy related to the location of the districts at the state and region levels of the United States. We then built four different models to test different aspects of the hierarchical structure. In the logistic regression  models we then combine urbanizaiton with various demographic covariates. By using a bayesian approach to this multilevel model, we were able to gain a more precise understanding of the relationship between urbanizaiton, geography and voting outcomes. All of our models were fit using the \texttt{brms} R package \parencite{brms}. 
+
+From this data we use each of the districts as a observation for our logistic regression model. We then choose to model the effect of urbanization hierarchically. Since urbanization is tied to geography we assume a hierarchy related to the location of the districts at the state and region levels of the United States. We then built four different models to test different aspects of the hierarchical structure.
+In the logistic regression models we then combine urbanization with various demographic covariates.
+\red{we already said its a logit, maybe just say' We use urbanization and various demographic  metrics as covariates '}
+By using a bayesian approach to this multilevel model, we were able to gain a more precise understanding of the relationship between urbanization, geography and voting outcomes. All of our models were fit using the \texttt{brms} R package \parencite{brms}. 
 
 
 
 % Previous attempts? 
 
 \subsection*{Comparative Literature}
-Inherent in our analysis is the assumption that repuclican and democratic voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymanding is practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a distict has been gerrymandered is rather unclear and out of the scope of this project.
+Inherent in our analysis is the assumption that republican and democrat voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymandering is the practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a district has been gerrymandered is rather unclear and out of the scope of this project.
 
-Since we are using a custom curated dataset, there exists no directly comparable research, however we did find interesting ideas related to urbanization and partisianship. One example of this would be the idea of the inefficent distribution of Democrats in cities, as explored by \cite{spatialefficency}. In their analysis they discuss the phenomena of spatial inefficency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficency in order to understand the impact of gerrymandering \parencite{spatialefficency}. 
+Since we are using a custom curated dataset, there exists no directly comparable research, however we did find interesting ideas related to urbanization and partisanship. One example of this would be the idea of the inefficient distribution of Democrats in cities, as explored by \cite{spatialefficency}. In their analysis they discuss the phenomena of spatial inefficiency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficiency in order to understand the impact of gerrymandering \parencite{spatialefficency}. 
 
-Although the Eubank and Rodden look at election outcomes through the lense of spatial efficency and we are trying to look at election results of districts with respect to their urbanizaition, we can take the following insights from their analysis. First the distribution of Democrats and urbanization are inexplicably linked, they found that all over the country Democrats tend to be concentrated in urban areas which indicate that it will likely be a good predictor. We would like to investigate to what extent that is true. They also note that the effect of spatial efficency is highly dependent on state and the branch of goverment. When considering that urbanization can be considered a proxy for spatial inefficency, this further supports our decision to model urbanindex hierachically. 
+Although the Eubank and Rodden look at election outcomes through the lenses of spatial efficiency and we are trying to look at election results of districts with respect to their urbanization, we can take the following insights from their analysis. First the distribution of Democrats and urbanization are inexplicably linked, they found that all over the country Democrats tend to be concentrated in urban areas which indicate that it will likely be a good predictor. We would like to investigate to what extent that is true. They also note that the effect of spatial efficiency is highly dependent on state and the branch of government. When considering that urbanization can be considered a proxy for spatial inefficiency, this further supports our decision to model \textit{Urban Index} hierarchically. 
 % points to something ... 
 
 
@@ -238,17 +242,17 @@ Although the Eubank and Rodden look at election outcomes through the lense of sp
 
 
 \section{Dataset}
-Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publically available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index (\textit{Urban Index}) and (urban) grouping into our final dataset \cite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Eleciton \cite{538urbanizationarticle}. From the description of the dataset: "The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is. " \cite{urbanizationdataset}. Refering to Table \ref{covariate_table} we see that\textit{Urban Index} ranges from 8.1 to 15, which are best interpretted in combination with the other variable we included in our curated dataset-urban grouping. Urban grouping is a collapsing of the \textit{Urban Index} into six catagories ranging from "Dense Urban" for districts with an \textit{Urban Index} above 13 and "Mostly Rural" for districts with an urbanization index below 9.5. We did not however include urban grouping directly in our modeling.
+Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publicly available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index (\textit{Urban Index}) and (urban) grouping into our final dataset \parencite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Election \parencite{538urbanizationarticle}. From the description of the dataset: \textit{"The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is."} \parencite{urbanizationdataset}. Referring to Table \ref{covariate_table} we see that\textit{Urban Index} ranges from 8.1 to 15, which are best interpreted in combination with the other variable we included in our curated dataset-urban grouping. Urban grouping is a collapsing of the \textit{Urban Index} into six categories ranging from "Dense Urban" for districts with an \textit{Urban Index} above 13 and "Mostly Rural" for districts with an urbanization index below 9.5. We did not however include urban grouping directly in our modeling.
 
 
-The second dataset used in our analysis is the Election Results Dataset from FiveThirtyEight \cite{electionresultsdataset}. It is a continuously updated repository of United States Govenor, Congressional and Presidential elections. 
+The second dataset used in our analysis is the Election Results Dataset from FiveThirtyEight \parencite{electionresultsdataset}. It is a continuously updated repository of United States Governor, Congressional and Presidential elections. 
 As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. Each state sets its own elections rules which led to additions quirks in the dataset. For example, as of 2020 Alaska uses ranked choice voting, and each stage of the ranked choice voting results is present in this dataset, which made it that much more important to ensure careful preprocessing of the data. From this dataset we used the \textit{State}, and \textit{Winning Party} variables. 
 We also considered using the variable incumbent party, however in addition to being incomplete, incumbent party is highly correlated with our target variable \textit{Winning Party}. Inclusion of incumbent party would lead to a model that places heavy important on incumbent party and much lower importance on other covariates. Since we are more interested in the relationship between our model and our choosen covariates we therefore decided not to include it.  
  
-As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \parencite{us_elections}. These parties dominate particularly on the fedral level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties so ensure their voice is heard, rather than using thier vote on a candidate unlikely to reach a plurality of votes \parencite{us_elections}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therefore we modeled \textit{Winning Party} as a binary variable, with democrats encoded as (1) and republicans encoded as (0). It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as 
-these terms are at times used interchangably throughout this report. 
+As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \parencite{us_elections}. These parties dominate particularly on the federal level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties to ensure their voice is heard, rather than using their vote on a candidate unlikely to reach a plurality of votes \parencite{us_elections}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therefore we modeled \textit{Winning Party} as a binary variable, with democrats encoded as (1) and republicans encoded as (0). \red{this should be earlier: *} It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as 
+these terms are at times used interchangeably throughout this report. \red{*}
 
-The third data used in our analysis is a subset of the 2022 American Commuity Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included the following variables for each House district; \textit{Total Population,} \textit{Percentage Women}, \textit{Median Household Income},\textit{ Mean Household Income}, \textit{Percentage Retirees}, \textit{Percentage Bachelors} degree holders above the age of 25 years old and \textit{Unemployment Rate} among those above the age of sixteen. 
+The third data used in our analysis is a subset of the 2022 American Community Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we included \red{considered is better, we did not include them all} the following variables for each House district; \textit{Total Population,} \textit{Percentage Women}, \textit{Median Household Income},\textit{ Mean Household Income}, \textit{Percentage Retirees}, \textit{Percentage Bachelors} degree holders above the age of 25 years old and \textit{Unemployment Rate} among those above the age of sixteen. 
 
 \begin{table}[!htbp] \centering \renewcommand*{\arraystretch}{1.1}\caption{Covariate Summary Statistics}\resizebox{\textwidth}{!}{
 	\begin{tabular}{lrrrrrr}
@@ -272,15 +276,15 @@ The third data used in our analysis is a subset of the 2022 American Commuity Su
 
 From these covariates we hoped to capture education, income, and, demographic make-up of each district because we thought they might be influential in determining partisan voting outcomes. However not all of these covariates were included in our final models. 
 
-The majority of our models are relatively small with only \textit{Urban Index} and one other covariate, \textit{Percentage Retirees}. In our literature review we found that older voters tend to vote more conseratively, which helped inform our prior choice \parencite{brown2022oldvoters}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
-\blue{ Why is pct retirees included in every single one of our models? } \red{I think the previous sentence clears this up enough}
+The majority of our models are relatively small with only \textit{Urban Index} and one other covariate, \textit{Percentage Retirees}. In our literature review we found that older voters tend to vote more conservatively, which helped inform our prior choice \parencite{brown2022oldvoters}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
+%\blue{ Why is pct retirees included in every single one of our models? } \red{I think the previous sentence clears this up enough}
 
-In our larger model we included further demographics such as, \textit{Percentage Women}, \textit{Median Household Income}, and \textit{percentage bachelors}. Initially we thought that percentage women would be a poor predictor. As can be seen in Table \ref{covariate_table} the difference in minimum and maximum percentage women is only six percentage points, with a mean of 50 percent. However a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which indicates thats even a small difference in the percentage women may have a large impact \parencite{pew2020}. 
+In our larger model we included further demographics such as, \textit{Percentage Women}, \textit{Median Household Income}, and \textit{percentage bachelors}. Initially we thought that percentage women would be a poor predictor. As can be seen in Table \ref{covariate_table} the difference in minimum and maximum percentage women is only six percentage points, with a mean of 50 percent. However a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which indicates that even a small difference in the percentage women may have a large impact \parencite{pew2020}. 
 
-In our largest model we also wanted to capture the impact of income. One idea was to take the difference of \text{mean-} and \textit{median household income} as a measure of inequality. However, \cite{gelman2010income} found no strong relationship between income inequality and partisan voting. Instead we included only \textit{median household income} as a measure of income as it is a less skewed measure as in seen in Table \ref{covariate_table}.
+In our largest model we also wanted to capture the impact of income. One idea was to take the difference of \text{mean-} and \textit{median household income} as a measure of inequality. However, \cite{gelman2010income} found no strong relationship between income inequality and partisan voting. Instead we included only \textit{median household income} as a measure of income as it is a less skewed measure \red{than mean income} as in seen in Table \ref{covariate_table}.
 
 
-From our inital list of covariates, there are also some not included in our final dataset. As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \parencite{us_elections}. Although we can see in Table \ref{covariate_table} that there is some variability in \textit{total population}, the differences within states are relatively small which can be seen in Table \ref{total_pop_stats1} and \ref{total_pop_stats2} in the appendix. While a similar population in each district does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Initially we also thought that unemployment rate may be a good predictor of partisan voting outcomes, however \cite{park2020unemployment} found that unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\parencite{park2020unemployment}. 
+From our initial list of covariates, there are also some not included in our final dataset. \red{we said some are not included already, in the beginning of the page} As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \parencite{us_elections}. Although we can see in Table \ref{covariate_table} that there is some variability in \textit{total population}, the differences within states are relatively small as can be seen in Table \ref{total_pop_stats1} and \ref{total_pop_stats2} in the appendix. While a similar population in each district does help support our exchangeability assumption, we determined that total population itself would be an unsuitable covariate. Initially we also thought that unemployment rate may be a good predictor of partisan voting outcomes, however \cite{park2020unemployment} found that unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to lose regardless of party\parencite{park2020unemployment}. 
 
 % \subsubsection{original verison}
 % As previously explained, the districts are drawn in such a way that the total population of each district should be approximately the same \blue{cite}, so while this does help support our exchangability assumption, we determined that total population itself would be an unsuitable covariate. Although we intially thought that percentage women may also be a poor predictor-since women should be evenly distributed throughout the United States-however a Pew Research Survey found that women tend to lean more democrat and have higher turnout, which is why we then included it in our largest model. \blue{cite}. We also initially thought that median and mean income could be combined to as a measure of inequality, but found a study saying that inequality is not a good voting indicator on its own \blue{cite}. For that reason we choose to use only the median household income as it would be less skewed. Similarly unemployment is not a good indicator on its own, rather when unemployment is high the incumbent is more likely to loose regardless of party\blue{cite}.  We also decided to use percentage retirees instead of median age, as they were highly correlated and median age also includes a part of the population that cannot vote. 
@@ -305,9 +309,9 @@ The fourth dataset was the region dataset, which was put together manually by us
 We then merged these four datasets to created our own curated dataset. We did this by merging the different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three datasets, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
 
 
-In the election results dataset, we encountered one instance of missing data. For all of the districts in Louisiana, the winning party was not recorded. There was however the incumbant party recorded  in the Election Results dataset and by cross referencing this with public record we found for the 2022 House Election only candidates from the incumbant party remained in each of the districts. Therefore as is reflected in our code base we used the data from the incumbant party in place of winning party for the state of Louisiana. For all other states and disticts we did not encounter this problem. 
+In the election results dataset, we encountered one instance of missing data. For all of the districts in Louisiana, the winning party was not recorded. There was however the incumbent party recorded  in the Election Results dataset and by cross referencing this with public record we found for the 2022 House Election only candidates from the incumbent party remained in each of the districts. Therefore as is reflected in our code base we used the data from the incumbent party in place of winning party for the state of Louisiana. For all other states and districts we did not encounter this problem. 
 
-In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables. Similarly we decided to scale all of the percentage variables to be on the scale zero to one hundred rather than zero to one to make their coefficents more interpretable.  
+In terms of scaling we wanted all the variables to be on roughly the same scale to aid in convergence times. In order to do that we roughly scaled median income and total population by dividing total population by one million and dividing median income by one hundred thousand. This brought each of these to roughly the same scale as the other variables. Similarly we decided to scale all of the percentage variables to be on the scale zero to one hundred rather than zero to one to make their coefficients more interpretable.  
 
 % \subsection{Covariate Choice}
 
@@ -344,14 +348,14 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 \red{MURTHY'S SECTION BEGINS}
 %%%Copy this part
 \blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...} \red{I think instead we should just upload a text document/excel sheet to the zip file explaining what each file is, and mention that there is a description file in the report}
-To fit Bayesian Multilevel Models, one needs to use a probabilistic programming language.We used the R package \verb|brms| \parencite{brms}, which allows the user to code entirely in R while running STAN as the backend. In our zip folder there are \red{please change if you add any new files} 6 R files. The file \textit{data\_cleaning.R} showing our process for combining our datasets.
+To fit Bayesian Multilevel Models, one needs to use a probabilistic programming language. We used the R package \verb|brms| \parencite{brms}, which allows the user to code entirely in R while running STAN as the backend. In our zip folder there are \red{please change if you add any new files} 6 R files. The file \textit{data\_cleaning.R} showing our process for combining our datasets.
 
 The file \textit{modeling.R} contains the \verb|brms| code setting the priors and fitting our four models using the dataset obtained in \textit{data\_cleaning.R}.
-The BRMS package allowed us to efficiently fit many models, as we needed only has to specify the model in a one- or two-line R formula. Each model was then fit with the function \verb|brm()|, using the usual R formula syntax. 
+The \verb|brms| package allowed us to efficiently fit many models, as we needed only has to specify the model in a one- or two-line R formula. Each model was then fit with the function \verb|brm()|, using the usual R formula syntax. 
 The priors are set according to what was laid out in Table \ref{tab:priors}.
 For the parameter estimates we chose to run 4 chains with 4000 iterations each. We choose to run double the default number of iterations to get more information related to convergence from the trace plots. Further, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that all parameter draws are saved. This was done to later perform moment matching when computing the LOO-CV statistics for model comparison, although it had no effect on the model estimates.
 
-The file \textit{model\_comparison.R} is where we compute and plot the model comparison metrics described in Section \ref{sec:comparison}. The RMSE and LPD are obtained with the method described in \cite{brmsbook} \red{cite brms book, posterior model comparison}, and the LOO cross-validation is performed using the \verb|loo()| and \verb|loo_compare()|, also from the \verb|brms| package.
+The file \textit{model\_comparison.R} is where we compute and plot the model comparison metrics described in Section \ref{sec:comparison}. The RMSE and LPD are obtained with the method described in \cite{brmsbook}, and the LOO cross-validation is performed using the \verb|loo()| and \verb|loo_compare()|, also from the \verb|brms| package.
 
 \textit{report\_prior\_sens\_code.r} contains the code used to run the prior sensitivity analysis, using the alternative priors described in the corresponding section.
 
@@ -359,7 +363,7 @@ The file \textit{tables\_plots.R} contains code for generating tables used in th
 
 
 \blue{I think this bit belongs in the prior section to be honest*}
-In brms the hierarchical coefficients are modelled as a centred Normal with a varying standard deviation, which itself follows a prior distribution given by the user \parencite{brmsbook}. \blue{*} 
+In brms the hierarchical coefficients are modelled as a centred Normal with a varying standard deviation, which itself follows a prior distribution given by the user \parencite{brmsbook}. \blue{*} \red{it is in the prior section too, we can just delete it here}
 
 %%%
 
@@ -514,15 +518,16 @@ We chose, however, not to include a varying Intercept in the linear predictor in
 
 
 
-\subsubsection*{Model 1 (state level)}
+\subsubsection*{Model 1}
 
 
-Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept.
-\blue{ Murthy didn't you find something in initial testing? please write about that.
-M: In the very initial fits with all default settings and no hierarchies, percentage retirees consistently had less convergence issues. But I don't want to write new code for this now...plus we've made a lot of changes since the initial stage, idk how things will behave now. Maybe I can come up with a logical rather than technical reason??}
-\red{it has the strongest correlation with winning party after urban index, and it's the only one negatively correlated with winner, could we justify it one of those ways?} \blue{Sounds good to me}
+Our first model includes only our variable of interest, \textit{Urban Index}, plus the \textit{Percentage of Retirees} as covariates to explain $\theta$, plus an intercept. \textit{Percentage of Retirees} was included because it has a relatively high correlation with the \textit{Winning party} and \textit{Urban Index} variables, and there is extensive evidence in the literature of age being related with voting direction \parencite{brown2022oldvoters}.  
 
-Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{urb}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
+%\blue{ Murthy didn't you find something in initial testing? please write about that.
+%M: In the very initial fits with all default settings and no hierarchies, percentage retirees consistently had less convergence issues. But I don't want to write new code for this now...plus we've made a lot of changes since the initial stage, idk how things will behave now. Maybe I can come up with a logical rather than technical reason??}
+%\red{it has the strongest correlation with winning party after urban index, and it's the only one negatively correlated with winner, could we justify it one of those ways?} \blue{Sounds good to me}
+
+Urban index was modeled hierarchically, with the coefficient varying by State, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{urb}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
 
 Equation \ref{eq:state_level_uncentered} describes our model conceptually.
 
@@ -533,7 +538,7 @@ Equation \ref{eq:state_level_uncentered} describes our model conceptually.
 	\end{aligned}
 \end{equation}
 
-To better understand what happens in the backend when we want to fit this model with BRMS, it is helpful to rewrite the equation \ref{eq:state_level_centered} in terms of 'global' and 'hierarchical' effects. The previously considered coefficient is then decomposed into these effects, i.e.
+To better understand what happens in the backend when we want to fit this model with \verb|brms|, it is helpful to rewrite the equation \ref{eq:state_level_centered} in terms of 'global' and 'hierarchical' effects. The previously considered coefficient is then decomposed into these effects, i.e.
 $\beta_{urb,j}^{uncent} = \beta_{urb} + \beta_{urb,j}$
 with $\beta_{urb,j}$ centered around zero, which does not alter the meaning of the model (\cite{brmsbook}).
 
@@ -551,8 +556,8 @@ Although we assume that there is indeed state-level clustering in the district e
 \subsubsection*{Model 2 (region level)}
 
 
-To overcome this problem, we fit another model, with only one difference from the previous one: the hierarchy is at the region level, rather than state. This means the coefficients of urban index vary by region now, with a common mean and variance which are parameters to be estimated themselves.
-Equation \ref{eq:region_level_centered} describes this model, in its specification with separate global and hierarchical effects for urban index.
+To overcome this problem, we fit another model, with only one difference from the previous one: the hierarchy is at the region level, rather than state. This means the coefficients of \textit{Urban Index} vary by region now, with a common mean and variance which are parameters to be estimated themselves.
+Equation \ref{eq:region_level_centered} describes this model, in its specification with separate global and hierarchical effects for \textit{Urban Index}.
 
 
 \begin{equation} \label{eq:region_level_centered}
@@ -568,7 +573,7 @@ Equation \ref{eq:region_level_centered} describes this model, in its specificati
 
 
 In this model we include the entire geographical hierarchy: a \textit{nested hierarchy} of districts within states within regions.
-Here the assumption is that the effect of urbanindex ($\beta_{urb, j:k}$) depends on state $j$ and region $k$ through a prior with mean parameter $\beta_{urb, k}$, which in turn varies by region and depends on hyper-mean $\beta_{urb}$ (which has its own prior, with hyper-hyper-parameters). Equation \ref{eq:nested_centered} specifies the model, with the centered around zero formulation. 
+Here the assumption is that the effect of \textit{Urban Index} ($\beta_{urb, j:k}$) depends on state $j$ and region $k$ through a prior with mean parameter $\beta_{urb, k}$, which in turn varies by region and depends on hyper-mean $\beta_{urb}$ (which has its own prior, with hyper-hyper-parameters). Equation \ref{eq:nested_centered} specifies the model, with the centered around zero formulation. 
 
 % Model equation
 \begin{equation} \label{eq:nested_centered}
@@ -584,11 +589,11 @@ Here the assumption is that the effect of urbanindex ($\beta_{urb, j:k}$) depend
 
 
 This is our most extensive model.
-Here we used urban index and 4 additional covariates plus an intercept to explain $\theta_{j,k}$.
-It can be seen as an extension of Model 1, as urban index is modeled hierarchically by state. The region level hierarchy is instead included only in the effect of percentage of bachelors degrees.
-Median income effect is also considered to vary by state, and the intercept and the slopes of percentage of women and percentage of retirees were modeled non-hierarchically.
+Here we used \textit{Urban Index} and 4 additional covariates plus an intercept to explain $\theta_{j,k}$.
+It can be seen as an extension of Model 1, as \textit{Urban Index} is modeled hierarchically by state. The region level hierarchy is instead included only in the effect of \textit{Percentage Bachelors degrees}.
+\textit{Median Household Income} effect is also considered to vary by State, and the intercept and the slopes of \textit{Percentage Women} and \textit{Percentage Retirees} were modeled non-hierarchically.
 
-Equation \ref{eq:big_centered} describes this model, in the brms adapted specification.
+Equation \ref{eq:big_centered} describes this model, in the \verb|brms| adapted specification.
 
 \begin{equation} \label{eq:big_centered}
 	\begin{aligned}
@@ -614,7 +619,7 @@ Equation \ref{eq:big_centered} describes this model, in the brms adapted specifi
 \section{Priors} \label{sec:priors}
 
 Priors represent our initial beliefs about our model parameters' distributions.
-In each of our models, this means a prior for the intercept, one for the slope of each covariate that is modeled non-hierarchically (e.g., $\beta_{ret}$ in all four models) and, in the case of covariates with global and hierarchical effects, priors for the hyper-parameters as well.
+In each of our models, this means a prior for the Intercept, one for the slope of each covariate that is modeled non-hierarchically (e.g., $\beta_{ret}$ in all four models) and, in the case of covariates with global and hierarchical effects, priors for the hyper-parameters as well.
 
 Table \ref{tab:priors} lists our selected priors for each model, by corresponding covariate.
 
@@ -645,7 +650,7 @@ Table \ref{tab:priors} lists our selected priors for each model, by correspondin
 
 
 
-We define such distributions before seeing the data, based on existing literature and our own intuition about the effects of our covariates on the probability of a democrat win.
+We define such distributions before seeing the data, based on existing literature and our own intuition about the effects of our covariates on the probability of a Democrat win.
 We assumed the same priors for the same terms included in different models (intercept, percentage of retirees, urban index for the same levels).
 
 %For many of our parameters we picked Normal distributions [reasons]
@@ -659,8 +664,9 @@ This represents a weakly informative prior, as we had no strong beliefs about th
 For the population-level component of the \textit{Urban Index} slope we opted for a standard normal prior in all models. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying, although we are assuming that its absolute value will be below 1.96 with 95\% certainty. 
 %So, we set comparatively less-informative priors on the parameters representing the effect of the index.
 
-All group-level (zero-centered) priors are Normal, by \verb|brms| specification \textcolor{red}{is there a reason??? M: Yes, but we'll have to dig deep into the MC Stan Forums and see what Paul wrote. Explaining this is out of the scope tbh. Refer to one of my paras where I mention BRMS is simply less flexible than STAN, I could add a couple lines there}\blue{yes please add those sentences}
-\red{we can just keep the black here, this was added to the limitations already}
+All group-level (zero-centered) priors are Normal, by \verb|brms| specification. 
+%\textcolor{red}{is there a reason??? M: Yes, but we'll have to dig deep into the MC Stan Forums and see what Paul wrote. Explaining this is out of the scope tbh. Refer to one of my paras where I mention BRMS is simply less flexible than STAN, I could add a couple lines there}\blue{yes please add those sentences}
+%\red{we can just keep the black here, this was added to the limitations already}
 
 For the standard deviation of the hierarchical effects we opted for a relatively weakly informative prior, a $(half)Cauchy(0,10)$.
 We do not want to place strong constraints on the effect of our variable of interest, hence we 'allow the estimates to fluctuate'.
@@ -683,7 +689,7 @@ The effects of \textit{Percentage of Bachelors} degrees and \textit{Median House
 
  
 
-As we expected the population-level effects of both \textit{Median Houshold Income} and \textit{Percentage Bachelors} to be positive in some cases and negative in others, we picked symmetric priors for both $\beta_{bsc}$ and $\beta_{inc}$. We are, however, less sure about the on-average-null effect of the \textit{Percentage of Bachelor} degrees, so for this slope parameter we opted for a prior with 'fatter tails', the standard Cauchy distribution rather than the Normal one, representing a higher degree of uncertainty.
+As we expected the population-level effects of both \textit{Median Household Income} and \textit{Percentage Bachelors} to be positive in some cases and negative in others, we picked symmetric priors for both $\beta_{bsc}$ and $\beta_{inc}$. We are, however, less sure about the on-average-null effect of the \textit{Percentage of Bachelor} degrees, so for this slope parameter we opted for a prior with 'fatter tails', the standard Cauchy distribution rather than the Normal one, representing a higher degree of uncertainty.
 
 
 For the hyperparameters, we chose a half standard normal prior for both the standard deviations of $\beta_{bsc,k}$ and $\beta_{inc,j}$. This is a narrow distribution, with most values falling between 0 and 1, as we expect to see weak effects for these covariates, and thus small standard deviations (and positive, as any SD is by definition).
@@ -762,7 +768,7 @@ and (possibly) to the fact that in model 1 there are several levels with a very 
 \FloatBarrier
 \section{Convergence Diagnostics}
 
-One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. This ensures we have access to both the posterior samples and the estimates of the posterior regression coefficients. All our data analysis was done using BRMS, which runs on STAN, which itself uses the Hamiltonian Monte Carlo algorithm for the posterior generation. 
+One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. This ensures we have access to both the posterior samples and the estimates of the posterior regression coefficients. All our data analysis was done using \verb|brms|, which runs on STAN, which itself uses the Hamiltonian Monte Carlo algorithm for the posterior generation. 
 
 %\blue{*}"Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'. \blue{ * considering audience I don't think we need this sentence}%
 
@@ -975,7 +981,7 @@ Prior Set 5 combines the changes in Sets 2 and 3.
 
 Table \ref{tab:Prior Sensitivity Results for Model 2} displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the \textit{Urban Index} prior than to changes in its own prior.
 
-The changes for the other two models look rather similar, although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
+The changes \red{effects? chnages we are already using for different priors} for the other two models look rather similar, although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
 
 \red{do they remain unreliable with the new priors? either way we should mention it} \blue{doing this rn}
 

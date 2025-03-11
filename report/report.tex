@@ -520,6 +520,7 @@ We chose, however, not to include a varying Intercept in the linear predictor in
 Our first model includes only our variable of interest, urban index, plus the percentage of retirees as covariates to explain $\theta$, plus an intercept.
 \blue{ Murthy didn't you find something in initial testing? please write about that.
 M: In the very initial fits with all default settings and no hierarchies, percentage retirees consistently had less convergence issues. But I don't want to write new code for this now...plus we've made a lot of changes since the initial stage, idk how things will behave now. Maybe I can come up with a logical rather than technical reason??}
+\red{it has the strongest correlation with winning party after urban index, and it's the only one negatively correlated with winner, could we justify it one of those ways?}
 
 Urban index was modeled hierarchically, with the coefficient varying by state, with a prior dependent on common parameters $\beta_{urb}$ and $\sigma_{urb}$, which in turn have (hyper-)priors of their own. The intercept is assumed to be non-variant for all districts, as well as the slope of percentage of retirees.
 
@@ -610,7 +611,7 @@ Equation \ref{eq:big_centered} describes this model, in the brms adapted specifi
 
 
 
-\section{Priors}
+\section{Priors} \label{sec:priors}
 
 Priors represent our initial beliefs about our model parameters' distributions.
 In each of our models, this means a prior for the intercept, one for the slope of each covariate that is modeled non-hierarchically (e.g., $\beta_{ret}$ in all four models) and, in the case of covariates with global and hierarchical effects, priors for the hyper-parameters as well.
@@ -655,10 +656,11 @@ This represents a weakly informative prior, as we had no strong beliefs about th
 
 
 %%%%%%%%%%%%%%%%%% urban index %%%%%%%%%%%%%%%%%%%%%%%%
-For the population-level component of the urbanindex slope we opted for a standard normal prior in all models. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying, although we are assuming that its absolute value will be below 1.96 with 95\% certainty. 
+For the population-level component of the \textit{Urban Index} slope we opted for a standard normal prior in all models. We chose not to make assumptions on the sign of the effect of this variable, as it is this variable that we are interested in studying, although we are assuming that its absolute value will be below 1.96 with 95\% certainty. 
 %So, we set comparatively less-informative priors on the parameters representing the effect of the index.
 
-All group-level (zero-centered) priors are Normal, by brms specification \textcolor{red}{is there a reason??? M: Yes, but we'll have to dig deep into the MC Stan Forums and see what Paul wrote. Explaining this is out of the scope tbh. Refer to one of my paras where I mention BRMS is simply less flexible than STAN, I could add a couple lines there}\blue{yes please add those sentences}
+All group-level (zero-centered) priors are Normal, by \verb|brms| specification \textcolor{red}{is there a reason??? M: Yes, but we'll have to dig deep into the MC Stan Forums and see what Paul wrote. Explaining this is out of the scope tbh. Refer to one of my paras where I mention BRMS is simply less flexible than STAN, I could add a couple lines there}\blue{yes please add those sentences}
+\red{we can just keep the black here, this was added to the limitations already}
 
 For the standard deviation of the hierarchical effects we opted for a relatively weakly informative prior, a $(half)Cauchy(0,10)$.
 We do not want to place strong constraints on the effect of our variable of interest, hence we 'allow the estimates to fluctuate'.
@@ -666,7 +668,7 @@ We do not want to place strong constraints on the effect of our variable of inte
 
 
 %%%%%%%%%%%%%%%%%%% pct_ret %%%%%%%%%%%%%%%%%%%%%%%
-As found in the literature older voters tend to vote more conservatively \parencite{brown2022oldvoters}, so it makes sense that a higher the \textit{Percentage of Retirees} in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
+As found in the literature older voters tend to vote more conservatively \parencite{brown2022oldvoters}, so it makes sense that a higher the \textit{Percentage Retirees} in each district negatively correlates with the probability of a Democrat winning, but we do not know how strong this effect ought to be. Therefore, for the prior on $\beta_{ret}$ we chose a distribution centered around a negative number, and with relatively heavy tails, reflecting our uncertainty, for all models. 
 
 
 
@@ -704,7 +706,7 @@ For the hyperparameters, we chose a half standard normal prior for both the stan
 Each of our models has different estimates for the parameters, even when they are starting from the same prior.
 As the estimate is given by the mean of the posterior distribution for that parameter, this reflects the different posterior distributions between models, which is only natural given the different structures each model assumes for our data.
 
-The intercept for example, is very different between models, and is particularly large (in absolute terms) in Model 4. Although, as discussed before, the intercept does not have a practical interpretation in our model, it is interesting that this Model's estimate is so far away from the value we initially assumed it would take (between -19.6 and 19.6 with 95\% certainty, with a $N(0,10)$ prior). It can indicate ....
+The intercept for example, is very different between models, and is particularly large (in absolute terms) in Model 4. Although, as discussed before, the intercept does not have a practical interpretation in our model, it is interesting that this Model's estimate is so far away from the value we initially assumed it would take (between -19.6 and 19.6 with 95\% certainty, with a $N(0,10)$ prior).
 
 Our variable of interest, \textit{Urban Index}, has a more consistent slope estimate across models, between 1.22 (Model 2) and 1.66 (Model 1).
 Figure \ref{fig:urbanindex_estimates} shows the histograms of posterior draw for the \textit{Urban Index} slope parameter, by Model.
@@ -712,12 +714,12 @@ The results indicate that the variable has, as expected, on average a positive e
 Model 3, for example, estimates that on average a 1 unit increase in \textit{Urban Index} (e.g., 10 to 11) translates into a 1.64 increase in the log-odds (or an $e^{1.64} \approx 5.155 $ increase in the odds) of a Democrat being elected in the district.
 While the estimates are within the range we assumed with the prior for this parameter, the upper bounds of the credible intervals are already close to the boundary of that prior. 
 %The data has updated our beliefs about the effect of this variable a lot.
-A prior with more probability mass on the positive range, or a less informative prior, could push the estimates further up. \red{not sure about this though}
+A prior with more probability mass on the positive range, or a less informative prior, could push the estimates further up.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\textwidth]{results/urb_post_all_models.jpeg}
-	\caption{}
+	\caption{Histogram of posterior draws of Urban Index effect, all models}
 	\label{fig:urbanindex_estimates}
 \end{figure}
 
@@ -762,23 +764,37 @@ and (possibly) to the fact that in model 1 there are several levels with a very 
 
 One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. This ensures we have access to both the posterior samples and the estimates of the posterior regression coefficients. All our data analysis was done using BRMS, which runs on STAN, which itself uses the Hamiltonian Monte Carlo algorithm for the posterior generation. 
 
-"Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'. \blue{considering audience I don't think we need this sentence}
+\blue{*}"Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'. \blue{ * considering audience I don't think we need this sentence}
 
-HMC Convergence diagnostics can be a rather extensive topic, so for this project we mainly consider graphical diagnostics, namely: the MCMC trace plots as provided by the BRMS package.
+HMC Convergence diagnostics can be a rather extensive topic, so for this project we mainly consider graphical diagnostics, namely: the MCMC trace plots as provided by the \texttt{brms} package.
 
-\includegraphics[scale = 1.2]{trace_plots/trace_model2.jpeg}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{trace_plots/trace_model2.jpeg}
+	\caption{Trace plots for Model 2, all parameters; 2000 sampling iterations}
+	\label{fig:trace_mod2}
+\end{figure}
 
-\includegraphics[scale = 1.2]{trace_plots/trace_model3_part1.jpeg}
+%\includegraphics[scale = 1.2]{trace_plots/trace_model2.jpeg}
 
-The trace plots for model 2 (top) and most coefficients of model 3 (bottom) are plotted above. We see divergent transitions in both cases, but there are two key differences:
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{trace_plots/trace_model3_part1.jpeg}
+	\caption{Trace plots for Model 3, intercept, slopes and SD for Region level; SD for the lower level (Region:State) in Appendix; 2000 sampling iterations}
+	\label{fig:trace_mod3_p1}
+\end{figure}
 
-Firstly, the number of divergent transitions: There are many more of these for Model 3 compared to Model 2. Secondly, the place of occurrence: Model 3's divergent transitions occur throughout the chains, while those in Model 2 seem to be concentrated around the 1000th iteration, while noticeably decreasing towards the 2000th iteration. This suggests that increasing iterations further might help with Model 2, but is unlikely to help with Model 3.
+%\includegraphics[scale = 1.2]{trace_plots/trace_model3_part1.jpeg}
 
-The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 2, or in the case of Model 1, have no divergent transitions whatsoever.
+We present the trace plots for Model 2 (Fig. \ref{fig:trace_mod2}) and most coefficients of Model 3 (Fig. \ref{fig:trace_mod3_p1}). Although we see divergent transitions in both cases, there are two key differences:
 
-So our key takeaway is that the HMC chains behave strangely for Model 3, and reasonably for the rest provided we increase the number of iterations from the default 1000 to 2000. Luckily for us, there is one glaring difference between Model 3 and the rest which partially explains this behaviour: Namely, it is the only model which takes into account both a regional hierarchy and a statewise hierarchy for the same coefficient, with the former being nested in the latter. The other models have at the most a single hierarchy per coefficient. 
+Firstly, the number of divergent transitions: There are many more of these for Model 3 in comparison to Model 2. Secondly, the place of occurrence: Model 3's divergent transitions occur throughout the chains, while those in Model 2 seem to be concentrated around the 1000th iteration, while noticeably decreasing towards the 2000th iteration. This suggests that increasing iterations further might help with Model 2, but is unlikely to help with Model 3. \blue{when you say "might help with" what do you mean? Might help with what exactly? }
 
-While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding (that the presence of an explicit nested hierarchy causes HMC chain convergence issues). 
+The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 2 \blue{how so?}, or  have no divergent transitions as is the case with Model 1.
+
+Our key takeaway is the HMC chains behave strangely  \blue{when you say behave strangely what does that mean? try to be specific} for Model 3, and reasonably for the rest provided we increase the number of iterations from the default 1000 to 2000. \red{Luckily for us, there is one glaring difference between Model 3 and the rest which partially explains this behaviour: Namely,} \blue{this is really informal, you could also just write: "This is likely due to Model 3 being .."} it is the only model which takes into account both a Region-wise hierarchy and a State-wise hierarchy for the same coefficient, with the former being nested in the latter. The other models have at most a single hierarchy per coefficient. 
+
+While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding \blue{good preliminary finding of what?}(that the presence of an explicit nested hierarchy causes HMC chain convergence issues). 
 
 
 \section{Model Comparison} \label{sec:comparison}
@@ -916,21 +932,27 @@ As a small note, when performing the LOO-CV analysis for Model 1, one Pareto-k-e
 %\textcolor{red}{another table with priors here, maybe not all because thats a lot}
 
 One of the most important parts of Bayesian Data Analysis is setting the prior distributions. The choice of priors could greatly affect the final results in a model, so it is important to test their robustness to different priors (\cite{PriorSensAnalysis}).
-So, we conducted a prior sensitivity analysis, by refitting our models using alternative priors (which also fit our model assumptions) and assessing the impact on the estimated coefficients.
+So, we conducted a prior sensitivity analysis, by refitting our models using alternative priors (which also fit our basic model assumptions) and assessing the impact on the estimated coefficients.
 
-For easy comparability and scope, we restrict this section to the analysis of Models 1 to 3. The various prior sets represent the following changes \red{relative to our original priors}:
+For easy comparability and scope, we restrict this section to the analysis of Models 1 to 3.
+We tested 5 different Prior Sets, which represent 'changes' relative to the priors we used originally. These changes are as follows (all other priors remain as described in Section \ref{sec:priors}):
+%The various prior sets represent the following changes relative to the original prior set:
 
 \begin{enumerate}
-    \item Original priors as per Table 1
+    \item Original priors as per Table \ref{tab:priors}
     \item Change the prior on \(\sigma_\text{urb}\) from \(\sim Halfcauchy(10)\) to \(\sim Halfnormal(0, 1)\)
     \item Change  the prior on \(\beta_\text{urb}\) from \(\sim N(0, 1)\) to \(\sim N(0, 10)\)
     \item Change  the prior on the intercept from \(\sim N(0, 10)\) to \(\sim N(0, 100)\)
     \item Change the prior on \(\sigma_\text{urb}\) from \(\sim Halfcauchy(10)\) to \(\sim Halfnormal(0, 1)\) and the prior on \(\beta_\text{urb}\) from \(\sim N(0, 1)\) to \(\sim N(0, 10)\)
 \end{enumerate}
 
-Prior Set 2 is motivated by the Half-Normal distribution being less informative, having thinner tails which does not allow for as large values. Prior Set 3 and 4 are motivated again by informativeness, our prior beliefs allowing for theoretically larger values of the coefficient.
-\red{it is not very correct to say it is motivated by informativeness, all priors are also motivated by this; the new prior in set 2 was picked becuase we tried a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the sd; the one in set 3 is less informative than the original, but still symmetric around zero to relax the assumption of being 'small' (between -2 and 2); the one in 4 is to be as weakly informative as possible without going flat, to see what happens if we let the intercept go wherever; 5 is joining 2 and 3; ... i thought we were doing all 3 together too but i guess that died out, probably wouldnt be much differnet}
-
+%Prior Set 2 is motivated by the Half-Normal distribution being less informative, having thinner tails which does not allow for as large values. Prior Set 3 and 4 are motivated again by informativeness, our prior beliefs allowing for theoretically larger values of the coefficient.
+%\red{it is not very correct to say it is motivated by informativeness, all priors are also motivated by this; 
+So, the first Set is just our original set of priors, for comparability. Sets 2-4 represent a single prior that is different relative to the original Set, and Set 5 combines two of those changes, to see how estimates behave when more than one prior is altered.
+The new prior in Set 2 was picked because we had chosen a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the standard deviation. 
+The one in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
+The one in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
+Prior Set 5 combines the changes in Sets 2 and 3.
 
 \begin{table}[h]
     \centering
@@ -950,7 +972,7 @@ Prior Set 2 is motivated by the Half-Normal distribution being less informative,
 
 
 
-Table 4 displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the \textit{Urban Index} prior than to changes in its own prior.
+Table \ref{tab:Prior Sensitivity Results for Model 2} displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the \textit{Urban Index} prior than to changes in its own prior.
 
 The changes for the other two models look rather similar, although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
 
@@ -979,7 +1001,7 @@ Regarding our specific modeling choices, more models could be fitted using diffe
 With respect to the priors, although our choices were informed by our knowledge of the data and intuition, there are other distributions that would also meet our beliefs, or make a series of equally valid assumptions. While our Prior Sensitivity Analysis explores this already, more can always be done: different distributions could result in very different estimates or change the convergence of the MCMC chains. 
 
 
-We have also chosen not to do our modeling with STAN directly, but rather to use \verb|brms|. While this package provides a very comprehensive set of instruments for Bayesian Hierarchical Modeling, it is still less flexible than using STAN. For example,with \verb|brm()| all the group-level zero-centered priors are Gaussian. This cannot be changed, we can only affect these parameters' distributions through the prior on the standard deviations. Although a Normal prior is the 'conventional' or 'pragmatic' choice according to \cite{mcelreath2016statistical}, it would be interesting to experiment with other distributions in our case.
+We have also chosen not to do our modeling with STAN directly, but rather to use \verb|brms|. While this package provides a very comprehensive set of instruments for Bayesian Hierarchical Modeling, it is still less flexible than using STAN. For example,with \verb|brm()| all the group-level zero-centered priors are Gaussian. This cannot be changed, we can only affect these parameters' distributions through the prior on the standard deviations. Although a Normal prior is the 'conventional' or 'pragmatic' choice \parencite{mcelreath2016statistical}, it would be interesting to experiment with other distributions in our case.
 
 
 %\section{Changes from Presentation}
@@ -1042,6 +1064,8 @@ Besides, as we were estimating the effects of very large or very small changes i
 
 \begin{table}[h]
 	\centering
+	\caption{Correlation matrix for the six variables used in the Models (one response variables, five covariates)}
+	\label{}
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rcccccc}
 		\hline
@@ -1056,8 +1080,6 @@ Besides, as we were estimating the effects of very large or very small changes i
 		\hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{Correlation matrix}
-	\label{}
 \end{table}
 
 % latex table generated in R 4.4.1 by xtable 1.8-4 package
@@ -1065,6 +1087,8 @@ Besides, as we were estimating the effects of very large or very small changes i
 
 \begin{table}[ht!]
 	\centering
+	\caption{Total Population Summary Statistics (1)}
+	\label{total_pop_stats1}
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{lrrrrrr}
 	  \hline
@@ -1099,13 +1123,13 @@ Besides, as we were estimating the effects of very large or very small changes i
 	   \hline
 	\end{tabular}
 	\end{adjustbox}
-	\label{total_pop_stats1}
-	\caption{Total Population Summary Statistics (1)}
 	\end{table}
 
 
 	\begin{table}[ht]
 		\centering
+		\caption{Total Population Summary Statistics (2)}
+		\label{total_pop_stats2}
 		\begin{adjustbox}{max width=\textwidth}
 		\begin{tabular}{lrrrrrr}
 		  \hline
@@ -1140,8 +1164,6 @@ Besides, as we were estimating the effects of very large or very small changes i
 		  
 		\end{tabular}
 	\end{adjustbox}
-		\label{total_pop_stats2}
-		\caption{Total Population Summary Statistics (2)}
 	\end{table}
 
 
@@ -1149,46 +1171,119 @@ Besides, as we were estimating the effects of very large or very small changes i
 \FloatBarrier
 \subsection*{Trace Plots}
 
-Model 1:
+%Model 1:
+%
+%\includegraphics[scale = 1.25]{trace_plots/trace_model1.jpeg}
 
-\includegraphics[scale = 1.25]{trace_plots/trace_model1.jpeg}
-
-Model 2:
-
-\includegraphics[scale = 1.4]{trace_plots/trace_model2.jpeg}
-
-Model 3 Pt 1:
-
-\includegraphics[scale = 1.25]{trace_plots/trace_model3_part1.jpeg}
-
-
-Model 3 Pt 2: 
-
-\includegraphics[scale = 1.25]{trace_plots/trace_model3_part2.jpeg}
-
-Model 4 Pt 1:
-
-\includegraphics[scale = 1.3]{trace_plots/trace_model4_part1.jpeg}
+\begin{figure}[h!]
+	\centering
+	\caption{Trace plots for Model 1, all parameters; 2000 sampling iterations}
+	\label{fig:trace_mod1_append}
+	\includegraphics[width=0.8\textwidth]{trace_plots/trace_model1.jpeg}
+\end{figure}
 
 
-Model 4 Pt 2: 
-
-\includegraphics[scale = 1.3]{trace_plots/trace_model4_part2.jpeg}
-
-Model 4 Pt 3: 
-
-\includegraphics[scale = 1.4]{trace_plots/trace_model4_part3.jpeg}
+%Model 2:
+%
+%\includegraphics[scale = 1.4]{trace_plots/trace_model2.jpeg}
 
 
+\begin{figure}[h!]
+	\centering
+	\caption{Trace plots for Model 2, all parameters; 2000 sampling iterations}
+	\label{fig:trace_mod2_append}
+	\includegraphics[width=0.8\textwidth]{trace_plots/trace_model2.jpeg}
+\end{figure}
 
+%Model 3 Pt 1:
+%
+%\includegraphics[scale = 1.25]{trace_plots/trace_model3_part1.jpeg}
+%
+%
+%Model 3 Pt 2: 
+%
+%\includegraphics[scale = 1.25]{trace_plots/trace_model3_part2.jpeg}
+
+
+\begin{figure}
+	\centering
+	\caption{Trace plots for Model 3, all parameters; 2000 sampling iterations}
+	\label{fig:trace_mod3_append}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{trace_plots/trace_model3_part1.jpeg}
+%		\caption{Caption for Figure 1}
+%		\label{fig:fig1}
+	\end{subfigure}
+	
+	\vspace{0.5em} % Adjust space between figures
+	
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{trace_plots/trace_model3_part2}
+%		\caption{Caption for Figure 2}
+%		\label{fig:fig2}
+	\end{subfigure}
+	
+\end{figure}
+
+
+
+
+%Model 4 Pt 1:
+%
+%\includegraphics[scale = 1.3]{trace_plots/trace_model4_part1.jpeg}
+%
+%
+%Model 4 Pt 2: 
+%
+%\includegraphics[scale = 1.3]{trace_plots/trace_model4_part2.jpeg}
+%
+%Model 4 Pt 3: 
+%
+%\includegraphics[scale = 1.4]{trace_plots/trace_model4_part3.jpeg}
+
+
+\begin{figure}
+	\centering
+	\caption{Trace plots for Model 4, all parameters; 2000 sampling iterations}
+	\label{fig:trace_mod4_append}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.7\textwidth]{trace_plots/trace_model4_part1.jpeg}
+		%		\caption{Caption for Figure 1}
+		%		\label{fig:fig1}
+	\end{subfigure}
+	
+	\vspace{0.5em} % Adjust space between figures
+	
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.7\textwidth]{trace_plots/trace_model4_part2}
+		%		\caption{Caption for Figure 2}
+		%		\label{fig:fig2}
+	\end{subfigure}
+	
+	\vspace{0.5em} % Adjust space between figures
+	
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.4\textwidth]{trace_plots/trace_model4_part3}
+		%		\caption{Caption for Figure 2}
+		%		\label{fig:fig2}
+	\end{subfigure}
+	
+\end{figure}
 
 
 \clearpage
 \FloatBarrier
 \subsection*{Model Estimates}
 
-\begin{table}[ht]
+\begin{table}[h!]
 	\centering
+	\caption{Parameter estimates obtained by Model 1 with all 435 observations, 4 chains, 4000 iterations (2000 warmup, 2000 sampling)}
+	\label{tab:model1}
 	 \begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
 		\hline
@@ -1204,13 +1299,13 @@ Model 4 Pt 3:
 		\hline
 	\end{tabular}
 		\end{adjustbox}
-	\caption{Parameter estimates obtained by Model 1 with the 435 observations in our dataset}
-	\label{tab:model1}
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[h!]
 	\centering
+	\caption{Parameter estimates obtained by Model 2 with all 435 observations, 4 chains, 4000 iterations (2000 warmup, 2000 sampling)}
+	\label{tab:model2}
 		 \begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
 		\hline
@@ -1225,13 +1320,14 @@ Model 4 Pt 3:
 		sd(urbanindex) &     0.09 &      0.06 &      0.02 &      0.27 & 1.00 &    892.96 &    465.15 \\ \hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{Parameter estimates obtained by Model 2 with the 435 observations in our dataset}
-	\label{tab:model2}
+	
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[h!]
 	\centering
+	\caption{Parameter estimates obtained by Model 3 with all 435 observations, 4 chains, 4000 iterations (2000 warmup, 2000 sampling)}
+	\label{tab:model3}
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
 		\hline
@@ -1250,13 +1346,14 @@ Model 4 Pt 3:
 		\hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{Parameter estimates obtained by Model 3 with the 435 observations in our dataset}
-	\label{tab:model3}
+	
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[ht!]
 	\centering
+	\caption{Parameter estimates obtained by Model 4 with all 435 observations, 4 chains, 4000 iterations (2000 warmup, 2000 sampling)}
+	\label{tab:model4}
 	\begin{adjustbox}{max width=\textwidth}
 	\begin{tabular}{rccccccc}
 		\hline
@@ -1279,33 +1376,45 @@ Model 4 Pt 3:
 		\hline
 	\end{tabular}
 	\end{adjustbox}
-	\caption{Parameter estimates obtained by Model 4 with the 435 observations in our dataset}
-	\label{tab:model4}
+	
 \end{table}
 
+\begin{figure}[h!]
+	\centering
+	\caption{Conditional effects of \textit{Urban Index}, for Model 3; mean in blue, with 95\% credible intervals in gray, observations in black;  group level effects included}
+	\label{fig:cond_eff_mod3}
+	\includegraphics[width=0.6\textwidth]{results/cond_eff_urb_model3_groupeff.jpeg}
+	
+\end{figure}
 
-
-
+\begin{figure}[h!]
+	\centering
+	\caption{Conditional effects of \textit{Urban Index}, for Model 4; mean in blue, with 95\% credible intervals in gray, observations in black;  group level effects included}
+	\label{fig:cond_eff_mod4}
+	\includegraphics[width=0.6\textwidth]{results/cond_eff_urb_model4_groupeff_nopoints.jpeg}
+	
+\end{figure}
 
 
 
 \FloatBarrier
-\clearpage
 \subsection*{Model Comparison Statistics}
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.6\textwidth]{model_comp_figures/RMSE_all.jpeg}
 	\caption{Histograms of RMSE draws for all models}
 	\label{fig:rmse}
+	\includegraphics[width=0.6\textwidth]{model_comp_figures/RMSE_all.jpeg}
+	
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_differences.jpeg}
 	\caption{Histograms of differences in Log-Likelihood Scores for each observation between all 4 models; black dotted line marks zero; red vertical line marks the mean of the difference between the corresponding models}
 	\label{fig:ll_diff}
+	\includegraphics[width=0.8\textwidth]{model_comp_figures/LL_differences.jpeg}
+	
 \end{figure}
 
 
@@ -1339,8 +1448,9 @@ Model 4 Pt 3:
 
 
 
-\begin{table}[ht]
+\begin{table}[ht!]
 	\centering
+	\caption{LOO statistics with moment matching}
 	\begin{tabular}{rrrrrrrrr}
 		\hline
 		& elpd\_diff & se\_diff & elpd\_loo & se\_elpd\_loo & p\_loo & se\_p\_loo & looic & se\_looic \\ 
@@ -1351,18 +1461,20 @@ Model 4 Pt 3:
 		model2.final & -45.87 & 8.39 & -202.36 & 12.25 & 6.19 & 0.58 & 404.71 & 24.50 \\ 
 		\hline
 	\end{tabular}
-	\caption{LOO sattistis with moment matching}
+
 \end{table}
 
 
 
 
 
-\clearpage
+
 \FloatBarrier
 \subsection*{Prior Sensitivity Analysis}
 \begin{table}[h]
     \centering
+    \caption{Prior Sensitivity Results for Model 1}
+    \label{tab:Prior Sensitivity Results for Model 1}
     \begin{tabular}{l|ccccc}
         \hline
         Coefficient    & Prior Set 1 & Prior Set 2 & Prior Set 3 & Prior Set 4 & Prior Set 5 \\
@@ -1374,12 +1486,13 @@ Model 4 Pt 3:
         \hline
         \hline
     \end{tabular}
-    \caption{Prior Sensitivity Results for Model 1}
-    \label{tab:Prior Sensitivity Results for Model 1}
+
 \end{table}
 
 \begin{table}[h]
     \centering
+    \caption{Prior Sensitivity Results for Model 3}
+    \label{tab:Prior Sensitivity Results for Model 3}
     \begin{tabular}{l|ccccc}
         \hline
         Coefficient    & Prior Set 1 & Prior Set 2 & Prior Set 3 & Prior Set 4 & Prior Set 5 \\
@@ -1390,8 +1503,7 @@ Model 4 Pt 3:
         SD Urban       & 0.1    & 0.1    & 0.1     & 0.1    & 0.1     \\
         \hline
     \end{tabular}
-    \caption{Prior Sensitivity Results for Model 3}
-    \label{tab:Prior Sensitivity Results for Model 3}
+    
 \end{table}
 
 

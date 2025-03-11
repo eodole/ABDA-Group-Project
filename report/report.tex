@@ -800,20 +800,20 @@ While this in itself is not enough to conclude that the specifications of the ot
 \section{Model Comparison} \label{sec:comparison}
 
 
-Our four models were built based on somewhat different assumptions about the structure of our data, and all produced slightly different results. We need to know which of these is \textit{better} prediction-wise.
+Our four models were built based on somewhat different assumptions about the structure of our data, and all produced slightly different results. To better answer our research question, we need to know which of these is \textit{better} prediction-wise.
 %, that is, which results are more trustworthy and allow us to answer our original research question.
 To this end, we measured and compared our models' predictive performance using different metrics. %first by looking at absolute in-sample predictive performance, then at relative and finally at the Leave-One-Out statistics to compare out-of-sample Predictive Performance.
 
 
 Absolute predictive performance metrics directly tell us how well the model performs, without looking at other models.
 To measure absolute predictive performance we used the Root Mean of Squared Error (RMSE). The RMSE for the $s$-th posterior draw is obtained from the predictive errors, that is, observed outcome $y_n$ minus posterior draw $\hat{y}_n^{(s)}$, squaring those errors and taking the root of their average over all observations, i.e.,
-$
+$$
 RMSE^{(s)} = \sqrt{
 	\frac{1}{N} 
 	\sum_{n = 1}^{N}
 	\left( y_n - \hat{y}_n^{(s)} \right)^2
 }
-$.
+$$
 Since it is computed for each draw, as opposed to a single point estimate, it takes into account the posterior uncertainty.
 %making it a fully Bayesian measure \blue{citation needed?}.
 
@@ -857,7 +857,7 @@ Model 3 has on slightly smaller RMSE values than Model 1, suggesting the inclusi
 
 Relative predictive performance measures, contrary to absolute ones, do not have an interpretation in themselves, only as a comparison between models. 
 To assess relative predictive performance, we looked at log-likelihood scores, that is, the average of posterior draws' log-likelihoods for each observation.
-This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, we need to compare it between different models to establish which is better. So, we examine the differences in log-likelihood scores between models.
+This is a relative predictive performance measure in the sense that it does not tell us anything about the model's predictive performance alone, rather we need to compare it between different models to establish which is better. So, we examine the differences in log-likelihood scores between models.
 The sum of these differences corresponds to the difference in Log Predictive Density (LPD) between models, where LPD for a given model is the sum of Log-Likelihood scores of all observations in the model.
 
 %Figure \red{WILL BE HERE} shows the histograms of these differences for all 435 observations.
@@ -890,7 +890,7 @@ The difference between Models 1 and 2 is positive, meaning Model 1 has higher LP
 %Note: these metrics are in-sample, so is biased towards more complex models 
 
 
-Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, which would not generalize well to new data, performing much better under these metrics (\cite{brmsbook}).
+Both RMSE and LL scores are in-sample predictive performance metrics. In-sample predictive performance measures evaluate only model predictions for the same observations which were used to fit the model in the first place, therefore they only evaluate how well a model predicts the data it was trained on, which means there is a danger of overfitted models, that would not generalize well to new data, performing much better under these metrics (\cite{brmsbook}).
 %In our case, the bigger model (Model 4) was indeed the preferred one using both RMSE and LL scores.
 It is essential to check also out-of-sample predictive performance metrics. These metrics are computed by splitting the dataset into training data and test data, fitting the model on the former and computing the expected LPD (ELPD) of the observations in the latter, given the model estimates with the training set. 
 
@@ -931,11 +931,11 @@ As a small note, when performing the LOO-CV analysis for Model 1, one Pareto-k-e
 
 %\textcolor{red}{another table with priors here, maybe not all because thats a lot}
 
-One of the most important parts of Bayesian Data Analysis is setting the prior distributions. The choice of priors could greatly affect the final results in a model, so it is important to test their robustness to different priors (\cite{PriorSensAnalysis}).
-So, we conducted a prior sensitivity analysis, by refitting our models using alternative priors (which also fit our basic model assumptions) and assessing the impact on the estimated coefficients.
+One of the most important parts of bayesian data analysis is setting the prior distributions. The choice of priors greatly affects the final model estimates, so it is important to test their robustness against different priors (\cite{PriorSensAnalysis}).
+We conducted a prior sensitivity analysis, by refitting our models using alternative priors that also fit our basic model assumptions and assessed the impact on the estimated coefficients.
 
-For easy comparability and scope, we restrict this section to the analysis of Models 1 to 3.
-We tested 5 different Prior Sets, which represent 'changes' relative to the priors we used originally. These changes are as follows (all other priors remain as described in Section \ref{sec:priors}):
+For easy comparability and scope, we restrict this section to the analysis of Models 1, 2 and 3.
+We tested 5 different Prior Sets, which are slight variations on the priors we used in our original analysis, all other priors remain as described in Section \ref{sec:priors}. These changes are as follows :
 %The various prior sets represent the following changes relative to the original prior set:
 
 \begin{enumerate}
@@ -948,10 +948,10 @@ We tested 5 different Prior Sets, which represent 'changes' relative to the prio
 
 %Prior Set 2 is motivated by the Half-Normal distribution being less informative, having thinner tails which does not allow for as large values. Prior Set 3 and 4 are motivated again by informativeness, our prior beliefs allowing for theoretically larger values of the coefficient.
 %\red{it is not very correct to say it is motivated by informativeness, all priors are also motivated by this; 
-So, the first Set is just our original set of priors, for comparability. Sets 2-4 represent a single prior that is different relative to the original Set, and Set 5 combines two of those changes, to see how estimates behave when more than one prior is altered.
+The first set is just our original set of priors, for comparability. Sets 2-4 represent a single prior that is different relative to the original set, and Set 5 combines two of those changes, to see how estimates behave when more than one prior is altered.
 The new prior in Set 2 was picked because we had chosen a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the standard deviation. 
-The one in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
-The one in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
+The one \blue{ when you say "the one" what are you refering to?} in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
+The one \blue{ when you say "the one" what are you refering to?}in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
 Prior Set 5 combines the changes in Sets 2 and 3.
 
 \begin{table}[h]
@@ -987,13 +987,12 @@ The changes for the other two models look rather similar, although we caution ag
 \section{Limitations and Improvements}
  % something interesting would be to look if theres a large change in percentage at the urbanizaiton catagory boundaries
 
-
-Although we have done our best to answer our set research question, our analysis and conclusions are still limited by our data, the methods and modeling choices made and the scope of the project.
+Our analysis and conclusions are limited by our data, the methods and modeling choices made and the scope of the project.
 We now address these limitations, as well as possible ways our analysis could be expanded upon and improved.
 
 %The first obvious extension would be to check whether our conclusions would be the same in other years/election cycles. The original dataset used included other elections, but adding other years to the analysis would over-complicate the model, as there are time-dependencies that should be captured but would depart from the scope of the present report. 
 
-In terms of exploring our research question itself, we assume a linear (in the log-odds) relationship. While our present analysis focuses on the hierarchical modeling of the effect, it would be a natural extension to look at other functional forms of the relationship. It would also be interesting to incorporate the Urban category variable information, by examining the category boundaries for example to see if there is a large change there.
+In terms of exploring our research question itself, we assume a linear (in the log-odds) relationship. While our present analysis focuses on the hierarchical natue of the linear model, it would be a natural extension to look at other functional forms of the relationship. Our research question is principally focused around urban index, however it would also be interesting to incorporate the Urban category variable information. For example by examining the behavior of the model at urban category boundaries to see if there is a large change there.
 
 Regarding our specific modeling choices, more models could be fitted using different covariates than the ones we specified. Furthermore, we could fit a model which includes a hierarchically varying Intercept in addition to the random slopes. While modeling the intercept is not the goal of our project, by letting it inform the hierarchical effect of \textit{Urban Index} through a correlation term we could achieve a better fit for our variable of interest effect.
 
@@ -1012,6 +1011,16 @@ We have also chosen not to do our modeling with STAN directly, but rather to use
 %	\item priors: intercept from N(0,0.5) to N(0,10); sd for urban index in bigger model from Gamma(2,5) to halfcauchy(10) to match all other models; percentage retirees in bigger model center from -1 to -2, to match other models
 %	\item model order (1-2-3-4 to 3-4-2-1) 
 %\end{enumerate}
+\section{Reflection and Discussion}
+
+This project has allowed us to better understand how a variable's effect on another can be modeled hierarchically in the context of bayesian analysis.
+
+%We have explored the applications of the \verb*|brms| package for these Bayesian Multilevel Models, particularly for binary logistic regressions.
+
+By trying different hierarchical structures, we were able to explore how different levels, specifically many levels with few observations in each level (Model 1) vs fewer levels with many ibservations in each (Model 2) affect the resulting estimates and credible intervals. More levels result in larger credible bands for the estimates, but a better model fit as measured by Leave-One-Out Cross-Validation. 
+
+We have discovered that the scale of the variables impacts not just the estimates, but also our prior choice, computation times and the convergnce of the chains themselves: in our first attempts at modeling, the variables were not on a similar scale, and while theoretically this would have made no difference for interpretation (we could still adjust the coefficients to read the estimated changes in terms of more sensible units), many of our chains were not converging and the models took a long time to be fitted.
+Besides, as we were estimating the effects of very large or very small changes in the covariates, the corresponding priors had to be set on very large or very small ranges as well, which affected what would normally be considered a more or a less informative prior. Once we adjusted the scales, computations were faster, we saw better convergence in the trace plots and could reasonably set priors in roughly the same scale.
 
 \section{Conclusion}
 
@@ -1024,7 +1033,7 @@ We used the R package \verb*|brms| to fit the models, as well as for the analysi
 
 In all models, we found a small positive effect of \textit{Urban Index} on the log-odds of a Democrat winning the district. The estimated effect was smaller when the hierarchical effect or the Index was modeled by Region, and larger when this was done by State, with not much difference between including State-only or a nested hierarchy or Region and State.
 
-All models converged well, except for the nested hierarchy one, which resulted visible convergence problems and should therefore be considered with caution.
+All models converged well, except for the nested hierarchy one, which resulted in visible convergence problems and should therefore be considered with caution.
 
 Comparing all our models with bayesian comparison metrics, we found that Model 4 (the one with the most covariates) performed better, and the Model 2, which included only Region-level hierarchy for \textit{Urban Index}, worse. 
 
@@ -1034,16 +1043,6 @@ We conclude therefore that the effect of Urbanization on the probability of a De
 
 
 
-\subsection{Reflections and Discussion}
-
-This project has allowed us to better understand how a variable's effect on another can be modeled hierarchically in the context of bayesian analysis.
-
-%We have explored the applications of the \verb*|brms| package for these Bayesian Multilevel Models, particularly for binary logistic regressions.
-
-By trying different hierarchical structures, we were able to explore how different levels, specifically many levels with few observations in each level (Model 1) vs fewer levels with many ibservations in each (Model 2) affect the resulting estimates and credible intervals. More levels result in larger credible bands for the estimates, but a better model fit as measured by Leave-One-Out Cross-Validation. 
-
-We have discovered that the scale of the variables impacts not just the estimates, but also our prior choice, computation times and the convergnce of the chains themselves: in our first attempts at modeling, the variables were not on a similar scale, and while theoretically this would have made no difference for interpretation (we could still adjust the coefficients to read the estimated changes in terms of more sensible units), many of our chains were not converging and the models took a long time to be fitted.
-Besides, as we were estimating the effects of very large or very small changes in the covariates, the corresponding priors had to be set on very large or very small ranges as well, which affected what would normally be considered a more or a less informative prior. Once we adjusted the scales, computations were faster, we saw better convergence in the trace plots and could reasonably set priors in roughly the same scale.
 
 
 

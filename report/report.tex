@@ -186,10 +186,10 @@
 \blue{did I miss anything?}
 % In this report we aim to answer the question "How does urbanization of a US House District affect the resulting party that is elected?". 
 \red{maybe we should mention we are doing bayesian analysis straight away}
-In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes. To put it more concretely we want to answer the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". First we provide background our motivation and important background information about the US election system. 
+In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes. Put more concretely we want to answer the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". First we our motivation and important background information about the US election system. 
 We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
-Next we discuss our dataset, which is a combination of four different datasets. 
-We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Finally we use both graphical and numerical methods to compare our models before concluding with limitations, improvements and reflections. 
+Next we discuss our dataset, which is a combination of four different datasets, followed by a brief explaination of our codebase. 
+We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use both graphical and numerical methods to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
 
 
 
@@ -252,12 +252,12 @@ The third data used in our analysis is a subset of the 2022 American Commuity Su
 	Variable  & Mean & Std. Dev. & Min & Pctl. 25 & Pctl. 75 & Max \\ 
 	\hline
 	Urban Index & 11 & 1.4 & 8.1 & 10 & 12 & 15 \\ 
-	Total.Population  & 764634 & 44505 & 543189 & 744260 & 784528 & 1018396 \\ 
-	pct.women  & 50 & 0.93 & 47 & 50 & 51 & 53 \\ 
-	Median.Household.Income  & 77782 & 20652 & 40532 & 63352 & 87918 & 166489 \\ 
-	Mean.Household.Income  & 107219 & 29122 & 63317 & 87310 & 120316 & 252250 \\ 
-	pct.retirees  & 17 & 3.5 & 8.7 & 15 & 19 & 35 \\ 
-	pct.bach  & 22 & 5.8 & 7.3 & 17 & 25 & 40\\ 
+	Total Population  & 764634 & 44505 & 543189 & 744260 & 784528 & 1018396 \\ 
+	Percentage Women  & 50 & 0.93 & 47 & 50 & 51 & 53 \\ 
+	Median Household Income  & 77782 & 20652 & 40532 & 63352 & 87918 & 166489 \\ 
+	Mean Household Income  & 107219 & 29122 & 63317 & 87310 & 120316 & 252250 \\ 
+	Percentage Retirees  & 17 & 3.5 & 8.7 & 15 & 19 & 35 \\ 
+	Percentage Bachelors & 22 & 5.8 & 7.3 & 17 & 25 & 40\\ 
 	\hline
 	\hline
 	\end{tabular}
@@ -303,6 +303,68 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 
 
 % To then build some knowledge into our models, we looked into different qualitative studies about voting behavior, which helped guide our final choices of covariates. 
+
+\section{Code}
+
+
+%Old 
+
+%choices
+%\begin{enumerate}
+%	\item number of chains and iterations
+%	\item brms i guess
+%\end{enumerate}
+
+
+%As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
+
+
+%We fit each model with the function \verb|brm()|, with the usual R formula syntax, writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept.
+%The priors are set according to what was laid out in Table \ref{tab:priors}.
+%We chose to run 4 chains, with 4000 iterations each ... \red{Murthy please explain}%
+
+
+% Leonor -
+
+
+\red{MURTHY'S SECTION BEGINS}
+%%%Copy this part
+\blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...}
+To fit Bayesian Multilevel Models, one needs to use a probabilistic programming language.We used the R package \verb|brms| \parencite{brms}, which allows the user to code entirely in R while running STAN as the backend. In our zip folder there are \red{X number} R files. The file \textit{data\_cleaning.R} showing our process for combining our datasets.
+
+The file \textit{modeling.R} contains the \verb|brms| code setting the priors and fitting our four models using the dataset obtained in \textit{data\_cleaning.R}.
+The BRMS package allowed us to efficiently fit many models, as we needed only has to specify the model in a one- or two-line R formula. Each model was then fit with the function \verb|brm()|, using the usual R formula syntax. 
+The priors are set according to what was laid out in Table \ref{tab:priors}.
+For the parameter estimates we chose to run 4 chains with 4000 iterations each. We choose to run double the default number of iterations to get more information related to from the trace plots. Further, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that all parameter draws are saved. This was done to later perform moment matching when computing the LOO-CV statistics for model comparison, although it had no effect on the model estimates.
+
+The file \textit{model\_comparison.R} is where we compute and plot the model comparison metrics described in Section \ref{sec:comparison}. The RMSE and LPD are obtained with the method described in \cite{brmsbook} \red{cite brms book, posterior model comparison}, and the LOO cross-validation is performed using the \verb|loo()| and \verb|loo_compare()|, also from the \verb|brms| package.
+
+\red{INSERT PRIOR FILE NAME PLEASE} contains the code used to run the prior sensitivity analysis, using the alternative priors described in the corresponding section.
+
+The file \textit{tables\_plots.R} contains code for generating tables used in the report (dataset descriptives, model estimates) as well as the marginal effects plots. Which were obtained with the \verb|conditional_effects()| function (setting the option \texttt{re\_formula = NULL}, to identify the group-level effects).
+
+
+\blue{I think this bit belongs in the prior section to be honest*}
+In brms the hierarchical coefficients are modelled as a centred Normal with a varying standard deviation, which itself follows a prior distribution given by the user \parencite{brmsbook}. \blue{*} 
+
+%%%
+
+% As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
+
+
+% writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept. dont need this, or to explain this 
+
+
+
+%Before running each model, we set the same seed (\verb|set.seed(1234)|) for reproducibility and to ensure that the differences between model results are due only to different prior/model specifications, not random differences in the sampling path. 
+
+%\red{idk how much we're supposed to say here}
+
+
+
+% Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws from all variables defined in Stan's parameters block are saved. This has no effect on the model itself, and is only relevant in our case because we afterwards perform moment matching in computing the LOO-CV statistics for model comparison.
+
+% \red{idk how much we're supposed to say here}
 
 
 
@@ -615,83 +677,6 @@ For the hyperparameters, we chose a half standard normal prior for both the stan
 
 
 
-
-\section{Code}
-
-
-%Old 
-
-%choices
-%\begin{enumerate}
-%	\item number of chains and iterations
-%	\item brms i guess
-%\end{enumerate}
-
-
-%As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
-
-
-%We fit each model with the function \verb|brm()|, with the usual R formula syntax, writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept.
-%The priors are set according to what was laid out in Table \ref{tab:priors}.
-%We chose to run 4 chains, with 4000 iterations each ... \red{Murthy please explain}%
-
-
-% Leonor -
-
-\red{LEONOR BEGIN}
-
-As our project consists of fitting a series of Bayesian multilevel linear models, we were able to do all of our modeling using the R package \verb|brms| \red{cite}.
-
-\blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...}
-
-In our zip folder there are \red{X number} R files.
-\textit{Data\_cleaning.R} is the file showing our process for combining our datasets.
-
-The file \textit{modeling.R} contains the \verb|brms| code setting the priors and fitting our four models using the dataset obtained in \textit{Data\_cleaning.R}.
-We fit each model with the function \verb|brm()|, with the usual R formula syntax, writing hierarchical effects with the random effects syntax (for eg, \texttt{Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees}). We add \verb|0| to the random effect because we are not interested in modeling a varying intercept.
-The priors are set according to what was laid out in Table \ref{tab:priors}.
-We chose to run 4 chains, with 4000 iterations each ... \red{Murthy please explain}
-
-Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws from all variables defined in Stan's parameters block are saved. This has no effect on the model itself, and is only relevant in our case because we afterwards perform moment matching in computing the LOO-CV statistics for model comparison.
-
-%Before running each model, we set the same seed (\verb|set.seed(1234)|) for reproducibility and to ensure that the differences between model results are due only to different prior/model specifications, not random differences in the sampling path. 
-
-%\red{idk how much we're supposed to say here}
-
-The file \textit{model\_comparison.R} is where we compute and plot the model comparison metrics described in Section \ref{sec:comparison}. The RMSE and LPD are obtained with the method described in \cite{brmsbook}
-
-\red{cite brms book, posterior model comparison}, and the LOO cross-validation is performed using the \verb|loo()| and \verb|loo_compare()|, also from the \verb|brms| package.
-
-\red{INSERT PRIOR FILE NAME PLEASE} contains the code used to run the prior sensitivity analysis, using the alternative priors described in the corresponding section.
-
-\textit{tables\_plots.R} contains code for generating tables used in the report (dataset descriptives, model estimates) as well as plots, namely marginal effects plots, obtained with the \verb|conditional_effects()| function (setting the option \texttt{re\_formula = NULL}, so we could see the group-level effects).
-
-
-\red{LEONOR'S SECTION ENDS}
-
-
-\red{MURTHY'S SECTION BEGINS}
-%%%Copy this part
-
-To fit Bayesian Multilevel Models, one typically needs to use a probabilistic programming language. A very popular language for Bayesian modelling in general is STAN. STAN is powerful and allows the user to code a large variety of models with minimal restrictions.  
-
-We did not use STAN directly but instead used the R package \verb|brms| \red{cite}, which runs STAN in the backend but otherwise allows the user to code entirely in R. BRMS again allows us to fit many models, but it makes the process especially efficient for hierarchical modelling, in that the user merely has to specify the model as a one- or two-line R formula. 
-
-This means that hierarchical coefficients are usually modelled as a centred Normal with a varying standard deviation, which itself follows a prior distribution given by the user. This might seem like a lack of flexibility, but the BRMS documentation suggests this approach fits the majority of use cases, including ours.
-
-The priors we set according to the BRMS framework can be found in Table \ref{tab:priors}. We chose to run 4 chains with 4000 iterations each, which is double the default so as to get more convergence related information from the trace plots.
-
-
-%%%
-\red{MURTHY'S SECTION ENDS}
-
-
-
-
-
-Furthermore, we set \texttt{save\_pars = save\_pars(all = TRUE)}, so that draws from all variables defined in Stan's parameters block are saved. This has no effect on the model itself, and is only relevant in our case because we afterwards perform moment matching in computing the LOO-CV statistics for model comparison.
-
-\red{idk how much we're supposed to say here}
 
 
 

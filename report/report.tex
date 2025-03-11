@@ -182,20 +182,20 @@
 
 \section{Introduction}
  
-\subsection*{Outline}
-\blue{did I miss anything?}
+
 % In this report we aim to answer the question "How does urbanization of a US House District affect the resulting party that is elected?". 
-\red{maybe we should mention we are doing bayesian analysis straight away}
+
 In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes. Put more concretely we want to answer the question; "How does urbanization of a particular US House distrcit affect the resulting party that is elected?". First we our motivation and important background information about the US election system. 
 We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
 Next we discuss our dataset, which is a combination of four different datasets, followed by a brief explaination of our codebase. 
 We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use both graphical and numerical methods to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
 	\includegraphics[width=\linewidth]{figures/beginning_image.png}
-	\label{map:urban_index_by_state}
+	
 	\caption{A map of the continental US with the estimated coefficents from Model 4 of \textit{Urban Index} by state. }
+	\label{map:urban_index_by_state}
 \end{figure}
 
 \subsection*{Background}
@@ -289,8 +289,17 @@ From our inital list of covariates, there are also some not included in our fina
 
 The fourth dataset was the region dataset, which was put together manually by us following the four statistical region designations of United States Census Bureau \parencite{regions}. 
 
-% Our process in choosing which variables to choose then was matter of both process of elimination as well as positive testing. This process essentially worked in two ways, first we tried to determine the relationship between voting outcomes and a particular factors based on political science research. From the remain vaiables we then looked at different testing strategies for which covariates produced highly accurate prediction results.
+\begin{figure}[!h]
+	\includegraphics[width =\linewidth]{figures/us_region_map.png}
+	
+	\caption{Map showing geographical regions of the United States from the U.S. Census Bureau \parencite{regions}}
+	\label{regionmap}
+\end{figure}
 
+
+
+% Our process in choosing which variables to choose then was matter of both process of elimination as well as positive testing. This process essentially worked in two ways, first we tried to determine the relationship between voting outcomes and a particular factors based on political science research. From the remain vaiables we then looked at different testing strategies for which covariates produced highly accurate prediction results.
+\FloatBarrier
 \subsection*{Data Cleaning}
 
 We then merged these four datasets to created our own curated dataset. We did this by merging the different datasets on shared variables. As previously said, each observation represents a particular house district, so for the first three datasets, we simply merged them based on their state and district number. To include the regions we simply used the state variable for each district. 
@@ -405,7 +414,7 @@ As an example, for complicated historical reasons, in certain regions of the Uni
 
 Since each district is part of a state and a region, we can translate the complex geographically determined mechanisms into our model by modeling some of parameters hierarchically.
 
-\red{add photo of us regions }
+
 
 We chose, however, not to include a varying Intercept in the linear predictor in any of our models. While the varying intercept could potentially improve the accuracy of our predictions, this is not our goal. We are interested primarily in the effect of urbanization on the election outcome in each district and how this effect can be modeled hierarchically. Therefore, we were more concerned with including other covariates in the linear predictor which could interfere with the estimated effect of Urban Index, and opted by leaving the random intercept out to keep the number of parameters to be estimated to a minimum.
 
@@ -751,11 +760,11 @@ and (possibly) to the fact that in model 1 there are several levels with a very 
 \FloatBarrier
 \section{Convergence Diagnostics}
 
-One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. This ensures we have access to both the posterior samples and (in our case) the posterior regression coefficients themselves. All our data analysis was done using BRMS, which runs on STAN, which itself uses the Hamiltonian Monte Carlo algorithm for the posterior generation. 
+One of the fundamentals of Bayesian analysis is its reliance on MCMC sampling. This ensures we have access to both the posterior samples and the estimates of the posterior regression coefficients. All our data analysis was done using BRMS, which runs on STAN, which itself uses the Hamiltonian Monte Carlo algorithm for the posterior generation. 
 
-"Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'.
+"Convergence " in layman's terms can be described as, 'Do the posterior draws get closer and closer to a specific value?'. \blue{considering audience I don't think we need this sentence}
 
-HMC Convergence diagnostics in itself can be a rather extensive topic, so for this project we mainly consider graphical diagnostics, namely: the MCMC trace plots as provided by BRMS.
+HMC Convergence diagnostics can be a rather extensive topic, so for this project we mainly consider graphical diagnostics, namely: the MCMC trace plots as provided by the BRMS package.
 
 \includegraphics[scale = 1.2]{trace_plots/trace_model2.jpeg}
 

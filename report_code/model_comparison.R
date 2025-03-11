@@ -270,14 +270,6 @@ xtable(loo_compare(loom1, loo2,loo3, loo4))
 
 
 
-### Bayes Factors
-
-bayes_factor(model1.final, model2.final, log = TRUE)
-bayes_factor(model1.final, model3.final, log = TRUE)
-bayes_factor(model1.final, model4.final, log = TRUE)
-bayes_factor(model2.final, model3.final, log = TRUE)
-bayes_factor(model2.final, model4.final, log = TRUE)
-bayes_factor(model3.final, model4.final, log = TRUE)
 
 
 

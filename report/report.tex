@@ -345,9 +345,10 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 % Leonor -
 
 
-\red{MURTHY'S SECTION BEGINS}
+%\red{MURTHY'S SECTION BEGINS}
 %%%Copy this part
-\blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...} \red{I think instead we should just upload a text document/excel sheet to the zip file explaining what each file is, and mention that there is a description file in the report}
+%\blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...} 
+%\red{I think instead we should just upload a text document/excel sheet to the zip file explaining what each file is, and mention that there is a description file in the report}
 To fit Bayesian Multilevel Models, one needs to use a probabilistic programming language. We used the R package \verb|brms| \parencite{brms}, which allows the user to code entirely in R while running STAN as the backend. In our zip folder there are \red{please change if you add any new files} 6 R files. The file \textit{data\_cleaning.R} showing our process for combining our datasets.
 
 The file \textit{modeling.R} contains the \verb|brms| code setting the priors and fitting our four models using the dataset obtained in \textit{data\_cleaning.R}.
@@ -794,11 +795,17 @@ HMC Convergence diagnostics can be a rather extensive topic, so for this project
 
 We present the trace plots for Model 2 (Fig. \ref{fig:trace_mod2}) and most coefficients of Model 3 (Fig. \ref{fig:trace_mod3_p1}). Although we see divergent transitions in both cases, there are two key differences:
 %%**
-Firstly, the number of divergent transitions: There are many more of these for Model 3 in comparison to Model 2. Secondly, the place of occurrence: Model 3's divergent transitions occur throughout the chains, while those in Model 2 seem to be concentrated around the 1000th iteration, while noticeably decreasing towards the 2000th iteration. This suggests that increasing iterations further might help with eventually achieving convergence for Model 2, but is unlikely to help with Model 3. \blue{when you say "might help with" what do you mean? Might help with what exactly? }
+Firstly, the number of divergent transitions: There are many more of these for Model 3 in comparison to Model 2. Secondly, the place of occurrence: Model 3's divergent transitions occur throughout the chains, while those in Model 2 seem to be concentrated around the 1000th iteration, while noticeably decreasing towards the 2000th iteration. This suggests that increasing iterations further might help with eventually achieving convergence for Model 2, but is unlikely to help with Model 3.
+%\blue{when you say "might help with" what do you mean? Might help with what exactly? }
 %%**
-The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 2, in that they have divergent transitions near the 1000th iteration and fewer divergent transitions near the 2000th iteration \blue{how so?}, or have no divergent transitions as is the case with Model 1.
+The trace plots of the other models and coefficients (in Appendix) either resemble those of Model 2, in that they have divergent transitions near the 1000th iteration and fewer divergent transitions near the 2000th iteration, 
+%\blue{how so?} 
+or have no divergent transitions as is the case with Model 1.
 
-Our key takeaway is the HMC chains have more divergent transitions throughout the chains  \blue{when you say behave strangely what does that mean? try to be specific} for Model 3. \red{Luckily for us, there is one glaring difference between Model 3 and the rest which partially explains this behaviour: Namely, it is} \blue{this is really informal, you could also just write: "This is likely due to Model 3 being .."} This is likely due to Model 3 being the only model which takes into account both a Region-wise hierarchy and a State-wise hierarchy for the same coefficient, with the former being nested in the latter. The other models have at most a single hierarchy per coefficient. 
+Our key takeaway is the HMC chains have more divergent transitions throughout the chains for Model 3.
+%\blue{when you say behave strangely what does that mean? try to be specific} 
+%\red{Luckily for us, there is one glaring difference between Model 3 and the rest which partially explains this behaviour: Namely, it is} \blue{this is really informal, you could also just write: "This is likely due to Model 3 being .."}
+This is likely due to Model 3 being the only model which takes into account both a Region-wise hierarchy and a State-wise hierarchy for the same coefficient, with the former being nested in the latter. The other models have at most a single hierarchy per coefficient. 
 
 \red{I might just delete this next para}
 While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding \blue{good preliminary finding of what?}(that the presence of an explicit nested hierarchy causes HMC chain convergence issues). 

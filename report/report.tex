@@ -64,7 +64,7 @@
         \centering % Center all text
         \vspace*{\baselineskip} % White space at the top of the page
         
-        {\huge YOUR TITLE}\\[0.2\baselineskip] % Title
+        {\huge Does Urbanization Predict Elections Outcomes?}\\[0.2\baselineskip] % Title
         
         
         \vspace*{\baselineskip}
@@ -185,7 +185,7 @@
 
 % In this report we aim to answer the question "How does urbanization of a U.S. House District affect the resulting party that is elected?". 
 
-In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes in the United States using bayesian multilevel modeling. Put more concretely we want to answer the question; "How does urbanization of a particular U.S. House district affect the party that is elected?". First we explain our motivation and important background information about the U.S. election system. 
+In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes in the United States using Bayesian multilevel modeling. Put more concretely we want to answer the question; "How does urbanization of a particular U.S. House district affect the party that is elected?". First we explain our motivation and important background information about the U.S. election system. 
 We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
 Next we discuss our dataset, which is a combination of four different datasets, followed by a brief explanation of our codebase. 
 We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use Bayesian predictive metrics to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
@@ -194,13 +194,13 @@ We then discuss the set up of our four models in detail, followed by a discussio
 \begin{figure}[!ht]
 	\includegraphics[width=\linewidth]{figures/beginning_image.png}
 	
-	\caption{A map of the continental U.S. with the estimated coefficents from Model 4 of \textit{Urban Index} by state. }
+	\caption{A map of the continental U.S. with the estimated coefficients from Model 4 of \textit{Urban Index} by state. }
 	\label{map:urban_index_by_state}
 \end{figure}
 
 \subsection*{Background}
 The association between a voters demographics (gender, age, education etc.) and their propensity to vote for either a democrat or republican candidate is a topic of extensive study. The large political polling organization such as Gallup and Pew Research tend to analyze their polls by breaking respondents into smaller demographic groups \parencite{pew2020}. However, less is known about the relationship between voting outcomes and the voter's environment. Our modeling would like to investigate the conventional wisdom that says cities tend to be more progressive.
-It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, this is worth saying as these terms are at times used interchangeably throughout this report. 
+It is also important to note that the Democratic Party is considered the progressive party and the Republican Party the conservative party, as these terms are at times used interchangeably throughout this report. 
 
 To answer our question about the nature of the relationship between urbanization and partisan voting outcomes, we choose to investigate the 2022 U.S. House Election. Every two years the United States elects 435 officials to the House of Representatives. Each state is allocated one of the the 435 House seats with the rest being allocated roughly proportional to the share of total population living in each state. 
 
@@ -241,12 +241,12 @@ Although the Eubank and Rodden look at election outcomes through the lenses of s
 
 
 \section{Dataset}
-Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publicly available urbanization dataset published by fivethirty eight from which we incorporate the variables urbanization index (\textit{Urban Index}) and (urban) grouping into our final dataset \parencite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Election \parencite{538urbanizationarticle}. From the description of the dataset: \textit{"The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is."} \parencite{urbanizationdataset}. Referring to Table \ref{covariate_table} we see that\textit{Urban Index} ranges from 8.1 to 15, which are best interpreted in combination with the other variable we included in our curated dataset-urban grouping. Urban grouping is a collapsing of the \textit{Urban Index} into six categories ranging from "Dense Urban" for districts with an \textit{Urban Index} above 13 and "Mostly Rural" for districts with an urbanization index below 9.5. We did not however include urban grouping directly in our modeling.
+Our dataset was made by combining four independent datasets related to the 2022 House election. The first dataset is the publicly available urbanization dataset published by FiveThirtyEight from which we incorporate the variables urbanization index (\textit{Urban Index}) and (urban) grouping into our final dataset \parencite{urbanizationdataset}. The urbanization dataset was put together by FiveThirtyEight as part of their analysis  \textit{The Republican Path To a House Majority Goes Through The Suburbs} which gave election predictions leading up to the 2022 U.S. Congressional Election \parencite{538urbanizationarticle}. From the description of the dataset: \textit{"The urbanization index is calculated as the natural logarithm of the average number of people living within a five-mile radius of every census tract in a given district, based on a weighted average of the population of each census tract. The population of a census tract is according to 2020 census data. This provides a numerical value for how urban or rural a district is."} \parencite{urbanizationdataset}. Referring to Table \ref{covariate_table} we see that\textit{Urban Index} ranges from 8.1 to 15, which are best interpreted in combination with the other variable we included in our curated dataset-urban grouping. Urban grouping is a collapsing of the \textit{Urban Index} into six categories ranging from "Dense Urban" for districts with an \textit{Urban Index} above 13 and "Mostly Rural" for districts with an urbanization index below 9.5. We did not however include urban grouping directly in our modeling.
 
 
 The second dataset used in our analysis is the Election Results Dataset from FiveThirtyEight \parencite{electionresultsdataset}. It is a continuously updated repository of United States Governor, Congressional and Presidential elections. 
 As this dataset includes all elections going back to 1998, we only used a subset of the data relevant to the 2022 House Election. Each state sets its own elections rules which led to additions quirks in the dataset. For example, as of 2020 Alaska uses ranked choice voting, and each stage of the ranked choice voting results is present in this dataset, which made it that much more important to ensure careful preprocessing of the data. From this dataset we used the \textit{State}, and \textit{Winning Party} variables. 
-We also considered using the variable incumbent party, however in addition to being incomplete, incumbent party is highly correlated with our target variable \textit{Winning Party}. Inclusion of incumbent party would lead to a model that places heavy important on incumbent party and much lower importance on other covariates. Since we are more interested in the relationship between our model and our choosen covariates we therefore decided not to include it.  
+We also considered using the variable incumbent party, however in addition to being incomplete, incumbent party is highly correlated with our target variable \textit{Winning Party}. Inclusion of incumbent party would lead to a model that places heavy important on incumbent party and much lower importance on other covariates. Since we are more interested in the relationship between our model and our chosen covariates we therefore decided not to include it.  
  
 As a small aside, although technically a multiparty system, the U.S. is often called a two party system due to the domination of the major political parties the Democrats and Republicans \parencite{us_elections}. These parties dominate particularly on the federal level because political candidates are required to get a plurality of votes rather than a majority of votes which the two largest parties often reach. This is further reinforced as would be third-party voters, often vote for one of the two major parties to ensure their voice is heard, rather than using their vote on a candidate unlikely to reach a plurality of votes \parencite{us_elections}. Within our dataset, there are no districts represented by a third-party candidate and as such we will refer to the U.S. as being a two party system. Therefore we modeled \textit{Winning Party} as a binary variable, with democrats encoded as (1) and republicans encoded as (0). 
 The third data used in our analysis is a subset of the 2022 American Community Survey Data. The American Community Survey is a yearly survey collecting information about the occupations, education attainment, income and other demographic information carried out by the United States Census Bureau. The United States Census Bureau provides an online tool to access its extensive survey database, which can then be filtered and refined for further analysis. For our analysis we considered the following variables for each House district; \textit{Total Population,} \textit{Percentage Women}, \textit{Median Household Income},\textit{ Mean Household Income}, \textit{Percentage Retirees}, \textit{Percentage Bachelors} degree holders above the age of 25 years old and \textit{Unemployment Rate} among those above the age of sixteen. 
@@ -414,7 +414,7 @@ The logistic relationship is common choice for modeling binary outcomes. It allo
 
 
 We assume exchangeability because we assume that the districts are drawn in such a way that they are competitive for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
-As an example, for complicated historical reasons, in certain regions of the United States Districts and States are more similar to each other to others outside of the region. For example, the South of the United states tends to be more religious, and religious people tend to vote more conservatively. We can think about this then as a prior telling us about the mix of democratic and republican districts within a particular state. Although the religiousity may increase the number of potential republican districts in each state, whether one district votes repuclican does not influence the decision of another since each district outcome is determined by thousands of individual votes. 
+As an example, for complicated historical reasons, in certain regions of the United States Districts and States are more similar to each other to others outside of the region. For example, the South of the United states tends to be more religious, and religious people tend to vote more conservatively. We can think about this then as a prior telling us about the mix of democratic and republican districts within a particular state. Although the religiosity may increase the number of potential republican districts in each state, whether one district votes republican does not influence the decision of another since each district outcome is determined by thousands of individual votes. 
 
 Since each district is part of a state and a region, we can translate the complex geographically determined mechanisms into our model by modeling some of parameters hierarchically.
 
@@ -944,7 +944,7 @@ As a small note, when performing the LOO-CV analysis for Model 1, one Pareto-k-e
 
 %\textcolor{red}{another table with priors here, maybe not all because thats a lot}
 
-One of the most important parts of bayesian data analysis is setting the prior distributions. The choice of priors greatly affects the final model estimates, so it is important to test their robustness against different priors (\cite{PriorSensAnalysis}).
+One of the most important parts of Bayesian data analysis is setting the prior distributions. The choice of priors greatly affects the final model estimates, so it is important to test their robustness against different priors (\cite{PriorSensAnalysis}).
 We conducted a prior sensitivity analysis, by refitting our models using alternative priors that also fit our basic model assumptions and assessed the impact on the estimated coefficients.
 
 For easy comparability and scope, we restrict this section to the analysis of Models 1, 2 and 3.
@@ -965,7 +965,7 @@ The first set is just our original set of priors, for comparability. Sets 2-4 re
 The new prior for \(\sigma_\text{urb}\) in Set 2 was picked because we had chosen a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the standard deviation. 
 The prior for \(\beta_\text{urb}\) \blue{ when you say "the one" what are you refering to?} \red{changed} in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
 
-The prior for the intercept \blue{ when you say "the one" what are you refering to?} \red{changed}in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
+The prior for the intercept in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
 Prior Set 5 combines the changes in Sets 2 and 3.
 
 \begin{table}[h]
@@ -988,7 +988,7 @@ Prior Set 5 combines the changes in Sets 2 and 3.
 
 Table \ref{tab:Prior Sensitivity Results for Model 2} displays the (posterior) regression coefficients estimated for Model 2 for the various prior sets. The corresponding results for Model 1 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes (relative to set 1) in the \textit{Urban Index} prior than to changes in its own prior.
 
-The prior sensitivity results \red{effects? chnages we are already using for different priors} for the other two models look rather similar, in that the the coefficient estimate for urban index for prior sets 3 and 5 are the most different from that of prior set 1. The intercept also responds the most in the sets where the urban index prior is changed, as in the results for Model 2.
+The prior sensitivity results  for the other two models look rather similar, in that the the coefficient estimate for urban index for prior sets 3 and 5 are the most different from that of prior set 1. The intercept also responds the most in the sets where the urban index prior is changed, as in the results for Model 2.
 
 We also looked at the trace plots arising from the various prior set changes. Here is what we found: Model 1 has no divergent transitions for any of the prior sets.
 
@@ -1014,7 +1014,7 @@ We now address these limitations, as well as possible ways our analysis could be
 
 %The first obvious extension would be to check whether our conclusions would be the same in other years/election cycles. The original dataset used included other elections, but adding other years to the analysis would over-complicate the model, as there are time-dependencies that should be captured but would depart from the scope of the present report. 
 
-In terms of exploring our research question itself, we assume a linear (in the log-odds) relationship. While our present analysis focuses on the hierarchical natue of the linear model, it would be a natural extension to look at other functional forms of the relationship. Our research question is principally focused around urban index, however it would also be interesting to incorporate the Urban category variable information. For example by examining the behavior of the model at urban category boundaries to see if there is a large change there.
+In terms of exploring our research question itself, we assume a linear (in the log-odds) relationship. While our present analysis focuses on the hierarchical nature of the linear model, it would be a natural extension to look at other functional forms of the relationship. Our research question is principally focused around urban index, however it would also be interesting to incorporate the Urban category variable information. For example by examining the behavior of the model at urban category boundaries to see if there is a large change there.
 
 Regarding our specific modeling choices, more models could be fitted using different covariates than the ones we specified. Furthermore, we could fit a model which includes a hierarchically varying Intercept in addition to the random slopes. While modeling the intercept is not the goal of our project, by letting it inform the hierarchical effect of \textit{Urban Index} through a correlation term we could achieve a better fit for our variable of interest effect.
 
@@ -1035,13 +1035,13 @@ We have also chosen not to do our modeling with STAN directly, but rather to use
 %\end{enumerate}
 \section{Reflection and Discussion}
 
-This project has allowed us to better understand how a variable's effect on another can be modeled hierarchically in the context of bayesian analysis.
+This project has allowed us to better understand how a variable's effect on another can be modeled hierarchically in the context of Bayesian analysis.
 
 %We have explored the applications of the \verb*|brms| package for these Bayesian Multilevel Models, particularly for binary logistic regressions.
 
-By trying different hierarchical structures, we were able to explore how different levels, specifically many levels with few observations in each level (Model 1) vs fewer levels with many ibservations in each (Model 2) affect the resulting estimates and credible intervals. More levels result in larger credible bands for the estimates, but a better model fit as measured by Leave-One-Out Cross-Validation. 
+By trying different hierarchical structures, we were able to explore how different levels, specifically many levels with few observations in each level (Model 1) vs fewer levels with many observations in each (Model 2) affect the resulting estimates and credible intervals. More levels result in larger credible bands for the estimates, but a better model fit as measured by Leave-One-Out Cross-Validation. 
 
-We have discovered that the scale of the variables impacts not just the estimates, but also our prior choice, computation times and the convergnce of the chains themselves: in our first attempts at modeling, the variables were not on a similar scale, and while theoretically this would have made no difference for interpretation (we could still adjust the coefficients to read the estimated changes in terms of more sensible units), many of our chains were not converging and the models took a long time to be fitted.
+We have discovered that the scale of the variables impacts not just the estimates, but also our prior choice, computation times and the convergence of the chains themselves: in our first attempts at modeling, the variables were not on a similar scale, and while theoretically this would have made no difference for interpretation (we could still adjust the coefficients to read the estimated changes in terms of more sensible units), many of our chains were not converging and the models took a long time to be fitted.
 Besides, as we were estimating the effects of very large or very small changes in the covariates, the corresponding priors had to be set on very large or very small ranges as well, which affected what would normally be considered a more or a less informative prior. Once we adjusted the scales, computations were faster, we saw better convergence in the trace plots and could reasonably set priors in roughly the same scale.
 
 \section{Conclusion}
@@ -1057,7 +1057,7 @@ In all models, we found a small positive effect of \textit{Urban Index} on the l
 
 All models converged well, except for the nested hierarchy one, which resulted in visible convergence problems and should therefore be considered with caution.
 
-Comparing all our models with bayesian comparison metrics, we found that Model 4 (the one with the most covariates) performed better, and the Model 2, which included only Region-level hierarchy for \textit{Urban Index}, worse. 
+Comparing all our models with Bayesian comparison metrics, we found that Model 4 (the one with the most covariates) performed better, and the Model 2, which included only Region-level hierarchy for \textit{Urban Index}, worse. 
 
 The Prior Sensitivity Analysis indicated that our results are robust to different prior choices.
 

@@ -409,7 +409,7 @@ We tested four different models for $\theta_{j,k}$, which include different cova
 first, that a logistic regression accurately represents the relationship between the log-odds of a Democrat win and the explanatory variables, that is, $\theta_{j,k}$ and our covariates are linearly related; second, exchangeability, meaning that each district is exchangeable within each state and each state is exchangeable within each region; and third, that the value of urban index (and other covariates) in a district has a different effect depending on the state/region it belongs to.
 
 
-The logistic relationship is common choice for modeling binary outcomes. It allows us to model the probability of a Democrat win by a linear predictor which can take any real value, while still having an interpretation for the coefficient estimates (in terms of change of log-odds).(\textcolor{red}{cite}).
+The logistic relationship is common choice for modeling binary outcomes. It allows us to model the probability of a Democrat win by a linear predictor which can take any real value, while still having an interpretation for the coefficient estimates (in terms of change of log-odds).
 
 
 We assume exchangeability because we assume that the districts are drawn in such a way that they are competitive for both parties. Meaning that although the districts may have different characteristics, certain mechanisms can be best captured when thinking of districts as exchangeable parts of  a hierarchical model. 
@@ -962,8 +962,8 @@ We tested 5 different Prior Sets, which are slight variations on the priors we u
 %\red{it is not very correct to say it is motivated by informativeness, all priors are also motivated by this; 
 The first set is just our original set of priors, for comparability. Sets 2-4 represent a single prior that is different relative to the original set, and Set 5 combines two of those changes, to see how estimates behave when more than one prior is altered.
 The new prior in Set 2 was picked because we had chosen a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the standard deviation. 
-The one \blue{ when you say "the one" what are you refering to?} in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
-The one \blue{ when you say "the one" what are you refering to?}in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
+The new one \blue{ when you say "the one" what are you refering to?} \red{the new prior, that is in the list above, like in the previous sentence; if it is not obvious we should do a better job at explaining this whole part} in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
+The new prior in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
 Prior Set 5 combines the changes in Sets 2 and 3.
 
 \begin{table}[h]

@@ -214,5 +214,91 @@ for(i in seq_along(model3_prior_list)){
 
 #write.csv(model3_coef_shelf, 'C:/Users/anarm/OneDrive/Documents/R Scripts/bayesian/report/mod3_prior_results.csv')
 
+##save the trace plots - run the prior lists but not the loops first
+#run global theme from report_trace_plots_code.r first
+
+#doing it individually so we can easily adjust settings like text size 
+
+
+
+save_dir <- "~/R Scripts/bayesian/report/prior_sens_trace_plots"
+
+#model 1
+for (i in seq_along(model1_prior_list)) {
+  
+  set.seed(1234)
+  mod1 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | State ) + pct.retirees") 
+  
+  mod1.priors <- model1_prior_list[[i]]
+  
+  mod1.final <- brm(mod1, family = "bernoulli", prior = mod1.priors, 
+                    data = df, chains = 4, iter = 4000, save_pars = save_pars(all = TRUE))
+  
+  
+  # Generate trace plot for the current model
+  trace_plot <- mcmc_plot(mod1.final, type = "trace") + 
+    scale_x_continuous(breaks = c(0, 1000, 2000)) +
+    theme(
+      strip.background = element_blank(),
+      axis.text.x = element_text(size = 12),
+      axis.text.y = element_text(size = 12),
+      strip.text = element_text(size = 12)
+    )
+  
+  # Display the plot
+  print(trace_plot)
+  
+  # Define the filename
+  plot_filename <- paste0(save_dir, "/trace_plot_mod1_prior_set_", i, ".png")
+  
+  # Save the plot
+  ggsave(filename = plot_filename, plot = trace_plot, width = 8, height = 6, dpi = 300)
+}
+
+
+
+
+#model 2
+for (i in seq_along(model2_prior_list)) {
+  
+  set.seed(1234)
+  mod2 <- as.formula("Winning.party ~ urbanindex + (0 + urbanindex | Region ) + pct.retirees") 
+  
+  mod2.priors <- model2_prior_list[[i]]
+  
+  mod2.final <- brm(mod2, family = "bernoulli", prior = mod2.priors, 
+                    data = df, chains = 4, iter = 4000, save_pars = save_pars(all = TRUE))
+  
+  # Generate trace plot for the current model
+  trace_plot <- mcmc_plot(mod2.final, type = "trace") + 
+    scale_x_continuous(breaks = c(0, 1000, 2000)) +
+    theme(
+      strip.background = element_blank(),
+      axis.text.x = element_text(size = 12),
+      axis.text.y = element_text(size = 12),
+      strip.text = element_text(size = 9.25)
+    )
+  
+  # Display the plot
+  print(trace_plot)
+  
+  # Define the filename
+  plot_filename <- paste0(save_dir, "/trace_plot_mod2_prior_set_", i, ".png")
+  
+  # Save the plot
+  ggsave(filename = plot_filename, plot = trace_plot, width = 8, height = 6, dpi = 300)
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 

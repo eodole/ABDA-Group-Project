@@ -188,7 +188,7 @@
 In this report we aim to investigate the relationship between urbanization and partisanship voting outcomes in the United States using bayesian multilevel modeling. Put more concretely we want to answer the question; "How does urbanization of a particular U.S. House district affect the party that is elected?". First we explain our motivation and important background information about the U.S. election system. 
 We then discuss briefly our modeling approach before looking at other literature trying to understand the relationship between urbanization and voting outcomes. 
 Next we discuss our dataset, which is a combination of four different datasets, followed by a brief explanation of our codebase. 
-We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use bayesian predictive metrics to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
+We then discuss the set up of our four models in detail, followed by a discussion of the priors and our reasoning behind them. We then go into the results of our models and their convergence diagnostics. Next we use Bayesian predictive metrics to compare our models. Finally we perform a prior sensitivity analysis before concluding with limitations, improvements and reflections. 
 
 
 \begin{figure}[!ht]
@@ -207,17 +207,16 @@ To answer our question about the nature of the relationship between urbanization
 The 2022 House Election takes places during a non-presidential year, and is the most recent election following the 2020 Census and redistricting, allowing us to use the most recently available district maps, and demographic data. Within this report we combine demographic data and urbanization data into a logistic regression model to predict the district voting outcomes of the 2022 House Election. 
 
 
-From this data we use each of the districts as a observation for our logistic regression model. We then choose to model the effect of urbanization hierarchically. Since urbanization is tied to geography we assume a hierarchy related to the location of the districts at the state and region levels of the United States. We then built four different models to test different aspects of the hierarchical structure.
-In the logistic regression models we then combine urbanization with various demographic covariates.
-\red{we already said its a logit, maybe just say' We use urbanization and various demographic  metrics as covariates '}
-By using a bayesian approach to this multilevel model, we were able to gain a more precise understanding of the relationship between urbanization, geography and voting outcomes. All of our models were fit using the \texttt{brms} R package \parencite{brms}. 
+From this data we use each of the districts as a observation for our logistic regression model. We then choose to model the effect of urbanization hierarchically. Since urbanization is tied to geography we assume a hierarchy related to the location of the districts at the state and region levels of the United States. We then built four different models to test different aspects of the hierarchical structure, using urbanization and various demographic covariates.
+% \red{we already said its a logit, maybe just say' We use urbanization and various demographic  metrics as covariates '}
+By using a Bayesian approach to this multilevel model, we were able to gain a more precise understanding of the relationship between urbanization, geography and voting outcomes. All of our models were fit using the \texttt{brms} R package \parencite{brms}. 
 
 
 
 % Previous attempts? 
 
 \subsection*{Comparative Literature}
-Inherent in our analysis is the assumption that republican and democrat voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymandering is the practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a district has been gerrymandered is rather unclear and out of the scope of this project.
+Inherent in our analysis is the assumption that Republican and Democrat voters are not evenly distributed, rather we assume that the distribution of voters is informative for our analysis. Much of the current research related to the relationship between urbanization and partisan voting focuses on the practice of gerrymandering. Gerrymandering is the practice of redrawing the voting district boundaries in favor of a particular political party. We ignore the impact of gerrymandering in our analysis, since the method of determining if a district has been gerrymandered is rather unclear and out of the scope of this project.
 
 Since we are using a custom curated dataset, there exists no directly comparable research, however we did find interesting ideas related to urbanization and partisanship. One example of this would be the idea of the inefficient distribution of Democrats in cities, as explored by \cite{spatialefficency}. In their analysis they discuss the phenomena of spatial inefficiency wherein higher concentrations of democratic voters in urban areas leads to fewer districts voting for democratic candidates that would be expected. Rather than trying to predict the partisan outcome of a particular district, their analysis focuses on measuring partisan spatial efficiency in order to understand the impact of gerrymandering \parencite{spatialefficency}. 
 
@@ -347,7 +346,7 @@ In terms of scaling we wanted all the variables to be on roughly the same scale 
 %%%Copy this part
 %\blue{Here we should include a short description of every file that will be in report code that will be turned in with the report for example...} 
 %\red{I think instead we should just upload a text document/excel sheet to the zip file explaining what each file is, and mention that there is a description file in the report}
-To fit Bayesian Multilevel Models, one needs to use a probabilistic programming language. We used the R package \verb|brms| \parencite{brms}, which allows the user to code entirely in R while running STAN as the backend. In our zip folder there are \red{please change if you add any new files} 6 R files. The file \textit{data\_cleaning.R} showing our process for combining our datasets.
+To fit Bayesian Multilevel Models, one needs to use a probabilistic programming language. We used the R package \verb|brms| \parencite{brms}, which allows the user to code entirely in R while running STAN as the backend. There are six R files in the zip file handed in. The file \textit{data\_cleaning.R} shows our process for combining our datasets.
 
 The file \textit{modeling.R} contains the \verb|brms| code setting the priors and fitting our four models using the dataset obtained in \textit{data\_cleaning.R}.
 The \verb|brms| package allowed us to efficiently fit many models, as we needed only has to specify the model in a one- or two-line R formula. Each model was then fit with the function \verb|brm()|, using the usual R formula syntax. 
@@ -359,6 +358,8 @@ The file \textit{model\_comparison.R} is where we compute and plot the model com
 \textit{report\_prior\_sens\_code.r} contains the code used to run the prior sensitivity analysis, using the alternative priors described in the corresponding section.
 
 The file \textit{tables\_plots.R} contains code for generating tables used in the report (dataset descriptives, model estimates) as well as the marginal effects plots. Which were obtained with the \verb|conditional_effects()| function (setting the option \texttt{re\_formula = NULL}, to identify the group-level effects).
+
+Finally, the files \textit{report\_prior\_sens\_code.R} and \textit{report\_trace\_plots\_code.R} contain code for the prior sensitivity analysis and trace plots respectively. The former extracts the coefficients from various prior fits and the latter saves the trace plots used in this report.
 
 
 % \blue{I think this bit belongs in the prior section to be honest*}
@@ -805,8 +806,8 @@ Our key takeaway is the HMC chains have more divergent transitions throughout th
 %\red{Luckily for us, there is one glaring difference between Model 3 and the rest which partially explains this behaviour: Namely, it is} \blue{this is really informal, you could also just write: "This is likely due to Model 3 being .."}
 This is likely due to Model 3 being the only model which takes into account both a Region-wise hierarchy and a State-wise hierarchy for the same coefficient, with the former being nested in the latter. The other models have at most a single hierarchy per coefficient. 
 
-\red{I might just delete this next para}
-While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding \blue{good preliminary finding of what?}(that the presence of an explicit nested hierarchy causes HMC chain convergence issues). 
+% \red{I might just delete this next para}
+% While this in itself is not enough to conclude that the specifications of the other models are correct, it is certainly a good preliminary finding \blue{good preliminary finding of what?}(that the presence of an explicit nested hierarchy causes HMC chain convergence issues). 
 
 
 \section{Model Comparison} \label{sec:comparison}
@@ -961,9 +962,10 @@ We tested 5 different Prior Sets, which are slight variations on the priors we u
 %Prior Set 2 is motivated by the Half-Normal distribution being less informative, having thinner tails which does not allow for as large values. Prior Set 3 and 4 are motivated again by informativeness, our prior beliefs allowing for theoretically larger values of the coefficient.
 %\red{it is not very correct to say it is motivated by informativeness, all priors are also motivated by this; 
 The first set is just our original set of priors, for comparability. Sets 2-4 represent a single prior that is different relative to the original set, and Set 5 combines two of those changes, to see how estimates behave when more than one prior is altered.
-The new prior in Set 2 was picked because we had chosen a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the standard deviation. 
-The one \blue{ when you say "the one" what are you refering to?} in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
-The one \blue{ when you say "the one" what are you refering to?}in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
+The new prior for \(\sigma_\text{urb}\) in Set 2 was picked because we had chosen a relatively weakly informative prior before, so now we switch it for a more informative one, assuming very small values for the standard deviation. 
+The prior for \(\beta_\text{urb}\) \blue{ when you say "the one" what are you refering to?} \red{changed} in Set 3 is less informative than the original, but still symmetric around zero to relax the assumption of the \textit{Urban Index}'s coefficient being 'small' (between -2 and 2 with 95\% certainty). 
+
+The prior for the intercept \blue{ when you say "the one" what are you refering to?} \red{changed}in Set 4 was chosen to be \textit{very} weakly informative, to see what happens if we start with the belief that the intercept is nearly as likely to attain very small (or large) values as it is to being close to zero.
 Prior Set 5 combines the changes in Sets 2 and 3.
 
 \begin{table}[h]
@@ -984,9 +986,17 @@ Prior Set 5 combines the changes in Sets 2 and 3.
 
 
 
-Table \ref{tab:Prior Sensitivity Results for Model 2} displays the (posterior) regression coefficients estimated for Model 1 for the various prior sets. The corresponding results for Model 2 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes in the \textit{Urban Index} prior than to changes in its own prior.
+Table \ref{tab:Prior Sensitivity Results for Model 2} displays the (posterior) regression coefficients estimated for Model 2 for the various prior sets. The corresponding results for Model 1 and 3 can be found in the appendix. We see that for the \textit{Urban Index}, our variable of interest, the coefficient changes the most if we set a weakly informative normal prior rather than the standard normal. Interestingly, the intercept seems to respond more to changes (relative to set 1) in the \textit{Urban Index} prior than to changes in its own prior.
 
-The changes \red{effects? chnages we are already using for different priors} for the other two models look rather similar, although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
+The prior sensitivity results \red{effects? chnages we are already using for different priors} for the other two models look rather similar, in that the the coefficient estimate for urban index for prior sets 3 and 5 are the most different from that of prior set 1. The intercept also responds the most in the sets where the urban index prior is changed, as in the results for Model 2.
+
+We also looked at the trace plots arising from the various prior set changes. Here is what we found: Model 1 has no divergent transitions for any of the prior sets.
+
+For Model 2, there are more divergent transitions for prior sets 2, 3, and 5  (relative to prior set 1, for all coefficients). As a general rule, however, there are lesser divergent transitions towards the end of the chain. 
+
+For Model 3, the situation is reversed: Prior Set 1 has the most number of divergent transitions (for all coefficients). However, just like for prior set 1, there are divergent transitions throughout the chains.
+
+although we caution again that the estimates for Model 3 are unreliable because of the convergence issues.
 
 \red{do they remain unreliable with the new priors? either way we should mention it} \blue{doing this rn}
 
